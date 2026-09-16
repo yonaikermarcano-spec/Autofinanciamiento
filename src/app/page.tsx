@@ -9,15 +9,14 @@ export default function Home() {
   const [viewMode, setViewMode] = useState<"ADMIN" | "CLIENT">("ADMIN");
 
   return (
-    <div className="relative">
-      {/* Selector Flotante de Modo Dual */}
-      <div className="fixed bottom-4 right-4 z-50 bg-slate-900/90 backdrop-blur border border-slate-700 p-1.5 rounded-2xl shadow-2xl flex items-center space-x-1">
+    <div className="g-app-shell min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      <div className="fixed bottom-4 right-4 z-50 bg-white/90 backdrop-blur border border-[var(--border)] p-1.5 rounded-2xl shadow-soft flex items-center space-x-1">
         <button
           onClick={() => setViewMode("ADMIN")}
           className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-bold transition ${
             viewMode === "ADMIN" 
-              ? "bg-emerald-600 text-white shadow-md shadow-emerald-900/50" 
-              : "text-slate-400 hover:text-white"
+              ? "bg-[var(--primary)] text-white shadow-md shadow-blue-200" 
+              : "text-[var(--text-muted)] hover:text-[var(--text)]"
           }`}
         >
           <Building2 className="w-4 h-4" />
@@ -28,8 +27,8 @@ export default function Home() {
           onClick={() => setViewMode("CLIENT")}
           className={`flex items-center space-x-2 px-3.5 py-2 rounded-xl text-xs font-bold transition ${
             viewMode === "CLIENT" 
-              ? "bg-emerald-600 text-white shadow-md shadow-emerald-900/50" 
-              : "text-slate-400 hover:text-white"
+              ? "bg-[var(--primary)] text-white shadow-md shadow-blue-200" 
+              : "text-[var(--text-muted)] hover:text-[var(--text)]"
           }`}
         >
           <Smartphone className="w-4 h-4" />
