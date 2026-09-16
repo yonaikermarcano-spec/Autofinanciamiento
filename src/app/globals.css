@@ -48,7 +48,8 @@ button, input, select, textarea {
   color: var(--text);
 }
 
-.g-app-shell, .g-app-shell * {
+.g-app-shell,
+.g-app-shell * {
   border-color: var(--border);
 }
 
