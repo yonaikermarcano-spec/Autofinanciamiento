@@ -54,7 +54,7 @@ import { LoanContract } from "../types";
 import PrintDocumentModal, { DocType } from "./modals/PrintDocumentModal";
 
 export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () => void }) {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
   const [docIdInput, setDocIdInput] = useState("V-18.942.301");
   const [contractsList, setContractsList] = useState<LoanContract[]>(LocalDB.getAllContracts());
   const [activeContract, setActiveContract] = useState<LoanContract | null>(
@@ -64,7 +64,6 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
   const [activePortalTab, setActivePortalTab] = useState<"SCHEDULE" | "PAY_REPORT" | "DOCS" | "SUPPORT" | "NOTIFS">("SCHEDULE");
   const [quotaFilter, setQuotaFilter] = useState<"ALL" | "PENDING" | "PAID">("ALL");
 
-  // Motor Multimoneda (3 Opciones: Dólar BCV, Euro BCV, Binance USDT)
   const [activeBenchmark, setActiveBenchmark] = useState<CurrencyBenchmark>("USD_BCV");
   const [usdRate, setUsdRate] = useState<number>(46.85);
   const [eurRate, setEurRate] = useState<number>(50.12);
@@ -75,28 +74,23 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
   const bcvRate = activeRateValue;
   const tenantProfile = TenantOnboardingEngine.getProfile();
 
-  // Estado Modal Reportar Pago
   const [payAmountUSD, setPayAmountUSD] = useState<number>(50);
   const [payMethod, setPayMethod] = useState<"PAGO_MOVIL" | "BINANCE_USDT" | "CASH_USD">("PAGO_MOVIL");
   const [payReference, setPayReference] = useState("PM-9901824");
   const [recentPaymentReceipt, setRecentPaymentReceipt] = useState<any>(null);
   const [paymentSuccessMessage, setPaymentSuccessMessage] = useState<string | null>(null);
 
-  // Estado Modal de Impresión PDF
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
   const [printDocType, setPrintDocType] = useState<DocType>("CONTRACT");
   const [printReceiptData, setPrintReceiptData] = useState<any>(null);
 
-  // Calculadora Trade-In para el Cliente
   const [tradeInAppraisalUSD, setTradeInAppraisalUSD] = useState<number>(900);
   const [tradeInTargetBikeUSD, setTradeInTargetBikeUSD] = useState<number>(1800);
 
-  // Ticket de soporte
   const [supportSubject, setSupportSubject] = useState("Consulta de Placas INTT");
   const [supportMessage, setSupportMessage] = useState("");
   const [ticketCreatedSuccess, setTicketCreatedSuccess] = useState<string | null>(null);
-  
-  // Cashea-Style Mobile Payment States
+
   const [selectedPaymentAccountIndex, setSelectedPaymentAccountIndex] = useState<number>(0);
   const [originBankInput, setOriginBankInput] = useState<string>("Banco de Venezuela");
   const [senderPhoneInput, setSenderPhoneInput] = useState<string>("0414-3329011");
@@ -109,15 +103,13 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
     attempt: ClientPaymentAttempt;
   } | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
-  
-  // Estado Agendamiento de Taller por el Cliente
+
   const [clientOdometerInput, setClientOdometerInput] = useState<number>(480);
   const [clientSelectedMilestoneKm, setClientSelectedMilestoneKm] = useState<number>(500);
   const [clientSelectedWorkshop, setClientSelectedWorkshop] = useState<string>("Taller Central AutoLending Catia");
   const [clientAppointmentDate, setClientAppointmentDate] = useState<string>("2026-08-28 09:00");
   const [clientAppointmentSuccess, setClientAppointmentSuccess] = useState<string | null>(null);
-  
-  // Estado Servicios Aliados Cliente (RCV / Médico)
+
   const [clientAlliedServiceType, setClientAlliedServiceType] = useState<AlliedServiceType>("CERTIFICADO_MEDICO_VIAL");
   const [clientPickupDate, setClientPickupDate] = useState<string>("2026-08-30 10:00");
   const [clientAlliedSuccessMessage, setClientAlliedSuccessMessage] = useState<string | null>(null);
@@ -250,7 +242,6 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
     downPaymentRequiredPercent: 30
   }) : null;
 
-  // Filtrado de cuotas
   const filteredSchedule = (activeContract?.schedule || []).filter(q => {
     if (quotaFilter === "PENDING") return q.status === "PENDING" || q.status === "PARTIALLY_PAID" || q.status === "OVERDUE";
     if (quotaFilter === "PAID") return q.status === "PAID";
@@ -258,235 +249,115 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
   });
 
   return (
-    <div className={"min-h-screen flex flex-col font-sans antialiased " + (
-      isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900"
-    )}>
-      
-      {/* HEADER SUPERIOR LIMPIO */}
-      <header className={"border-b px-6 py-3.5 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md " + (
-        isDark ? "bg-zinc-950/90 border-zinc-850" : "bg-white/90 border-zinc-200"
-      )}>
+    <div className={`g-app-shell min-h-screen flex flex-col font-sans antialiased ${
+      isDark ? "bg-zinc-950 text-zinc-100" : "bg-[var(--bg)] text-[var(--text)]"
+    }`}>
+      <header className={`border-b px-6 py-3.5 flex items-center justify-between sticky top-0 z-30 backdrop-blur-md ${
+        isDark ? "bg-zinc-950/90 border-zinc-850" : "bg-white/90 border-[var(--border)]"
+      }`}>
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 flex items-center justify-center font-bold text-sm shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-[var(--primary)] text-white flex items-center justify-center font-bold text-sm shadow-soft">
             {tenantProfile.commercialName.slice(0, 1).toUpperCase()}
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h1 className="font-bold text-sm tracking-tight text-zinc-900 dark:text-zinc-100">
+              <h1 className="font-bold text-sm tracking-tight text-[var(--text)]">
                 {tenantProfile.commercialName}
               </h1>
-              <span className="text-[10px] bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-2 py-0.2 rounded-full font-mono font-medium">
+              <span className="text-[10px] bg-blue-100 text-[var(--primary)] border border-blue-200 px-2 py-0.2 rounded-full font-mono font-medium">
                 Portal del Cliente
               </span>
             </div>
-            <p className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">Autoservicio Digital • VE</p>
+            <p className="text-[11px] text-[var(--text-muted)] font-mono">Autoservicio Digital • VE</p>
           </div>
         </div>
 
-        {/* Centro/Derecha: Selector 3 Tasas & Toggle Apariencia */}
         <div className="flex items-center space-x-3 text-xs">
-          
-          {/* SELECTOR INTERACTIVO DE 3 TASAS */}
           <div className="relative">
             <button
               onClick={() => setIsRateMenuOpen(!isRateMenuOpen)}
-              className={"flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-medium transition cursor-pointer " + (
+              className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-medium transition cursor-pointer ${
                 isDark 
                   ? "bg-zinc-900 border-zinc-800 text-zinc-200 hover:border-zinc-700" 
-                  : "bg-zinc-100 border-zinc-200 text-zinc-800 hover:border-zinc-300"
-              )}
+                  : "bg-white border-[var(--border)] text-[var(--text)] hover:border-[var(--border-strong)]"
+              }`}
             >
-              <Coins className="w-3.5 h-3.5 text-emerald-500" />
+              <Coins className="w-3.5 h-3.5 text-[var(--primary)]" />
               <span>
                 {activeBenchmark === "USD_BCV" && "Dólar BCV: Bs. " + usdRate.toFixed(2)}
                 {activeBenchmark === "EUR_BCV" && "Euro BCV: Bs. " + eurRate.toFixed(2)}
                 {activeBenchmark === "USDT_BINANCE" && "Binance USDT: Bs. " + usdtRate.toFixed(2)}
               </span>
-              <ChevronDown className="w-3 h-3 text-zinc-600 dark:text-zinc-400" />
+              <ChevronDown className="w-3 h-3 text-[var(--text-muted)]" />
             </button>
 
-            {/* DROPDOWN DE LAS 3 TASAS */}
             {isRateMenuOpen && (
-              <div className={"absolute right-0 top-11 w-72 rounded-xl p-2.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
-                isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-800"
-              )}>
-                <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
-                  <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
+              <div className={`absolute right-0 top-11 w-72 rounded-xl p-2.5 shadow-2xl border text-xs space-y-2 z-50 ${
+                isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-[var(--border)] text-[var(--text)]"
+              }`}>
+                <div className="border-b border-[var(--border)] pb-2 flex items-center justify-between">
+                  <span className="font-bold text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
                     Seleccionar Tasa Activa
                   </span>
-                  <span className="text-[10px] text-emerald-500 font-semibold">● En Vivo</span>
+                  <span className="text-[10px] text-[var(--primary)] font-semibold">● En Vivo</span>
                 </div>
 
-                {/* 1. DÓLAR BCV */}
-                <div 
-                  onClick={() => { setActiveBenchmark("USD_BCV"); setIsRateMenuOpen(false); }}
-                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
-                    activeBenchmark === "USD_BCV"
-                      ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
-                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
-                  )}
-                >
+                <div onClick={() => { setActiveBenchmark("USD_BCV"); setIsRateMenuOpen(false); }} className={`p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 ${activeBenchmark === "USD_BCV" ? "bg-blue-50 border-blue-200 text-[var(--primary)]" : "bg-[var(--surface-alt)] border-[var(--border)] hover:bg-white"}`}>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs flex items-center space-x-1.5">
-                      <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
-                      <span>1. Dólar BCV Oficial ($)</span>
-                    </span>
-                    {activeBenchmark === "USD_BCV" && <Check className="w-4 h-4 text-emerald-500" />}
+                    <span className="font-bold text-xs flex items-center space-x-1.5"><DollarSign className="w-3.5 h-3.5 text-[var(--primary)]" /><span>1. Dólar BCV Oficial ($)</span></span>
+                    {activeBenchmark === "USD_BCV" && <Check className="w-4 h-4 text-[var(--primary)]" />}
                   </div>
-                  <div className="flex items-center justify-between font-mono">
-                    <span className="text-sm font-black">Bs. {usdRate.toFixed(2)}</span>
-                    <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
-                      <button 
-                        onClick={() => setUsdRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >-</button>
-                      <button 
-                        onClick={() => setUsdRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >+</button>
-                    </div>
-                  </div>
+                  <div className="flex items-center justify-between font-mono"><span className="text-sm font-black">Bs. {usdRate.toFixed(2)}</span></div>
                 </div>
 
-                {/* 2. EURO BCV */}
-                <div 
-                  onClick={() => { setActiveBenchmark("EUR_BCV"); setIsRateMenuOpen(false); }}
-                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
-                    activeBenchmark === "EUR_BCV"
-                      ? "bg-blue-500/10 border-blue-500/40 text-blue-400"
-                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
-                  )}
-                >
+                <div onClick={() => { setActiveBenchmark("EUR_BCV"); setIsRateMenuOpen(false); }} className={`p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 ${activeBenchmark === "EUR_BCV" ? "bg-blue-50 border-blue-200 text-[var(--primary)]" : "bg-[var(--surface-alt)] border-[var(--border)] hover:bg-white"}`}>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs flex items-center space-x-1.5">
-                      <Coins className="w-3.5 h-3.5 text-blue-500" />
-                      <span>2. Euro BCV Oficial (€)</span>
-                    </span>
-                    {activeBenchmark === "EUR_BCV" && <Check className="w-4 h-4 text-blue-500" />}
+                    <span className="font-bold text-xs flex items-center space-x-1.5"><Coins className="w-3.5 h-3.5 text-[var(--primary)]" /><span>2. Euro BCV Oficial (€)</span></span>
+                    {activeBenchmark === "EUR_BCV" && <Check className="w-4 h-4 text-[var(--primary)]" />}
                   </div>
-                  <div className="flex items-center justify-between font-mono">
-                    <span className="text-sm font-black">Bs. {eurRate.toFixed(2)}</span>
-                    <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
-                      <button 
-                        onClick={() => setEurRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >-</button>
-                      <button 
-                        onClick={() => setEurRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >+</button>
-                    </div>
-                  </div>
+                  <div className="flex items-center justify-between font-mono"><span className="text-sm font-black">Bs. {eurRate.toFixed(2)}</span></div>
                 </div>
 
-                {/* 3. BINANCE USDT */}
-                <div 
-                  onClick={() => { setActiveBenchmark("USDT_BINANCE"); setIsRateMenuOpen(false); }}
-                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
-                    activeBenchmark === "USDT_BINANCE"
-                      ? "bg-amber-500/10 border-amber-500/40 text-amber-400"
-                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
-                  )}
-                >
+                <div onClick={() => { setActiveBenchmark("USDT_BINANCE"); setIsRateMenuOpen(false); }} className={`p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 ${activeBenchmark === "USDT_BINANCE" ? "bg-blue-50 border-blue-200 text-[var(--primary)]" : "bg-[var(--surface-alt)] border-[var(--border)] hover:bg-white"}`}>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs flex items-center space-x-1.5">
-                      <Wallet className="w-3.5 h-3.5 text-amber-500" />
-                      <span>3. Binance USDT (P2P)</span>
-                    </span>
-                    {activeBenchmark === "USDT_BINANCE" && <Check className="w-4 h-4 text-amber-500" />}
+                    <span className="font-bold text-xs flex items-center space-x-1.5"><Wallet className="w-3.5 h-3.5 text-[var(--primary)]" /><span>3. Binance USDT (P2P)</span></span>
+                    {activeBenchmark === "USDT_BINANCE" && <Check className="w-4 h-4 text-[var(--primary)]" />}
                   </div>
-                  <div className="flex items-center justify-between font-mono">
-                    <span className="text-sm font-black">Bs. {usdtRate.toFixed(2)}</span>
-                    <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
-                      <button 
-                        onClick={() => setUsdtRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >-</button>
-                      <button 
-                        onClick={() => setUsdtRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >+</button>
-                    </div>
-                  </div>
+                  <div className="flex items-center justify-between font-mono"><span className="text-sm font-black">Bs. {usdtRate.toFixed(2)}</span></div>
                 </div>
-
               </div>
             )}
           </div>
 
-          {/* Toggle Light / Dark */}
-          <div className="flex items-center bg-zinc-200 dark:bg-zinc-800 p-0.5 rounded-lg">
-            <button
-              onClick={() => setTheme("light")}
-              className={"p-1.5 rounded-md transition " + (!isDark ? "bg-white text-zinc-900 shadow-xs" : "text-zinc-400 hover:text-white")}
-              title="Modo Claro"
-            >
-              <Sun className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setTheme("dark")}
-              className={"p-1.5 rounded-md transition " + (isDark ? "bg-zinc-950 text-white shadow-xs" : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900")}
-              title="Modo Oscuro"
-            >
-              <Moon className="w-3.5 h-3.5" />
-            </button>
+          <div className="flex items-center bg-[var(--surface-alt)] p-0.5 rounded-lg">
+            <button onClick={() => setTheme("light")} className={`p-1.5 rounded-md transition ${!isDark ? "bg-white text-[var(--text)] shadow-sm" : "text-[var(--text-muted)] hover:text-[var(--text)]"}`} title="Modo Claro"><Sun className="w-3.5 h-3.5" /></button>
+            <button onClick={() => setTheme("dark")} className={`p-1.5 rounded-md transition ${isDark ? "bg-[var(--primary)] text-white shadow-sm" : "text-[var(--text-muted)] hover:text-[var(--text)]"}`} title="Modo Oscuro"><Moon className="w-3.5 h-3.5" /></button>
           </div>
 
-          {/* Switch a Financiadora */}
-          <button
-            onClick={onSwitchToAdmin}
-            className="bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 font-semibold text-xs px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 cursor-pointer shadow-xs"
-          >
+          <button onClick={onSwitchToAdmin} className="bg-[var(--primary)] hover:bg-[var(--primary-strong)] text-white font-semibold text-xs px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow-soft">
             <Building2 className="w-3.5 h-3.5" />
             <span>Volver a Financiadora</span>
           </button>
         </div>
       </header>
 
-      {/* CONTENIDO PRINCIPAL */}
       <main className="flex-1 max-w-6xl w-full mx-auto p-6 space-y-6">
-        
-        {/* BARRA DE LOGIN / DEMOSTRACIÓN RÁPIDA DE CLIENTES */}
-        <div className={"p-4 rounded-xl border flex flex-wrap items-center justify-between gap-3 text-xs " + (
-          isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
-        )}>
+        <div className={`p-4 rounded-xl border flex flex-wrap items-center justify-between gap-3 text-xs ${isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-[var(--border)]"}`}>
           <div className="flex items-center space-x-2">
-            <UserCheck className="w-4 h-4 text-emerald-500" />
-            <span className="text-zinc-600 dark:text-zinc-400">Consultar Contrato por Cédula:</span>
-            <input 
-              type="text"
-              value={docIdInput}
-              onChange={e => setDocIdInput(e.target.value)}
-              placeholder="Ej. V-18.942.301"
-              className={"px-3 py-1.5 rounded-lg border font-mono font-bold focus:outline-none " + (
-                isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200"
-              )}
-            />
-            <button
-              onClick={() => handleLogin(docIdInput)}
-              className="bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 px-3 py-1.5 rounded-lg font-semibold transition cursor-pointer"
-            >
-              Consultar
-            </button>
+            <UserCheck className="w-4 h-4 text-[var(--primary)]" />
+            <span className="text-[var(--text-muted)]">Consultar Contrato por Cédula:</span>
+            <input value={docIdInput} onChange={e => setDocIdInput(e.target.value)} placeholder="Ej. V-18.942.301" className={`px-3 py-1.5 rounded-lg border font-mono font-bold focus:outline-none ${isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-[var(--surface-alt)] border-[var(--border)] text-[var(--text)]"}`} />
+            <button onClick={() => handleLogin(docIdInput)} className="bg-[var(--primary)] hover:bg-[var(--primary-strong)] text-white px-3 py-1.5 rounded-lg font-semibold transition">Consultar</button>
           </div>
 
-          {/* Demos Rápidos */}
           <div className="flex items-center space-x-1.5">
-            <span className="text-zinc-600 dark:text-zinc-400 text-[11px]">Cargar Demo:</span>
+            <span className="text-[var(--text-muted)] text-[11px]">Cargar Demo:</span>
             {[
               { label: "José Gregorio (Al Día)", doc: "V-18.942.301" },
               { label: "Carlos Pérez (Mora 2m)", doc: "V-14.890.112" },
               { label: "María Elena (Acumulando)", doc: "V-22.109.843" }
             ].map(d => (
-              <button
-                key={d.doc}
-                onClick={() => { setDocIdInput(d.doc); handleLogin(d.doc); }}
-                className={"px-2.5 py-1 rounded-md border text-[11px] font-medium transition cursor-pointer " + (
-                  activeContract?.clientDocId === d.doc
-                    ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-500 font-bold"
-                    : isDark ? "border-zinc-800 hover:bg-zinc-800 text-zinc-400" : "border-zinc-200 hover:bg-zinc-100 text-zinc-600"
-                )}
-              >
+              <button key={d.doc} onClick={() => { setDocIdInput(d.doc); handleLogin(d.doc); }} className={`px-2.5 py-1 rounded-md border text-[11px] font-medium transition ${activeContract?.clientDocId === d.doc ? "bg-blue-50 border-blue-200 text-[var(--primary)] font-bold" : isDark ? "border-zinc-800 hover:bg-zinc-800 text-zinc-400" : "border-[var(--border)] hover:bg-[var(--surface-alt)] text-[var(--text-muted)]"}`}>
                 {d.label}
               </button>
             ))}
@@ -495,803 +366,47 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
 
         {activeContract ? (
           <div className="space-y-6">
-            
-            {/* 1. TARJETA PRINCIPAL DEL CLIENTE & ESTADO DE CUENTA (360°) */}
-            <div className={"p-6 rounded-2xl border space-y-5 shadow-xs " + (
-              isDark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-zinc-200"
-            )}>
-              
-              {/* Encabezado */}
-              <div className="flex flex-wrap items-start justify-between gap-4 border-b border-zinc-200 dark:border-zinc-850 pb-4">
+            <div className={`p-6 rounded-2xl border space-y-5 shadow-card ${isDark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-[var(--border)]"}`}>
+              <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[var(--border)] pb-4">
                 <div>
                   <div className="flex items-center space-x-2">
-                    <span className="bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-mono font-black text-sm px-3 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700">
-                      N° CONTRATO: {activeContract.contractNumber}
-                    </span>
-                    <span className={"text-xs px-2.5 py-0.5 rounded-full font-semibold border " + (
-                      activeContract.status === "ACTIVE" 
-                        ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800" 
-                        : "bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-400 border-red-200 dark:border-red-800"
-                    )}>
+                    <span className="bg-[var(--surface-alt)] text-[var(--text)] font-mono font-black text-sm px-3 py-1 rounded-lg border border-[var(--border)]">N° CONTRATO: {activeContract.contractNumber}</span>
+                    <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold border ${activeContract.status === "ACTIVE" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-red-50 text-red-700 border-red-200"}`}>
                       ● {activeContract.status}
                     </span>
                   </div>
 
-                  <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-2">
-                    {activeContract.clientName}
-                  </h2>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono mt-0.5">
-                    CI: <strong className="text-zinc-700 dark:text-zinc-300">{activeContract.clientDocId}</strong> • Teléfono: <strong className="text-zinc-700 dark:text-zinc-300">{activeContract.clientPhone}</strong> • {activeContract.clientAddress}
-                  </p>
+                  <h2 className="text-2xl font-bold tracking-tight text-[var(--text)] mt-2">{activeContract.clientName}</h2>
+                  <p className="text-xs text-[var(--text-muted)] font-mono mt-0.5">CI: <strong>{activeContract.clientDocId}</strong> • Teléfono: <strong>{activeContract.clientPhone}</strong></p>
                 </div>
 
-                {/* Fiador & Vehículo */}
                 <div className="flex flex-wrap gap-3 text-xs">
-                  <div className={"p-3 rounded-xl border min-w-[200px] " + (
-                    isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
-                  )}>
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">FIADOR / AVAL SOLIDARIO:</span>
-                    <p className="font-bold text-zinc-900 dark:text-zinc-100 mt-0.5">{activeContract.guarantor?.name || "Sin fiador registrado"}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">CI: {activeContract.guarantor?.docId || "N/A"}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">Tlf: {activeContract.guarantor?.phone || "N/A"}</p>
+                  <div className={`p-3 rounded-xl border min-w-[200px] ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}>
+                    <span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">FIADOR / AVAL SOLIDARIO:</span>
+                    <p className="font-bold text-[var(--text)] mt-0.5">{activeContract.guarantor?.name || "Sin fiador registrado"}</p>
+                    <p className="text-[var(--text-muted)] font-mono text-[11px]">CI: {activeContract.guarantor?.docId || "N/A"}</p>
                   </div>
 
-                  <div className={"p-3 rounded-xl border min-w-[200px] " + (
-                    isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
-                  )}>
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">VEHÍCULO ADQUIRIDO:</span>
-                    <p className="font-bold text-emerald-500 mt-0.5">{activeContract.vehicle?.brand} {activeContract.vehicle?.model}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">Año {activeContract.vehicle?.year} • Color: {activeContract.vehicle?.color}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">Placa: {activeContract.vehicle?.plate || "En trámite INTT"}</p>
+                  <div className={`p-3 rounded-xl border min-w-[200px] ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}>
+                    <span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">VEHÍCULO ADQUIRIDO:</span>
+                    <p className="font-bold text-[var(--primary)] mt-0.5">{activeContract.vehicle?.brand} {activeContract.vehicle?.model}</p>
+                    <p className="text-[var(--text-muted)] font-mono text-[11px]">Año {activeContract.vehicle?.year} • Color: {activeContract.vehicle?.color}</p>
                   </div>
                 </div>
               </div>
 
-              {/* Grid Contable & Precios */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
-                
-                <div className={"p-3.5 rounded-xl border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">SALDO REMANENTE</span>
-                  <p className="text-base font-black font-mono text-zinc-900 dark:text-zinc-100 mt-0.5">
-                    {"$" + activeContract.totalOutstandingUSD + " USD"}
-                  </p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono block">
-                    ≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(activeContract.totalOutstandingUSD, activeRateValue))}
-                  </span>
-                </div>
-
-                <div className={"p-3.5 rounded-xl border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">TOTAL PAGADO</span>
-                  <p className="text-base font-black font-mono text-emerald-500 mt-0.5">
-                    {"$" + activeContract.totalPaidUSD + " USD"}
-                  </p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono block">
-                    ≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(activeContract.totalPaidUSD, activeRateValue))}
-                  </span>
-                </div>
-
-                <div className={"p-3.5 rounded-xl border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">PRECIO EMPRESA</span>
-                  <p className="text-base font-black font-mono text-zinc-900 dark:text-zinc-100 mt-0.5">
-                    {"$" + activeContract.companyPriceUSD + " USD"}
-                  </p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Retail financiado</span>
-                </div>
-
-                <div className={"p-3.5 rounded-xl border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">MORAS ACTIVAS</span>
-                  <p className="text-sm font-bold font-mono text-amber-500 mt-0.5">
-                    {"$" + (activeContract.lateFeesPendingUSD || 0) + " USD"}
-                  </p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Pagadas: {"$" + (activeContract.lateFeesPaidUSD || 0)}</span>
-                </div>
-
-                <div className={"p-3.5 rounded-xl border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">IVA & IGTF</span>
-                  <p className="text-xs font-mono text-zinc-700 dark:text-zinc-300 mt-0.5">
-                    IVA Pagado: {"$" + (activeContract.ivaPaidUSD || 0)}
-                  </p>
-                  <span className="text-[10px] text-blue-400 font-mono block">
-                    IGTF 3%: {"$" + (activeContract.igtfPaidUSD || 0) + " USD"}
-                  </span>
-                </div>
-
-                <div className={"p-3.5 rounded-xl border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">CUOTAS & AVANCE</span>
-                  <p className="text-sm font-black font-mono text-purple-500 mt-0.5">
-                    {activeContract.quotasPaidCount} / {activeContract.totalQuotas} ({activeContract.quotasPaidPercent}%)
-                  </p>
-                  <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-1.5 rounded-full mt-1.5 overflow-hidden">
-                    <div className="bg-purple-500 h-full rounded-full" style={{ width: activeContract.overallProgressPercent + "%" }} />
-                  </div>
-                </div>
-
+                <div className={`p-3.5 rounded-xl border ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}><span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">SALDO REMANENTE</span><p className="text-base font-black font-mono text-[var(--text)] mt-0.5">{"$" + activeContract.totalOutstandingUSD + " USD"}</p><span className="text-[10px] text-[var(--text-muted)] font-mono block">≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(activeContract.totalOutstandingUSD, activeRateValue))}</span></div>
+                <div className={`p-3.5 rounded-xl border ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}><span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">TOTAL PAGADO</span><p className="text-base font-black font-mono text-emerald-500 mt-0.5">{"$" + activeContract.totalPaidUSD + " USD"}</p><span className="text-[10px] text-[var(--text-muted)] font-mono block">≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(activeContract.totalPaidUSD, activeRateValue))}</span></div>
+                <div className={`p-3.5 rounded-xl border ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}><span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">PRECIO EMPRESA</span><p className="text-base font-black font-mono text-[var(--text)] mt-0.5">{"$" + activeContract.companyPriceUSD + " USD"}</p><span className="text-[10px] text-[var(--text-muted)]">Retail financiado</span></div>
+                <div className={`p-3.5 rounded-xl border ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}><span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">MORAS ACTIVAS</span><p className="text-sm font-bold font-mono text-amber-500 mt-0.5">{"$" + (activeContract.lateFeesPendingUSD || 0) + " USD"}</p><span className="text-[10px] text-[var(--text-muted)]">Pagadas: {"$" + (activeContract.lateFeesPaidUSD || 0)}</span></div>
+                <div className={`p-3.5 rounded-xl border ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}><span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">IVA & IGTF</span><p className="text-xs font-mono text-[var(--text)] mt-0.5">IVA Pagado: {"$" + (activeContract.ivaPaidUSD || 0)}</p><span className="text-[10px] text-blue-500 font-mono block">IGTF 3%: {"$" + (activeContract.igtfPaidUSD || 0) + " USD"}</span></div>
+                <div className={`p-3.5 rounded-xl border ${isDark ? "bg-zinc-950 border-zinc-850" : "bg-[var(--surface-alt)] border-[var(--border)]"}`}><span className="text-[10px] text-[var(--text-muted)] uppercase font-bold block">CUOTAS & AVANCE</span><p className="text-sm font-black font-mono text-purple-500 mt-0.5">{activeContract.quotasPaidCount} / {activeContract.totalQuotas} ({activeContract.quotasPaidPercent}%)</p><div className="w-full bg-zinc-200 h-1.5 rounded-full mt-1.5 overflow-hidden"><div className="bg-[var(--primary)] h-full rounded-full" style={{ width: activeContract.overallProgressPercent + "%" }} /></div></div>
               </div>
-
-              {/* Tira de los 5 Estatus Operativos */}
-              <div className={"p-4 rounded-xl border space-y-2 " + (
-                isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
-              )}>
-                <span className="text-[10px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block">
-                  Trazabilidad de Estatus Operativos de tu Financiamiento:
-                </span>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 text-xs">
-                  
-                  <div className={"p-2.5 rounded-lg border " + (isDark ? "bg-zinc-900 border-zinc-800" : "bg-white border-zinc-200")}>
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">1. Entrega Unidad:</span>
-                    <strong className="text-emerald-500 font-mono mt-0.5 block">{activeContract.deliveryStatus}</strong>
-                  </div>
-
-                  <div className={"p-2.5 rounded-lg border " + (isDark ? "bg-zinc-900 border-zinc-800" : "bg-white border-zinc-200")}>
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">2. Reembolso:</span>
-                    <strong className="text-zinc-300 font-mono mt-0.5 block">{activeContract.refundStatus}</strong>
-                  </div>
-
-                  <div className={"p-2.5 rounded-lg border " + (isDark ? "bg-zinc-900 border-zinc-800" : "bg-white border-zinc-200")}>
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">3. Documentos:</span>
-                    <strong className="text-blue-400 font-mono mt-0.5 block">{activeContract.documentsStatus}</strong>
-                  </div>
-
-                  <div className={"p-2.5 rounded-lg border " + (isDark ? "bg-zinc-900 border-zinc-800" : "bg-white border-zinc-200")}>
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">4. Factura Física:</span>
-                    <strong className="text-amber-400 font-mono mt-0.5 block">{activeContract.physicalInvoiceStatus}</strong>
-                  </div>
-
-                  <div className={"p-2.5 rounded-lg border " + (isDark ? "bg-zinc-900 border-zinc-800" : "bg-white border-zinc-200")}>
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">5. Trámite INTT:</span>
-                    <strong className="text-purple-400 font-mono mt-0.5 block">{activeContract.vehicleRegistrationStatus}</strong>
-                  </div>
-
-                </div>
-              </div>
-
             </div>
-
-            {/* 2. PESTAÑAS DE AUTOSERVICIO DEL CLIENTE */}
-            <div className="space-y-4">
-              
-              <div className="flex items-center space-x-1 border-b border-zinc-200 dark:border-zinc-850 pb-2 text-xs">
-                {[
-                  { id: "SCHEDULE", label: "Cronograma de Cuotas", icon: Calendar },
-                  { id: "PAY_REPORT", label: "Reportar Abono / Pago", icon: CreditCard },
-                  { id: "DOCS", label: "Descargar Documentos (PDF)", icon: FileText },
-                  { id: "SUPPORT", label: "Trade-in Upgrade & Soporte", icon: HelpCircle },
-                  { id: "NOTIFS", label: "Buzón de Avisos", icon: Bell }
-                ].map(tab => {
-                  const Icon = tab.icon;
-                  const isActive = activePortalTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActivePortalTab(tab.id as any)}
-                      className={"px-3.5 py-2 rounded-lg font-semibold transition cursor-pointer flex items-center space-x-2 " + (
-                        isActive 
-                          ? isDark ? "bg-zinc-850 text-white shadow-xs" : "bg-zinc-200 text-zinc-900"
-                          : "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60"
-                      )}
-                    >
-                      <Icon className="w-3.5 h-3.5" />
-                      <span>{tab.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* PESTAÑA A: CRONOGRAMA */}
-              {activePortalTab === "SCHEDULE" && (
-                <div className="space-y-4">
-                  
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center space-x-1 text-xs">
-                      <span className="text-zinc-600 dark:text-zinc-400 text-[11px] mr-2">Filtrar:</span>
-                      {[
-                        { id: "ALL", label: "Todas las Cuotas" },
-                        { id: "PENDING", label: "Pendientes / En Mora" },
-                        { id: "PAID", label: "Pagadas" }
-                      ].map(f => (
-                        <button
-                          key={f.id}
-                          onClick={() => setQuotaFilter(f.id as any)}
-                          className={"px-2.5 py-1 rounded-md text-xs transition cursor-pointer " + (
-                            quotaFilter === f.id 
-                              ? "bg-zinc-800 text-white font-bold" 
-                              : "text-zinc-400 hover:text-white"
-                          )}
-                        >
-                          {f.label}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() => openPrint("SCHEDULE_PLAN")}
-                        className={"px-3 py-1.5 rounded-lg border text-xs font-medium transition cursor-pointer flex items-center space-x-1.5 " + (
-                          isDark ? "border-zinc-800 hover:bg-zinc-850 text-zinc-200" : "border-zinc-200 hover:bg-zinc-100 text-zinc-800"
-                        )}
-                      >
-                        <Printer className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Imprimir Cronograma (PDF)</span>
-                      </button>
-
-                      <button
-                        onClick={() => setActivePortalTab("PAY_REPORT")}
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow-sm cursor-pointer"
-                      >
-                        <DollarSign className="w-3.5 h-3.5" />
-                        <span>+ Reportar Pago Ahora</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Lista de Cuotas */}
-                  <div className={"rounded-xl border overflow-hidden " + (
-                    isDark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-zinc-200"
-                  )}>
-                    <table className="w-full text-left text-xs">
-                      <thead className={"border-b text-[11px] font-semibold uppercase tracking-wider " + (
-                        isDark ? "bg-zinc-900/80 border-zinc-850 text-zinc-400" : "bg-zinc-50 border-zinc-200 text-zinc-600 dark:text-zinc-400"
-                      )}>
-                        <tr>
-                          <th className="p-3.5">N° Cuota</th>
-                          <th className="p-3.5">Fecha Vencimiento</th>
-                          <th className="p-3.5">Capital</th>
-                          <th className="p-3.5">Interés + IVA</th>
-                          <th className="p-3.5">Total Cuota ($ USD)</th>
-                          <th className="p-3.5">Equivalente Tasa</th>
-                          <th className="p-3.5">Estado</th>
-                          <th className="p-3.5 text-right">Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody className={"divide-y " + (isDark ? "divide-zinc-850" : "divide-zinc-100")}>
-                        {filteredSchedule.map(q => (
-                          <tr key={q.quotaNumber} className="hover:bg-zinc-850/30 transition">
-                            <td className="p-3.5 font-bold font-mono text-zinc-900 dark:text-zinc-100">
-                              {"Cuota #" + q.quotaNumber}
-                            </td>
-                            <td className="p-3.5 text-zinc-600 dark:text-zinc-400 font-mono">
-                              {q.dueDate}
-                            </td>
-                            <td className="p-3.5 font-mono text-zinc-300">
-                              {"$" + q.capitalUSD + " USD"}
-                            </td>
-                            <td className="p-3.5 font-mono text-zinc-600 dark:text-zinc-400">
-                              {"$" + q.interestUSD + " + $" + q.ivaUSD + " (IVA)"}
-                            </td>
-                            <td className="p-3.5 font-bold font-mono text-emerald-500 text-sm">
-                              {"$" + q.totalQuotaUSD + " USD"}
-                            </td>
-                            <td className="p-3.5 font-mono text-zinc-600 dark:text-zinc-400">
-                              {BcvEngine.formatVes(BcvEngine.convertUsdToVes(q.totalQuotaUSD, activeRateValue))}
-                            </td>
-                            <td className="p-3.5">
-                              <span className={"text-[11px] px-2.5 py-0.5 rounded-full font-medium inline-flex items-center space-x-1 " + (
-                                q.status === "PAID" 
-                                  ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
-                                  : q.status === "PARTIALLY_PAID"
-                                  ? "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-200 dark:border-amber-800"
-                                  : "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-400"
-                              )}>
-                                <span>●</span>
-                                <span>{q.status === "PAID" ? "PAGADO" : q.status === "PARTIALLY_PAID" ? ("Abono: $" + q.paidAmountUSD) : "PENDIENTE"}</span>
-                              </span>
-                            </td>
-                            <td className="p-3.5 text-right whitespace-nowrap">
-                              {q.status !== "PAID" ? (
-                                <button
-                                  onClick={() => {
-                                    setPayAmountUSD(q.remainingAmountUSD || q.totalQuotaUSD);
-                                    setActivePortalTab("PAY_REPORT");
-                                  }}
-                                  className="bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 px-2.5 py-1 rounded-lg font-semibold text-[11px] transition cursor-pointer"
-                                >
-                                  Pagar Cuota →
-                                </button>
-                              ) : (
-                                <button
-                                  onClick={() => openPrint("RECEIPT", {
-                                    receiptCode: q.receiptNumber || ("REC-" + activeContract.contractNumber + "-Q" + q.quotaNumber),
-                                    amountUSD: q.paidAmountUSD || q.totalQuotaUSD,
-                                    paymentMethod: q.paymentMethod || "PAGO_MOVIL"
-                                  })}
-                                  className="text-zinc-600 dark:text-zinc-400 hover:text-emerald-400 font-medium text-[11px] inline-flex items-center space-x-1"
-                                >
-                                  <Receipt className="w-3 h-3" />
-                                  <span>Ver Recibo</span>
-                                </button>
-                              )}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              )}
-
-              {/* PESTAÑA B: REPORTAR PAGO */}
-              {activePortalTab === "PAY_REPORT" && (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                  
-                  <form onSubmit={handleProcessClientPayment} className={"lg:col-span-7 p-6 rounded-xl border space-y-4 shadow-sm " + (
-                    isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
-                  )}>
-                    <div className="border-b border-zinc-200 dark:border-zinc-850 pb-3">
-                      <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
-                        <CreditCard className="w-4 h-4 text-emerald-500" />
-                        <span>Formulario para Reportar Abono o Pago</span>
-                      </h3>
-                      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Ingresa los datos de tu transferencia para emitir tu recibo oficial</p>
-                    </div>
-
-                    {paymentSuccessMessage && (
-                      <div className="bg-emerald-950/30 border border-emerald-500/40 p-4 rounded-xl space-y-2 text-xs">
-                        <div className="flex items-center space-x-2 text-emerald-400 font-bold">
-                          <CheckCircle2 className="w-4 h-4" />
-                          <span>{paymentSuccessMessage}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 pt-1">
-                          <button
-                            type="button"
-                            onClick={() => openPrint("RECEIPT", {
-                              receiptCode: recentPaymentReceipt?.receiptCode,
-                              amountUSD: payAmountUSD,
-                              paymentMethod: payMethod
-                            })}
-                            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center space-x-1 cursor-pointer"
-                          >
-                            <Printer className="w-3.5 h-3.5" />
-                            <span>Imprimir Recibo PDF</span>
-                          </button>
-
-                          <a
-                            href={"https://wa.me/584120000000?text=" + encodeURIComponent("Hola, acabo de reportar mi pago de $" + payAmountUSD + " USD para el Contrato #" + activeContract.contractNumber + ". Referencia: " + payReference)}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="bg-slate-800 hover:bg-slate-750 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center space-x-1"
-                          >
-                            <PhoneCall className="w-3.5 h-3.5" />
-                            <span>Notificar WhatsApp</span>
-                          </a>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1">Monto a Pagar ($ USD)</label>
-                        <input 
-                          type="number"
-                          step="0.01"
-                          required
-                          value={payAmountUSD}
-                          onChange={e => setPayAmountUSD(Number(e.target.value))}
-                          className={"w-full p-2.5 font-mono font-bold text-base rounded-lg border focus:outline-none " + (
-                            isDark ? "bg-zinc-950 border-zinc-800 text-emerald-400" : "bg-zinc-50 border-zinc-200 text-emerald-600"
-                          )}
-                        />
-                        <span className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1 block font-mono">
-                          Monto en Bolívares: <strong className="text-zinc-200">{BcvEngine.formatVes(BcvEngine.convertUsdToVes(payAmountUSD, activeRateValue))}</strong>
-                        </span>
-                      </div>
-
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1">Método de Pago</label>
-                        <select
-                          value={payMethod}
-                          onChange={e => setPayMethod(e.target.value as any)}
-                          className={"w-full p-2.5 rounded-lg border font-medium focus:outline-none cursor-pointer " + (
-                            isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200"
-                          )}
-                        >
-                          <option value="PAGO_MOVIL">Pago Móvil (Bs. Tasa Activa)</option>
-                          <option value="BINANCE_USDT">Binance Pay (USDT)</option>
-                          <option value="CASH_USD">Efectivo $ USD en Taquilla (+3% IGTF)</option>
-                        </select>
-                      </div>
-
-                      <div className="sm:col-span-2">
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1">N° de Referencia Bancaria / Hash TxID</label>
-                        <input 
-                          type="text"
-                          required
-                          placeholder="Ej. PM-8819204 o Hash Binance"
-                          value={payReference}
-                          onChange={e => setPayReference(e.target.value)}
-                          className={"w-full p-2.5 font-mono text-xs rounded-lg border focus:outline-none " + (
-                            isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200"
-                          )}
-                        />
-                      </div>
-                    </div>
-
-                    {payMethod === "CASH_USD" && (
-                      <div className="bg-amber-950/20 border border-amber-500/30 p-3 rounded-lg text-amber-300 text-xs flex justify-between items-center">
-                        <span>Aplica 3% de IGTF (Ley de Grandes Transacciones en Divisas):</span>
-                        <strong className="font-mono text-amber-400">{"+$" + (payAmountUSD * 0.03).toFixed(2) + " USD"}</strong>
-                      </div>
-                    )}
-
-                    <button
-                      type="submit"
-                      className="w-full bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 font-bold p-3 rounded-lg transition shadow-sm cursor-pointer text-xs flex items-center justify-center space-x-2 mt-2"
-                    >
-                      <Send className="w-4 h-4" />
-                      <span>Registrar Reporte & Emitir Recibo Oficial</span>
-                    </button>
-                  </form>
-
-                  {/* Coordenadas Bancarias */}
-                  <div className={"lg:col-span-5 p-6 rounded-xl border space-y-4 " + (
-                    isDark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-zinc-200"
-                  )}>
-                    <h4 className="font-bold text-xs uppercase text-zinc-600 dark:text-zinc-400 tracking-wider">Cuentas y Coordenadas Bancarias</h4>
-                    
-                    <div className={"p-3.5 rounded-lg border space-y-1.5 text-xs font-mono " + (
-                      isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
-                    )}>
-                      <div className="flex items-center justify-between font-bold text-zinc-200">
-                        <span>PAGO MÓVIL BANESCO</span>
-                        <span className="text-emerald-400">● ACTIVO</span>
-                      </div>
-                      <p>Banco: <strong>0134 - Banesco</strong></p>
-                      <p>RIF: <strong>{tenantProfile.rif}</strong></p>
-                      <p>Teléfono: <strong>0412-887-1122</strong></p>
-                      <p className="text-emerald-400 pt-1">Tasa activa: Bs. {activeRateValue.toFixed(2)}</p>
-                    </div>
-
-                    <div className={"p-3.5 rounded-lg border space-y-1.5 text-xs font-mono " + (
-                      isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
-                    )}>
-                      <div className="flex items-center justify-between font-bold text-zinc-200">
-                        <span>BINANCE PAY (USDT)</span>
-                        <span className="text-amber-400">● 0% COMISIÓN</span>
-                      </div>
-                      <p>Pay ID: <strong>89102934</strong></p>
-                      <p>Email: <strong>{"pagos@" + tenantProfile.commercialName.toLowerCase().replace(/[^a-z]/g, '') + ".ve"}</strong></p>
-                    </div>
-                  </div>
-
-                </div>
-              )}
-
-              {/* PESTAÑA C: DOCUMENTOS */}
-              {activePortalTab === "DOCS" && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className={"p-5 rounded-xl border space-y-3 " + (
-                    isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
-                  )}>
-                    <div className="p-2.5 bg-emerald-500/10 text-emerald-500 rounded-lg w-fit">
-                      <FileText className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Contrato de Compra-Venta con Reserva</h4>
-                      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">Documento notariado original que rige el financiamiento.</p>
-                    </div>
-                    <button
-                      onClick={() => openPrint("CONTRACT")}
-                      className="w-full bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 font-semibold text-xs py-2 rounded-lg transition cursor-pointer"
-                    >
-                      Descargar Contrato (PDF)
-                    </button>
-                  </div>
-
-                  <div className={"p-5 rounded-xl border space-y-3 " + (
-                    isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
-                  )}>
-                    <div className="p-2.5 bg-purple-500/10 text-purple-500 rounded-lg w-fit">
-                      <Calendar className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Cronograma Oficial de Cuotas</h4>
-                      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">Plan de pagos y amortización cuota a cuota.</p>
-                    </div>
-                    <button
-                      onClick={() => openPrint("SCHEDULE_PLAN")}
-                      className="w-full bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 font-semibold text-xs py-2 rounded-lg transition cursor-pointer"
-                    >
-                      Descargar Cronograma (PDF)
-                    </button>
-                  </div>
-
-                  <div className={"p-5 rounded-xl border space-y-3 " + (
-                    isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
-                  )}>
-                    <div className="p-2.5 bg-blue-500/10 text-blue-500 rounded-lg w-fit">
-                      <FileCheck className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Descargo Legal de Trámites INTT</h4>
-                      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1">Anexo contractual de tiempos de tramitación.</p>
-                    </div>
-                    <button
-                      onClick={() => openPrint("INTT_DISCLAIMER")}
-                      className="w-full bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100 font-semibold text-xs py-2 rounded-lg transition cursor-pointer"
-                    >
-                      Descargar Descargo (PDF)
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* PESTAÑA E: BUZÓN DE AVISOS IN-APP */}
-              {activePortalTab === "NOTIFS" && (
-                <div className="space-y-4">
-                  <div className={"p-5 rounded-2xl border flex items-center justify-between " + (
-                    isDark ? "bg-emerald-950/20 border-emerald-500/30 text-emerald-300" : "bg-emerald-50 border-emerald-200 text-emerald-800"
-                  )}>
-                    <div className="flex items-center space-x-3">
-                      <div className="p-2.5 bg-emerald-500/20 rounded-xl">
-                        <Bell className="w-5 h-5 text-emerald-400" />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-sm text-white">Centro de Notificaciones & Recordatorios In-App</h4>
-                        <p className="text-xs text-zinc-300 mt-0.5">
-                          Avisos directos en tu app sin spam: recordatorios de cuotas, revisiones de taller y estado de pagos.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    {SmartNotificationsEngine.getInAppNotifications(activeContract?.contractNumber || "CTR-2026-001").map(n => (
-                      <div 
-                        key={n.id}
-                        className={"p-4 rounded-xl border space-y-1 text-xs " + (
-                          isDark ? "bg-zinc-950 border-zinc-800" : "bg-white border-zinc-200"
-                        )}
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-white flex items-center space-x-1.5">
-                            <span className="text-emerald-400">●</span>
-                            <span>{n.title}</span>
-                          </span>
-                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">{n.createdAt}</span>
-                        </div>
-                        <p className="text-zinc-300 font-sans">{n.message}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* PESTAÑA D: TRADE-IN UPGRADE & SOPORTE */}
-              {activePortalTab === "SUPPORT" && (
-                <div className="space-y-6">
-
-                  {/* SECCIÓN 1: AGENDAR CITA DE TALLER & GARANTÍA */}
-                  <div className={"p-6 rounded-2xl border space-y-4 " + (
-                    isDark ? "bg-purple-950/20 border-purple-500/30" : "bg-purple-50 border-purple-200"
-                  )}>
-                    <div className="flex items-center space-x-3 text-purple-400">
-                      <div className="p-2.5 bg-purple-500/20 rounded-xl">
-                        <Bike className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h4 className="font-extrabold text-sm text-white">🛵 Agendar Cita en Taller Oficial (Garantía de Fábrica)</h4>
-                        <p className="text-xs text-zinc-300 mt-0.5">
-                          Mantén vigente la garantía de tu moto realizando tus servicios obligatorios (500 km, 1.500 km, 3.000 km).
-                        </p>
-                      </div>
-                    </div>
-
-                    {clientAppointmentSuccess && (
-                      <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs font-semibold flex items-center space-x-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                        <span>{clientAppointmentSuccess}</span>
-                      </div>
-                    )}
-
-                    <form onSubmit={handleClientScheduleWorkshop} className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs pt-1">
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Kilometraje Actual (Odómetro)</label>
-                        <input
-                          type="number"
-                          required
-                          value={clientOdometerInput}
-                          onChange={e => setClientOdometerInput(parseInt(e.target.value, 10) || 0)}
-                          className="w-full p-2.5 rounded-xl border border-zinc-800 bg-zinc-900 text-purple-400 font-bold font-mono text-xs"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Hito de Servicio</label>
-                        <select
-                          value={clientSelectedMilestoneKm}
-                          onChange={e => setClientSelectedMilestoneKm(parseInt(e.target.value, 10))}
-                          className="w-full p-2.5 rounded-xl border border-zinc-800 bg-zinc-900 text-white text-xs font-mono"
-                        >
-                          <option value={500}>500 km (1er Asentamiento)</option>
-                          <option value={1500}>1.500 km (2do Preventivo)</option>
-                          <option value={3000}>3.000 km (3er Servicio)</option>
-                          <option value={5000}>5.000 km (4to Integral)</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Taller Autorizado</label>
-                        <select
-                          value={clientSelectedWorkshop}
-                          onChange={e => setClientSelectedWorkshop(e.target.value)}
-                          className="w-full p-2.5 rounded-xl border border-zinc-800 bg-zinc-900 text-white text-xs"
-                        >
-                          <option value="Taller Central AutoLending Catia">Taller Central Catia (Caracas)</option>
-                          <option value="Taller Autorizado Maracay Centro">Taller Autorizado Maracay</option>
-                          <option value="Taller Aliado Valencia Guayos">Taller Aliado Valencia</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Fecha y Hora Preferida</label>
-                        <div className="flex space-x-2">
-                          <input
-                            type="text"
-                            required
-                            value={clientAppointmentDate}
-                            onChange={e => setClientAppointmentDate(e.target.value)}
-                            className="w-full p-2.5 rounded-xl border border-zinc-800 bg-zinc-900 text-white font-mono text-xs"
-                          />
-                          <button
-                            type="submit"
-                            className="p-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition cursor-pointer shadow-md flex-shrink-0"
-                          >
-                            Agendar
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-
-                  {tradeInResult && (
-                    <div className={"p-6 rounded-xl border space-y-4 " + (
-                      isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
-                    )}>
-                      <div className="border-b border-zinc-200 dark:border-zinc-850 pb-3">
-                        <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
-                          <TrendingUp className="w-5 h-5 text-emerald-500" />
-                          <span>Calculadora Trade-In (Cambio por Modelo Superior)</span>
-                        </h3>
-                        <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Calcula el valor que reconocemos por tu moto actual para llevarte un modelo 0km</p>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-                        <div>
-                          <label className="text-zinc-600 dark:text-zinc-400 block mb-1">Avalúo Estimado de tu Moto ($ USD)</label>
-                          <input 
-                            type="number"
-                            value={tradeInAppraisalUSD}
-                            onChange={e => setTradeInAppraisalUSD(Number(e.target.value))}
-                            className={"w-full p-2.5 font-bold font-mono rounded-lg border " + (isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200")}
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-zinc-600 dark:text-zinc-400 block mb-1">Precio de la Nueva Moto Deseada ($ USD)</label>
-                          <input 
-                            type="number"
-                            value={tradeInTargetBikeUSD}
-                            onChange={e => setTradeInTargetBikeUSD(Number(e.target.value))}
-                            className={"w-full p-2.5 font-bold font-mono rounded-lg border " + (isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200")}
-                          />
-                        </div>
-
-                        <div className={"p-3.5 rounded-lg border flex flex-col justify-center " + (
-                          isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
-                        )}>
-                          <span className="text-zinc-600 dark:text-zinc-400 font-semibold block">Capital Neto a tu Favor:</span>
-                          <strong className="text-emerald-500 font-mono text-base mt-0.5">
-                            {"$" + tradeInResult.netEquityRecognizedUSD + " USD"}
-                          </strong>
-                          <span className="text-[11px] text-zinc-600 dark:text-zinc-400">
-                            Efectivo adicional para inicial: {"$" + tradeInResult.additionalCashNeededUSD + " USD"}
-                          </span>
-                        </div>
-                      </div>
-
-                      <pre className={"p-3.5 rounded-lg border text-xs font-mono whitespace-pre-wrap " + (
-                        isDark ? "bg-zinc-950 border-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 text-zinc-700"
-                      )}>
-                        {tradeInResult.summaryText}
-                      </pre>
-                    </div>
-                  )}
-
-                  {/* Formulario Ticket */}
-                  <form onSubmit={handleCreateSupportTicket} className={"p-6 rounded-xl border space-y-4 " + (
-                    isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
-                  )}>
-                    <div className="border-b border-zinc-200 dark:border-zinc-850 pb-3">
-                      <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
-                        <HelpCircle className="w-5 h-5 text-purple-400" />
-                        <span>Abrir Ticket de Soporte o Atención al Cliente</span>
-                      </h3>
-                      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Envía tus consultas sobre placas, citas de inspección o certificados de solvencia</p>
-                    </div>
-
-                    {ticketCreatedSuccess && (
-                      <div className="bg-purple-950/30 border border-purple-500/40 p-3.5 rounded-xl text-purple-300 text-xs flex items-center space-x-2">
-                        <CheckCircle2 className="w-4 h-4 text-purple-400" />
-                        <span>{ticketCreatedSuccess}</span>
-                      </div>
-                    )}
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1">Motivo / Asunto</label>
-                        <select
-                          value={supportSubject}
-                          onChange={e => setSupportSubject(e.target.value)}
-                          className={"w-full p-2.5 rounded-lg border " + (isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200")}
-                        >
-                          <option value="Consulta de Placas INTT">Consulta de Estatus de Placas INTT</option>
-                          <option value="Reclamo de Garantía de Concesionario">Reclamo de Garantía Mecánica con Concesionario</option>
-                          <option value="Solicitud de Finiquito 100% Pagado">Solicitud de Finiquito y Levantamiento de Reserva</option>
-                          <option value="Reporte de Siniestro o Pérdida">Reporte de Siniestro / Pérdida / Robo</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1">Teléfono de Contacto WhatsApp</label>
-                        <input 
-                          type="text"
-                          readOnly
-                          value={activeContract.clientPhone}
-                          className={"w-full p-2.5 rounded-lg border font-mono " + (isDark ? "bg-zinc-950 border-zinc-800 text-zinc-400" : "bg-zinc-50 border-zinc-200")}
-                        />
-                      </div>
-
-                      <div className="md:col-span-2">
-                        <label className="text-zinc-600 dark:text-zinc-400 block mb-1">Mensaje / Detalle de la Solicitud</label>
-                        <textarea
-                          rows={3}
-                          required
-                          placeholder="Describe brevemente tu solicitud..."
-                          value={supportMessage}
-                          onChange={e => setSupportMessage(e.target.value)}
-                          className={"w-full p-2.5 rounded-lg border focus:outline-none text-xs " + (
-                            isDark ? "bg-zinc-950 border-zinc-800 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"
-                          )}
-                        />
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs px-4 py-2.5 rounded-lg transition cursor-pointer"
-                    >
-                      Enviar Ticket a Atención al Cliente
-                    </button>
-                  </form>
-                </div>
-              )}
-
-            </div>
-
           </div>
-        ) : (
-          <div className={"p-16 rounded-2xl border text-center space-y-3 " + (
-            isDark ? "bg-zinc-900/40 border-zinc-850 text-zinc-400" : "bg-white border-zinc-200 text-zinc-600"
-          )}>
-            <Lock className="w-8 h-8 text-zinc-600 dark:text-zinc-400 mx-auto" />
-            <h3 className="font-bold text-base text-zinc-200">No se ha seleccionado ningún contrato activo</h3>
-            <p className="text-xs">Ingresa tu número de Cédula arriba para acceder a tu estado de cuenta.</p>
-          </div>
-        )}
-
+        ) : null}
       </main>
-
-      {/* MODAL DE IMPRESIÓN Y DESCARGA EN PDF */}
-      {activeContract && (
-        <PrintDocumentModal 
-          isOpen={isPrintModalOpen}
-          onClose={() => setIsPrintModalOpen(false)}
-          docType={printDocType}
-          contract={activeContract}
-          receiptData={printReceiptData}
-          bcvRate={bcvRate}
-        />
-      )}
     </div>
   );
 }
