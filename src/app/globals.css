@@ -29,7 +29,7 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
 }
 
 * {
@@ -60,6 +60,7 @@ textarea {
 
 .g-app-shell [class*="bg-zinc-50"],
 .g-app-shell [class*="bg-zinc-100"],
+.g-app-shell [class*="bg-zinc-200"],
 .g-app-shell [class*="bg-slate-50"],
 .g-app-shell [class*="bg-slate-100"] {
   background-color: var(--surface-alt) !important;
@@ -93,14 +94,16 @@ textarea {
 .g-app-shell [class*="shadow-2xl"],
 .g-app-shell [class*="shadow-xl"],
 .g-app-shell [class*="shadow-lg"],
-.g-app-shell [class*="shadow-md"] {
+.g-app-shell [class*="shadow-md"],
+.g-app-shell [class*="shadow-xs"] {
   box-shadow: var(--shadow-card) !important;
 }
 
 .g-app-shell .rounded-xl,
 .g-app-shell .rounded-2xl,
 .g-app-shell .rounded-lg,
-.g-app-shell .rounded-3xl {
+.g-app-shell .rounded-3xl,
+.g-app-shell .rounded-full {
   border-radius: 18px;
 }
 
@@ -126,20 +129,18 @@ textarea {
 .g-app-shell [class*="bg-blue-600"],
 .g-app-shell [class*="bg-blue-500"],
 .g-app-shell [class*="bg-purple-600"],
-.g-app-shell [class*="bg-indigo-600"] {
-  box-shadow: var(--shadow-soft);
-}
-
-.g-app-shell [class*="bg-emerald-600"],
-.g-app-shell [class*="bg-emerald-500"],
-.g-app-shell [class*="bg-blue-600"],
-.g-app-shell [class*="bg-blue-500"],
-.g-app-shell [class*="bg-purple-600"],
 .g-app-shell [class*="bg-indigo-600"],
 .g-app-shell [class*="bg-google-500"],
-.g-app-shell [class*="bg-brand-500"] {
+.g-app-shell [class*="bg-brand-500"],
+.g-app-shell button.bg-zinc-900,
+.g-app-shell button.bg-zinc-800,
+.g-app-shell button.bg-zinc-950,
+.g-app-shell .bg-zinc-900.text-white,
+.g-app-shell .bg-zinc-800.text-white {
   background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%) !important;
   border-color: transparent !important;
+  color: white !important;
+  box-shadow: var(--shadow-soft);
 }
 
 .g-app-shell [class*="text-emerald-500"],
@@ -147,15 +148,25 @@ textarea {
 .g-app-shell [class*="text-blue-500"],
 .g-app-shell [class*="text-blue-400"],
 .g-app-shell [class*="text-purple-500"],
-.g-app-shell [class*="text-indigo-500"] {
+.g-app-shell [class*="text-indigo-500"],
+.g-app-shell [class*="text-google-500"] {
   color: var(--primary) !important;
 }
 
 .g-app-shell [class*="bg-emerald-50"],
 .g-app-shell [class*="bg-blue-50"],
 .g-app-shell [class*="bg-purple-50"],
-.g-app-shell [class*="bg-indigo-50"] {
+.g-app-shell [class*="bg-indigo-50"],
+.g-app-shell [class*="bg-amber-50"],
+.g-app-shell [class*="bg-red-50"] {
   background-color: var(--surface-strong) !important;
+}
+
+.g-app-shell [class*="hover:bg-zinc-900"],
+.g-app-shell [class*="hover:bg-zinc-800"],
+.g-app-shell [class*="hover:bg-zinc-950"] {
+  background-color: var(--surface-alt) !important;
+  color: var(--text) !important;
 }
 
 .g-app-shell .overflow-hidden {
