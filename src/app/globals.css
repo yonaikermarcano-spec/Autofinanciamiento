@@ -32,7 +32,9 @@ body {
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -48,67 +50,68 @@ textarea {
   color: var(--text);
 }
 
-.g-app-shell [class*="bg-zinc-950"],
-.g-app-shell [class*="bg-zinc-900"],
-.g-app-shell [class*="bg-zinc-800"],
-.g-app-shell [class*="bg-zinc-700"],
-.g-app-shell [class*="bg-slate-950"],
-.g-app-shell [class*="bg-slate-900"],
-.g-app-shell [class*="bg-slate-800"] {
+/* Neutralize only solid legacy surfaces. Opacity variants remain available
+   for status chips and selected states, avoiding low-contrast blue-on-blue UI. */
+.g-app-shell [class~="bg-zinc-950"],
+.g-app-shell [class~="bg-zinc-900"],
+.g-app-shell [class~="bg-zinc-800"],
+.g-app-shell [class~="bg-zinc-700"],
+.g-app-shell [class~="bg-slate-950"],
+.g-app-shell [class~="bg-slate-900"],
+.g-app-shell [class~="bg-slate-800"] {
   background-color: var(--surface) !important;
 }
 
-.g-app-shell [class*="bg-zinc-50"],
-.g-app-shell [class*="bg-zinc-100"],
-.g-app-shell [class*="bg-zinc-200"],
-.g-app-shell [class*="bg-slate-50"],
-.g-app-shell [class*="bg-slate-100"] {
+.g-app-shell [class~="bg-zinc-50"],
+.g-app-shell [class~="bg-zinc-100"],
+.g-app-shell [class~="bg-zinc-200"],
+.g-app-shell [class~="bg-slate-50"],
+.g-app-shell [class~="bg-slate-100"] {
   background-color: var(--surface-alt) !important;
 }
 
-.g-app-shell [class*="border-zinc-850"],
-.g-app-shell [class*="border-zinc-900"],
-.g-app-shell [class*="border-zinc-800"],
-.g-app-shell [class*="border-zinc-700"],
-.g-app-shell [class*="border-slate-850"],
-.g-app-shell [class*="border-slate-900"],
-.g-app-shell [class*="border-slate-800"] {
+.g-app-shell [class~="border-zinc-850"],
+.g-app-shell [class~="border-zinc-900"],
+.g-app-shell [class~="border-zinc-800"],
+.g-app-shell [class~="border-zinc-700"],
+.g-app-shell [class~="border-slate-850"],
+.g-app-shell [class~="border-slate-900"],
+.g-app-shell [class~="border-slate-800"] {
   border-color: var(--border) !important;
 }
 
-.g-app-shell [class*="text-zinc-100"],
-.g-app-shell [class*="text-zinc-200"],
-.g-app-shell [class*="text-zinc-300"] {
+.g-app-shell [class~="text-zinc-100"],
+.g-app-shell [class~="text-zinc-200"],
+.g-app-shell [class~="text-zinc-300"] {
   color: var(--text) !important;
 }
 
-.g-app-shell [class*="text-zinc-400"],
-.g-app-shell [class*="text-zinc-500"],
-.g-app-shell [class*="text-zinc-600"],
-.g-app-shell [class*="text-slate-400"],
-.g-app-shell [class*="text-slate-500"],
-.g-app-shell [class*="text-slate-600"] {
+.g-app-shell [class~="text-zinc-400"],
+.g-app-shell [class~="text-zinc-500"],
+.g-app-shell [class~="text-zinc-600"],
+.g-app-shell [class~="text-slate-400"],
+.g-app-shell [class~="text-slate-500"],
+.g-app-shell [class~="text-slate-600"] {
   color: var(--text-muted) !important;
 }
 
-.g-app-shell [class*="shadow-2xl"],
-.g-app-shell [class*="shadow-xl"],
-.g-app-shell [class*="shadow-lg"],
-.g-app-shell [class*="shadow-md"],
-.g-app-shell [class*="shadow-xs"] {
+.g-app-shell [class~="shadow-2xl"],
+.g-app-shell [class~="shadow-xl"],
+.g-app-shell [class~="shadow-lg"],
+.g-app-shell [class~="shadow-md"],
+.g-app-shell [class~="shadow-xs"] {
   box-shadow: var(--shadow-card) !important;
 }
 
 .g-app-shell .rounded-xl,
 .g-app-shell .rounded-2xl,
 .g-app-shell .rounded-lg,
-.g-app-shell .rounded-3xl,
-.g-app-shell .rounded-full {
+.g-app-shell .rounded-3xl {
   border-radius: 18px;
 }
 
 .g-app-shell button {
-  transition: all 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .g-app-shell button:hover {
@@ -124,57 +127,64 @@ textarea {
   border-radius: 12px;
 }
 
-.g-app-shell [class*="bg-emerald-600"],
-.g-app-shell [class*="bg-emerald-500"],
-.g-app-shell [class*="bg-blue-600"],
-.g-app-shell [class*="bg-blue-500"],
-.g-app-shell [class*="bg-purple-600"],
-.g-app-shell [class*="bg-indigo-600"],
-.g-app-shell [class*="bg-google-500"],
-.g-app-shell [class*="bg-brand-500"],
-.g-app-shell button.bg-zinc-900,
-.g-app-shell button.bg-zinc-800,
-.g-app-shell button.bg-zinc-950,
-.g-app-shell .bg-zinc-900.text-white,
-.g-app-shell .bg-zinc-800.text-white {
+/* Solid primary actions only. Do not match opacity variants such as
+   bg-emerald-500/10, which are intentionally used for status surfaces. */
+.g-app-shell [class~="bg-emerald-600"],
+.g-app-shell [class~="bg-emerald-500"],
+.g-app-shell [class~="bg-blue-600"],
+.g-app-shell [class~="bg-blue-500"],
+.g-app-shell [class~="bg-purple-600"],
+.g-app-shell [class~="bg-indigo-600"],
+.g-app-shell [class~="bg-google-500"],
+.g-app-shell [class~="bg-brand-500"] {
   background: linear-gradient(180deg, var(--primary) 0%, var(--primary-strong) 100%) !important;
   border-color: transparent !important;
   color: white !important;
   box-shadow: var(--shadow-soft);
 }
 
-.g-app-shell [class*="text-emerald-500"],
-.g-app-shell [class*="text-emerald-400"],
-.g-app-shell [class*="text-blue-500"],
-.g-app-shell [class*="text-blue-400"],
-.g-app-shell [class*="text-purple-500"],
-.g-app-shell [class*="text-indigo-500"],
-.g-app-shell [class*="text-google-500"] {
+.g-app-shell [class~="text-emerald-500"],
+.g-app-shell [class~="text-emerald-400"],
+.g-app-shell [class~="text-blue-500"],
+.g-app-shell [class~="text-blue-400"],
+.g-app-shell [class~="text-purple-500"],
+.g-app-shell [class~="text-indigo-500"],
+.g-app-shell [class~="text-google-500"] {
   color: var(--primary) !important;
 }
 
-.g-app-shell [class*="bg-emerald-50"],
-.g-app-shell [class*="bg-blue-50"],
-.g-app-shell [class*="bg-purple-50"],
-.g-app-shell [class*="bg-indigo-50"],
-.g-app-shell [class*="bg-amber-50"],
-.g-app-shell [class*="bg-red-50"] {
-  background-color: var(--surface-strong) !important;
-}
-
-.g-app-shell [class*="hover:bg-zinc-900"],
-.g-app-shell [class*="hover:bg-zinc-800"],
-.g-app-shell [class*="hover:bg-zinc-950"] {
+.g-app-shell [class~="hover:bg-zinc-900"]:hover,
+.g-app-shell [class~="hover:bg-zinc-800"]:hover,
+.g-app-shell [class~="hover:bg-zinc-950"]:hover {
   background-color: var(--surface-alt) !important;
   color: var(--text) !important;
 }
 
-.g-app-shell .overflow-hidden {
-  overflow: visible;
+/* Modal system: opaque surface, readable backdrop, consistent hierarchy. */
+.g-app-shell > div.fixed.inset-0.z-50 {
+  background-color: rgba(32, 33, 36, 0.42) !important;
+  backdrop-filter: blur(4px);
 }
 
-.g-app-shell .sticky {
-  box-shadow: 0 1px 0 rgba(32, 33, 36, 0.06);
+.g-app-shell > div.fixed.inset-0.z-50 > div {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 12px 40px rgba(32, 33, 36, 0.22) !important;
+}
+
+.g-app-shell > div.fixed.inset-0.z-50 > div [class~="bg-zinc-50"],
+.g-app-shell > div.fixed.inset-0.z-50 > div [class~="bg-zinc-950"] {
+  background-color: var(--surface-alt) !important;
+}
+
+.g-app-shell > div.fixed.inset-0.z-50 > div [class~="bg-emerald-500"] {
+  background: var(--primary) !important;
+}
+
+.g-app-shell > div.fixed.inset-0.z-50 > div [class~="text-emerald-400"],
+.g-app-shell > div.fixed.inset-0.z-50 > div [class~="text-emerald-500"] {
+  color: var(--primary) !important;
 }
 
 .g-app-shell ::-webkit-scrollbar {
