@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
   LayoutDashboard,
   Users, 
@@ -340,6 +340,44 @@ export default function Dashboard() {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isWorkspaceMenuOpen, setIsWorkspaceMenuOpen] = useState(false);
 
+  // Referencias para cerrar popovers al hacer click fuera o presionar Esc
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+  const rateMenuRef = useRef<HTMLDivElement>(null);
+  const toolsHubRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsProfileMenuOpen(false);
+        setIsRateMenuOpen(false);
+        setIsToolsHubOpen(false);
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (isProfileMenuOpen && profileMenuRef.current && !profileMenuRef.current.contains(target)) {
+        setIsProfileMenuOpen(false);
+      }
+      if (isRateMenuOpen && rateMenuRef.current && !rateMenuRef.current.contains(target)) {
+        setIsRateMenuOpen(false);
+      }
+      if (isToolsHubOpen && toolsHubRef.current && !toolsHubRef.current.contains(target)) {
+        setIsToolsHubOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isProfileMenuOpen, isRateMenuOpen, isToolsHubOpen]);
+
   // Pestaña en sección Contabilidad & Reportes
   const [accountingTab, setAccountingTab] = useState<"SENIAT_SALES" | "CASH_FLOW" | "BALANCE_SHEET" | "BANK_RECON">("SENIAT_SALES");
 
@@ -674,7 +712,7 @@ export default function Dashboard() {
         </div>
 
         {/* User Profile & RBAC Modal Trigger */}
-        <div className="relative pt-2 border-t border-zinc-200 dark:border-zinc-850">
+        <div className="relative pt-2 border-t border-zinc-200 dark:border-zinc-850" ref={profileMenuRef}>
           <button
             onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
             className={"w-full flex items-center justify-between p-2 rounded-lg transition cursor-pointer " + (
@@ -699,9 +737,14 @@ export default function Dashboard() {
 
           {/* Menú Flotante de Perfil */}
           {isProfileMenuOpen && (
-            <div className={"absolute bottom-14 left-2 right-2 rounded-xl p-1.5 shadow-2xl border text-xs space-y-1 z-50 " + (
-              isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-800"
-            )}>
+            <>
+              <div 
+                className="fixed inset-0 z-40 bg-transparent" 
+                onClick={(e) => { e.stopPropagation(); setIsProfileMenuOpen(false); }} 
+              />
+              <div className={"absolute bottom-14 left-2 right-2 rounded-xl p-1.5 shadow-2xl border text-xs space-y-1 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
+                isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-800"
+              )}>
               <div className="p-2 border-b border-zinc-200 dark:border-zinc-800">
                 <p className="font-semibold text-xs">Sesión: {userRole.replace("_", " ")}</p>
                 <span className="text-[10px] text-zinc-600 dark:text-zinc-400">RIF: {tenantProfile.rif}</span>
@@ -746,6 +789,7 @@ export default function Dashboard() {
                 <ExternalLink className="w-3 h-3 text-zinc-600 dark:text-zinc-400" />
               </button>
             </div>
+            </>
           )}
         </div>
       </aside>
@@ -793,7 +837,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
             
             {/* 1. SELECTOR INTERACTIVO DE 3 TASAS - GOOGLE FINANCE CHIP */}
-            <div className="relative">
+            <div className="relative" ref={rateMenuRef}>
               <button
                 onClick={() => setIsRateMenuOpen(!isRateMenuOpen)}
                 className={"flex items-center space-x-2 px-3.5 py-1.5 rounded-full border text-xs font-mono font-bold transition cursor-pointer shadow-xs " + (
@@ -813,9 +857,14 @@ export default function Dashboard() {
 
               {/* DROPDOWN DE LAS 3 TASAS */}
               {isRateMenuOpen && (
-                <div className={"absolute right-0 top-11 w-72 rounded-3xl p-3.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
-                  isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-900"
-                )}>
+                <>
+                  <div 
+                    className="fixed inset-0 z-40 bg-transparent" 
+                    onClick={(e) => { e.stopPropagation(); setIsRateMenuOpen(false); }} 
+                  />
+                  <div className={"absolute right-0 top-11 w-72 rounded-3xl p-3.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
+                    isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-900"
+                  )}>
                   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
                     <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                       Seleccionar Tasa Activa
@@ -887,11 +936,12 @@ export default function Dashboard() {
                   </div>
 
                 </div>
+                </>
               )}
             </div>
 
             {/* 2. BOTÓN CENTRO DE MÓDULOS (35) */}
-            <div className="relative">
+            <div className="relative" ref={toolsHubRef}>
               <button
                 onClick={() => setIsToolsHubOpen(!isToolsHubOpen)}
                 className={"flex items-center space-x-2 px-3.5 py-1.5 rounded-xl border text-xs font-bold transition cursor-pointer shadow-xs " + (
@@ -909,9 +959,14 @@ export default function Dashboard() {
 
               {/* MEGA MENÚ CATEGORIZADO DE HERRAMIENTAS */}
               {isToolsHubOpen && (
-                <div className={"absolute right-0 top-12 w-[620px] rounded-2xl p-5 shadow-2xl border z-50 animate-in fade-in zoom-in-95 duration-150 " + (
-                  isDark ? "bg-zinc-950 border-zinc-850 text-zinc-100" : "bg-white border-zinc-200 text-zinc-900"
-                )}>
+                <>
+                  <div 
+                    className="fixed inset-0 z-40 bg-black/10 backdrop-blur-[0.5px]" 
+                    onClick={(e) => { e.stopPropagation(); setIsToolsHubOpen(false); }} 
+                  />
+                  <div className={"absolute right-0 top-12 w-[620px] max-w-[95vw] rounded-2xl p-5 shadow-2xl border z-50 animate-in fade-in zoom-in-95 duration-150 " + (
+                    isDark ? "bg-zinc-950 border-zinc-850 text-zinc-100" : "bg-white border-zinc-200 text-zinc-900"
+                  )}>
                   <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-850 pb-3 mb-4">
                     <div>
                       <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
@@ -1047,6 +1102,7 @@ export default function Dashboard() {
 
                   </div>
                 </div>
+                </>
               )}
             </div>
 

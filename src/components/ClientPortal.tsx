@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
   Bike, 
   Car, 
@@ -101,6 +101,32 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
   const [eurRate, setEurRate] = useState<number>(50.12);
   const [usdtRate, setUsdtRate] = useState<number>(52.40);
   const [isRateMenuOpen, setIsRateMenuOpen] = useState(false);
+  const rateMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsRateMenuOpen(false);
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (isRateMenuOpen && rateMenuRef.current && !rateMenuRef.current.contains(target)) {
+        setIsRateMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isRateMenuOpen]);
 
   const activeRateValue = activeBenchmark === "EUR_BCV" ? eurRate : activeBenchmark === "USDT_BINANCE" ? usdtRate : usdRate;
   const bcvRate = activeRateValue;
@@ -324,7 +350,7 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
         <div className="flex items-center space-x-3 text-xs">
           
           {/* SELECTOR INTERACTIVO DE 3 TASAS */}
-          <div className="relative">
+          <div className="relative" ref={rateMenuRef}>
             <button
               onClick={() => setIsRateMenuOpen(!isRateMenuOpen)}
               className={"flex items-center space-x-2 px-3 py-1.5 rounded-lg border text-xs font-mono font-medium transition cursor-pointer " + (
@@ -344,7 +370,12 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
 
             {/* DROPDOWN DE LAS 3 TASAS */}
             {isRateMenuOpen && (
-              <div className={"absolute right-0 top-11 w-72 rounded-xl p-2.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
+              <>
+                <div 
+                  className="fixed inset-0 z-40 bg-transparent" 
+                  onClick={(e) => { e.stopPropagation(); setIsRateMenuOpen(false); }} 
+                />
+                <div className={"absolute right-0 top-11 w-72 rounded-xl p-2.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
                 isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-900"
               )}>
                 <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
@@ -448,6 +479,7 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                 </div>
 
               </div>
+              </>
             )}
           </div>
 
