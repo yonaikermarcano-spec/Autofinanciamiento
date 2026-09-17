@@ -35,13 +35,32 @@ interface PublicLoanSimulatorProps {
 
 export default function PublicLoanSimulator({
   onBackToDashboard,
-  bcvRate = 46.85
+  bcvRate: propBcvRate
 }: PublicLoanSimulatorProps) {
+  const [bcvRate, setBcvRate] = useState<number>(() => propBcvRate || BcvEngine.getActiveRateValue() || 847.44);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [selectedVehicle, setSelectedVehicle] = useState<SimulatorVehicleOption>(PublicSimulatorEngine.AVAILABLE_VEHICLES[0]);
   const [downPercent, setDownPercent] = useState<number>(30);
   const [termMonths, setTermMonths] = useState<number>(12);
   const [frequency, setFrequency] = useState<"WEEKLY" | "BIWEEKLY" | "MONTHLY">("WEEKLY");
+
+  useEffect(() => {
+    if (propBcvRate) {
+      setBcvRate(propBcvRate);
+    } else {
+      BcvEngine.syncLiveRates().then(r => {
+        if (r.usdRate) setBcvRate(BcvEngine.getActiveRateValue());
+      });
+    }
+
+    const handleRatesUpdated = (e: any) => {
+      if (!propBcvRate && e.detail?.usdRate) {
+        setBcvRate(BcvEngine.getActiveRateValue());
+      }
+    };
+    window.addEventListener("bcv_rates_updated", handleRatesUpdated);
+    return () => window.removeEventListener("bcv_rates_updated", handleRatesUpdated);
+  }, [propBcvRate]);
 
   useEffect(() => {
     const saved = localStorage.getItem("autolending_theme");

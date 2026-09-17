@@ -96,12 +96,50 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
   const [quotaFilter, setQuotaFilter] = useState<"ALL" | "PENDING" | "PAID">("ALL");
 
   // Motor Multimoneda (3 Opciones: Dólar BCV, Euro BCV, Binance USDT)
-  const [activeBenchmark, setActiveBenchmark] = useState<CurrencyBenchmark>("USD_BCV");
-  const [usdRate, setUsdRate] = useState<number>(46.85);
-  const [eurRate, setEurRate] = useState<number>(50.12);
-  const [usdtRate, setUsdtRate] = useState<number>(52.40);
+  const [activeBenchmark, setActiveBenchmark] = useState<CurrencyBenchmark>(() => BcvEngine.getRates().activeBenchmark);
+  const [usdRate, setUsdRate] = useState<number>(() => BcvEngine.getRates().usdRate);
+  const [eurRate, setEurRate] = useState<number>(() => BcvEngine.getRates().eurRate);
+  const [usdtRate, setUsdtRate] = useState<number>(() => BcvEngine.getRates().usdtRate);
+  const [lastRateSync, setLastRateSync] = useState<string>(() => BcvEngine.getRates().lastUpdated || "En vivo");
+  const [isSyncingRates, setIsSyncingRates] = useState<boolean>(false);
   const [isRateMenuOpen, setIsRateMenuOpen] = useState(false);
   const rateMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const sync = async () => {
+      setIsSyncingRates(true);
+      try {
+        const live = await BcvEngine.syncLiveRates();
+        setUsdRate(live.usdRate);
+        setEurRate(live.eurRate);
+        setUsdtRate(live.usdtRate);
+        if (live.lastUpdated) setLastRateSync(live.lastUpdated);
+      } catch (e) {
+        console.error("Error sincronizando tasas en ClientPortal:", e);
+      } finally {
+        setIsSyncingRates(false);
+      }
+    };
+
+    sync();
+    const interval = setInterval(sync, 180000);
+
+    const handleRatesUpdated = (e: any) => {
+      const detail = e.detail;
+      if (detail) {
+        if (detail.usdRate) setUsdRate(detail.usdRate);
+        if (detail.eurRate) setEurRate(detail.eurRate);
+        if (detail.usdtRate) setUsdtRate(detail.usdtRate);
+        if (detail.lastUpdated) setLastRateSync(detail.lastUpdated);
+      }
+    };
+
+    window.addEventListener("bcv_rates_updated", handleRatesUpdated);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("bcv_rates_updated", handleRatesUpdated);
+    };
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -379,16 +417,43 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                 isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-900"
               )}>
                 <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
-                  <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
-                    Seleccionar Tasa Activa
-                  </span>
-                  <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold">● En Vivo</span>
+                  <div>
+                    <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-700 dark:text-zinc-300 block">
+                      Tasas de Cambio en Vivo
+                    </span>
+                    <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                      Act.: {lastRateSync}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      En Vivo
+                    </span>
+                    <button
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        setIsSyncingRates(true);
+                        const live = await BcvEngine.syncLiveRates();
+                        setUsdRate(live.usdRate);
+                        setEurRate(live.eurRate);
+                        setUsdtRate(live.usdtRate);
+                        if (live.lastUpdated) setLastRateSync(live.lastUpdated);
+                        setIsSyncingRates(false);
+                      }}
+                      disabled={isSyncingRates}
+                      title="Actualizar tasas ahora"
+                      className="p-1 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 transition"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 ${isSyncingRates ? "animate-spin text-emerald-600" : ""}`} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* 1. DÓLAR BCV */}
                 <div 
-                  onClick={() => { setActiveBenchmark("USD_BCV"); setIsRateMenuOpen(false); }}
-                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
+                  onClick={() => { setActiveBenchmark("USD_BCV"); BcvEngine.setActiveBenchmark("USD_BCV"); setIsRateMenuOpen(false); }}
+                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1 " + (
                     activeBenchmark === "USD_BCV"
                       ? "bg-emerald-50 border-emerald-300 text-emerald-950 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-200 shadow-xs"
                       : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
@@ -402,24 +467,15 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                     {activeBenchmark === "USD_BCV" && <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
                   </div>
                   <div className="flex items-center justify-between font-mono">
-                    <span className="text-sm font-black">Bs. {usdRate.toFixed(2)}</span>
-                    <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
-                      <button 
-                        onClick={() => setUsdRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
-                      >-</button>
-                      <button 
-                        onClick={() => setUsdRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
-                      >+</button>
-                    </div>
+                    <span className="text-sm font-black text-zinc-900 dark:text-zinc-100">Bs. {usdRate.toFixed(2)}</span>
+                    <span className="text-[10px] text-zinc-500 font-sans">Banco Central (Oficial)</span>
                   </div>
                 </div>
 
                 {/* 2. EURO BCV */}
                 <div 
-                  onClick={() => { setActiveBenchmark("EUR_BCV"); setIsRateMenuOpen(false); }}
-                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
+                  onClick={() => { setActiveBenchmark("EUR_BCV"); BcvEngine.setActiveBenchmark("EUR_BCV"); setIsRateMenuOpen(false); }}
+                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1 " + (
                     activeBenchmark === "EUR_BCV"
                       ? "bg-blue-50 border-blue-300 text-blue-950 dark:bg-blue-950/40 dark:border-blue-600 dark:text-blue-200 shadow-xs"
                       : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
@@ -433,24 +489,15 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                     {activeBenchmark === "EUR_BCV" && <Check className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
                   </div>
                   <div className="flex items-center justify-between font-mono">
-                    <span className="text-sm font-black">Bs. {eurRate.toFixed(2)}</span>
-                    <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
-                      <button 
-                        onClick={() => setEurRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
-                      >-</button>
-                      <button 
-                        onClick={() => setEurRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
-                      >+</button>
-                    </div>
+                    <span className="text-sm font-black text-zinc-900 dark:text-zinc-100">Bs. {eurRate.toFixed(2)}</span>
+                    <span className="text-[10px] text-zinc-500 font-sans">Banco Central (Oficial)</span>
                   </div>
                 </div>
 
                 {/* 3. BINANCE USDT */}
                 <div 
-                  onClick={() => { setActiveBenchmark("USDT_BINANCE"); setIsRateMenuOpen(false); }}
-                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
+                  onClick={() => { setActiveBenchmark("USDT_BINANCE"); BcvEngine.setActiveBenchmark("USDT_BINANCE"); setIsRateMenuOpen(false); }}
+                  className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1 " + (
                     activeBenchmark === "USDT_BINANCE"
                       ? "bg-amber-50 border-amber-300 text-amber-950 dark:bg-amber-950/40 dark:border-amber-600 dark:text-amber-200 shadow-xs"
                       : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
@@ -464,17 +511,8 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                     {activeBenchmark === "USDT_BINANCE" && <Check className="w-4 h-4 text-amber-600 dark:text-amber-400" />}
                   </div>
                   <div className="flex items-center justify-between font-mono">
-                    <span className="text-sm font-black">Bs. {usdtRate.toFixed(2)}</span>
-                    <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
-                      <button 
-                        onClick={() => setUsdtRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >-</button>
-                      <button 
-                        onClick={() => setUsdtRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
-                      >+</button>
-                    </div>
+                    <span className="text-sm font-black text-zinc-900 dark:text-zinc-100">Bs. {usdtRate.toFixed(2)}</span>
+                    <span className="text-[10px] text-zinc-500 font-sans">Binance P2P / Mercado</span>
                   </div>
                 </div>
 

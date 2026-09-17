@@ -56,7 +56,7 @@ export default function PrintDocumentModal({
 
   if (!isOpen || !contract) return null;
 
-  const currentRate = bcvRate || 46.85;
+  const currentRate = bcvRate || BcvEngine.getActiveRateValue() || 847.44;
   const todayFormatted = new Date().toLocaleDateString("es-VE", {
     day: "numeric",
     month: "long",

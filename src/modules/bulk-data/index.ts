@@ -291,7 +291,7 @@ export class BulkDataEngine {
     const snapshotData = {
       systemVersion: "AutoLending OS v2.0 - Fintech VE Edition",
       backupTimestamp: timestamp,
-      bcvOfficialRate: 46.85,
+      bcvOfficialRate: BcvEngine.getCurrentRate().usdRate,
       records: {
         contractsCount: contracts.length,
         inventoryCount: inventory.length,

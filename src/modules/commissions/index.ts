@@ -122,7 +122,8 @@ export class CommissionsEngine {
     return [...this.rules];
   }
 
-  public static updateRule(updatedRule: CommissionRule, bcvRate: number = 46.85): CommissionRule[] {
+  public static updateRule(updatedRule: CommissionRule, bcvRate?: number): CommissionRule[] {
+    const activeBcvRate = bcvRate || BcvEngine.getCurrentRate().usdRate;
     const idx = this.rules.findIndex(r => r.id === updatedRule.id);
     if (idx !== -1) {
       this.rules[idx] = { ...updatedRule };
@@ -131,11 +132,12 @@ export class CommissionsEngine {
     }
 
     // Recalcular automáticamente todas las nóminas del personal
-    this.recalculateAllStaff(bcvRate);
+    this.recalculateAllStaff(activeBcvRate);
     return [...this.rules];
   }
 
-  public static recalculateAllStaff(bcvRate: number = 46.85): StaffCommissionSummary[] {
+  public static recalculateAllStaff(bcvRate?: number): StaffCommissionSummary[] {
+    const activeBcvRate = bcvRate || BcvEngine.getCurrentRate().usdRate;
     const salesFixedRule = this.rules.find(r => r.role === "ASESOR_VENTAS" && r.type === "FIXED_PER_CONTRACT");
     const salesBonusRule = this.rules.find(r => r.role === "ASESOR_VENTAS" && r.type === "TIER_BONUS");
     const fieldPctRule = this.rules.find(r => r.role === "COBRADOR_CAMPO" && r.type === "PERCENTAGE_ON_COLLECTION");
@@ -161,7 +163,7 @@ export class CommissionsEngine {
       }
 
       staff.totalCommissionToPayUSD = Number((staff.baseCommissionsUSD + staff.targetBonusUSD).toFixed(2));
-      staff.totalCommissionToPayVES = Number((staff.totalCommissionToPayUSD * bcvRate).toFixed(2));
+      staff.totalCommissionToPayVES = Number((staff.totalCommissionToPayUSD * activeBcvRate).toFixed(2));
     });
 
     return [...this.staffSummaries];
