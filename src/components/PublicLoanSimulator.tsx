@@ -190,12 +190,12 @@ export default function PublicLoanSimulator({
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
         
         <div className="text-center space-y-3 max-w-2xl mx-auto pt-2">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-semibold">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Financiamiento Directo en Venezuela • Sin Trámites Bancarios</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-            Calcula tu Cuota y Estrena tu <span className="text-emerald-400">Moto 0km</span>
+            Calcula tu Cuota y Estrena tu <span className="text-emerald-700 dark:text-emerald-400">Moto 0km</span>
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Escoge tu modelo favorito (Bera, Toro, Empire Keeway), ajusta tu inicial y solicita tu pre-aprobación en línea en menos de 2 minutos.
@@ -231,10 +231,10 @@ export default function PublicLoanSimulator({
                       >
                         <div className="flex items-center justify-between">
                           <div className="p-2 rounded-lg bg-zinc-900 text-zinc-300">
-                            {v.type === "MOTO" ? <Bike className="w-4 h-4 text-emerald-400" /> : <Car className="w-4 h-4 text-blue-400" />}
+                            {v.type === "MOTO" ? <Bike className="w-4 h-4 text-emerald-700 dark:text-emerald-400" /> : <Car className="w-4 h-4 text-blue-700 dark:text-blue-400" />}
                           </div>
                           {v.popularBadge && (
-                            <span className="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded">
+                            <span className="text-[9px] font-bold text-amber-700 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded">
                               {v.popularBadge}
                             </span>
                           )}
@@ -246,7 +246,7 @@ export default function PublicLoanSimulator({
                         </div>
 
                         <div className="pt-1 flex items-baseline justify-between">
-                          <span className="text-sm font-black font-mono text-emerald-400">
+                          <span className="text-sm font-black font-mono text-emerald-700 dark:text-emerald-400">
                             {"$" + v.retailPriceUSD + " USD"}
                           </span>
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">
@@ -268,7 +268,7 @@ export default function PublicLoanSimulator({
                     <span className="font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
                       2. Porcentaje de Inicial
                     </span>
-                    <span className="font-mono font-bold text-emerald-400 text-sm">
+                    <span className="font-mono font-bold text-emerald-700 dark:text-emerald-400 text-sm">
                       {downPercent}% ({"$" + simulation.downPaymentUSD + " USD"})
                     </span>
                   </div>
@@ -350,54 +350,54 @@ export default function PublicLoanSimulator({
             {/* COLUMNA DERECHA: RESUMEN DE COTIZACIÓN */}
             <div className="lg:col-span-5 space-y-4 sticky top-24">
               
-              <div className="p-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/10 space-y-5 shadow-2xl">
+              <div className="p-6 rounded-2xl border border-emerald-300 dark:border-emerald-500/30 bg-emerald-50/70 dark:bg-emerald-950/10 space-y-5 shadow-xl">
                 <div>
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block">
                     Resumen de tu Plan de Financiamiento
                   </span>
-                  <h3 className="text-2xl font-black text-white mt-1">
+                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1">
                     {selectedVehicle.brand} {selectedVehicle.model}
                   </h3>
                 </div>
 
                 {/* Gran Cuota Calculada */}
-                <div className="p-4 rounded-xl bg-zinc-950/80 border border-emerald-500/30 text-center space-y-1">
-                  <span className="text-xs text-zinc-600 dark:text-zinc-400 uppercase font-semibold">
+                <div className="p-4 rounded-xl bg-white dark:bg-zinc-950/80 border border-emerald-300 dark:border-emerald-500/30 text-center space-y-1 shadow-sm">
+                  <span className="text-xs text-slate-600 dark:text-zinc-400 uppercase font-semibold">
                     Tu Cuota {frequency === "WEEKLY" ? "Semanal" : frequency === "BIWEEKLY" ? "Quincenal" : "Mensual"} Estimada:
                   </span>
-                  <p className="text-4xl font-black font-mono text-emerald-400">
+                  <p className="text-4xl font-black font-mono text-emerald-600 dark:text-emerald-400">
                     {"$" + simulation.quotaAmountUSD + " USD"}
                   </p>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">
+                  <p className="text-xs text-slate-600 dark:text-zinc-400 font-mono">
                     ≈ Bs. {BcvEngine.formatVes(simulation.quotaAmountVES)} (Tasa BCV)
                   </p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono block pt-1">
+                  <span className="text-[10px] text-slate-600 dark:text-zinc-400 font-mono block pt-1">
                     {simulation.totalQuotasCount} cuotas en {simulation.termMonths} meses
                   </span>
                 </div>
 
                 {/* Desglose de Gastos Iniciales */}
-                <div className="space-y-2 text-xs font-mono border-t border-zinc-800/80 pt-4">
-                  <div className="flex justify-between text-zinc-300">
+                <div className="space-y-2 text-xs font-mono border-t border-slate-200 dark:border-zinc-800/80 pt-4">
+                  <div className="flex justify-between text-slate-800 dark:text-zinc-200">
                     <span>Inicial del Vehículo ({simulation.downPaymentPercent}%):</span>
-                    <span>{"$" + simulation.downPaymentUSD} USD</span>
+                    <span className="font-bold">{"$" + simulation.downPaymentUSD} USD</span>
                   </div>
-                  <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
+                  <div className="flex justify-between text-slate-600 dark:text-zinc-400">
                     <span>Dispositivo & Instalación GPS:</span>
                     <span>{"$" + simulation.gpsFeeUSD} USD</span>
                   </div>
-                  <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
+                  <div className="flex justify-between text-slate-600 dark:text-zinc-400">
                     <span>Trámite INTT, Placas & Experticia:</span>
                     <span>{"$" + simulation.inttFeeUSD} USD</span>
                   </div>
-                  <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
+                  <div className="flex justify-between text-slate-600 dark:text-zinc-400">
                     <span>Gastos Administrativos & RCV:</span>
                     <span>{"$" + (simulation.adminFeeUSD + simulation.rcvFeeUSD)} USD</span>
                   </div>
 
-                  <div className="flex justify-between text-white font-bold pt-2 border-t border-zinc-800 text-sm">
+                  <div className="flex justify-between text-slate-900 dark:text-white font-bold pt-2 border-t border-slate-200 dark:border-zinc-800 text-sm">
                     <span>TOTAL REQUERIDO PARA INICIAR:</span>
-                    <span className="text-emerald-400">{"$" + simulation.totalInitialRequiredUSD + " USD"}</span>
+                    <span className="text-emerald-700 dark:text-emerald-400">{"$" + simulation.totalInitialRequiredUSD + " USD"}</span>
                   </div>
                   <div className="text-right text-[11px] text-zinc-600 dark:text-zinc-400">
                     (Equivalente en Bs. BCV: Bs. {simulation.totalInitialRequiredVES.toLocaleString("es-VE")})
@@ -511,35 +511,35 @@ export default function PublicLoanSimulator({
                     required
                     value={monthlyIncomeUSD}
                     onChange={e => setMonthlyIncomeUSD(Number(e.target.value))}
-                    className="w-full p-2.5 rounded-xl border border-zinc-800 bg-zinc-950 text-white font-mono font-bold"
+                    className="w-full p-2.5 rounded-xl border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-slate-900 dark:text-white font-mono font-bold"
                   />
                 </div>
               </div>
 
               {/* Fiador Solidario */}
-              <div className="p-4 bg-zinc-950 rounded-xl border border-zinc-850 space-y-3">
-                <span className="font-bold text-xs text-zinc-300 block">Datos del Fiador Solidario (Aval)</span>
+              <div className="p-4 bg-slate-50 dark:bg-zinc-950 rounded-xl border border-slate-200 dark:border-zinc-850 space-y-3">
+                <span className="font-bold text-xs text-slate-800 dark:text-zinc-200 block">Datos del Fiador Solidario (Aval)</span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <input
                     type="text"
                     placeholder="Nombre del Fiador"
                     value={guarantorName}
                     onChange={e => setGuarantorName(e.target.value)}
-                    className="p-2 rounded-lg border border-zinc-800 bg-zinc-900 text-white text-xs"
+                    className="p-2 rounded-lg border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-slate-900 dark:text-white text-xs"
                   />
                   <input
                     type="text"
                     placeholder="Teléfono del Fiador (WhatsApp)"
                     value={guarantorPhone}
                     onChange={e => setGuarantorPhone(e.target.value)}
-                    className="p-2 rounded-lg border border-zinc-800 bg-zinc-900 text-white text-xs font-mono"
+                    className="p-2 rounded-lg border border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-slate-900 dark:text-white text-xs font-mono"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs transition cursor-pointer shadow-lg shadow-emerald-950/50"
+                className="w-full p-3.5 rounded-xl bg-google-green-600 hover:bg-google-green-700 text-white font-extrabold text-xs transition cursor-pointer shadow-lg shadow-emerald-950/20"
               >
                 Evaluar mi Solicitud & Obtener Pre-Aprobación
               </button>
@@ -549,30 +549,30 @@ export default function PublicLoanSimulator({
 
         {/* PASO 3: DICTAMEN DE PRE-APROBACIÓN & BOTÓN WHATSAPP */}
         {step === "PRE_APPROVED_RESULT" && preApprovalResult && (
-          <div className="max-w-2xl mx-auto p-8 rounded-2xl border border-emerald-500/40 bg-emerald-950/10 space-y-6 text-center shadow-2xl animate-in zoom-in-95">
+          <div className="max-w-2xl mx-auto p-8 rounded-2xl border border-emerald-300 dark:border-emerald-500/40 bg-emerald-50/70 dark:bg-emerald-950/10 space-y-6 text-center shadow-2xl animate-in zoom-in-95">
             
-            <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
+            <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-300 dark:border-emerald-500/40">
               <CheckCircle2 className="w-10 h-10 animate-bounce" />
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-mono bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full font-bold">
+              <span className="text-xs font-mono bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 px-3 py-1 rounded-full font-bold">
                 CÓDIGO DE PRE-APROBACIÓN: #{preApprovalResult.leadId}
               </span>
-              <h3 className="text-3xl font-extrabold text-white">
-                ¡Felicidades, {clientName}! Tu solicitud ha sido <span className="text-emerald-400">Pre-Aprobada</span>
+              <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white">
+                ¡Felicidades, {clientName}! Tu solicitud ha sido <span className="text-emerald-600 dark:text-emerald-400">Pre-Aprobada</span>
               </h3>
-              <p className="text-xs text-zinc-300 max-w-md mx-auto">
+              <p className="text-xs text-slate-700 dark:text-zinc-300 max-w-md mx-auto">
                 {preApprovalResult.recommendation}
               </p>
             </div>
 
             {/* Resumen Final */}
-            <div className="p-4 bg-zinc-950/80 rounded-xl border border-zinc-800 text-left text-xs font-mono space-y-1.5">
-              <p>Vehículo: <strong className="text-white font-sans">{simulation.vehicle.brand} {simulation.vehicle.model}</strong></p>
-              <p>Inicial Requerida: <strong className="text-emerald-400 font-bold">{"$" + simulation.totalInitialRequiredUSD + " USD"}</strong> (Bs. {simulation.totalInitialRequiredVES.toLocaleString("es-VE")})</p>
-              <p>Cuota {simulation.frequency === "WEEKLY" ? "Semanal" : simulation.frequency === "BIWEEKLY" ? "Quincenal" : "Mensual"}: <strong className="text-white">{"$" + simulation.quotaAmountUSD + " USD"}</strong></p>
-              <p>Fiador Registrado: <span className="text-zinc-600 dark:text-zinc-400">{guarantorName || "Por verificar"}</span></p>
+            <div className="p-4 bg-white dark:bg-zinc-950/80 rounded-xl border border-slate-200 dark:border-zinc-800 text-left text-xs font-mono space-y-1.5 shadow-sm">
+              <p className="text-slate-800 dark:text-zinc-200">Vehículo: <strong className="text-slate-900 dark:text-white font-sans">{simulation.vehicle.brand} {simulation.vehicle.model}</strong></p>
+              <p className="text-slate-800 dark:text-zinc-200">Inicial Requerida: <strong className="text-emerald-600 dark:text-emerald-400 font-bold">{"$" + simulation.totalInitialRequiredUSD + " USD"}</strong> (Bs. {simulation.totalInitialRequiredVES.toLocaleString("es-VE")})</p>
+              <p className="text-slate-800 dark:text-zinc-200">Cuota {simulation.frequency === "WEEKLY" ? "Semanal" : simulation.frequency === "BIWEEKLY" ? "Quincenal" : "Mensual"}: <strong className="text-slate-900 dark:text-white">{"$" + simulation.quotaAmountUSD + " USD"}</strong></p>
+              <p className="text-slate-600 dark:text-zinc-400">Fiador Registrado: <span className="text-slate-800 dark:text-zinc-200 font-medium">{guarantorName || "Por verificar"}</span></p>
             </div>
 
             {/* Botón WhatsApp */}

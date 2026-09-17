@@ -80,7 +80,7 @@ export default function CashierShiftModal({
           </div>
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-xl text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-xl text-zinc-600 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>

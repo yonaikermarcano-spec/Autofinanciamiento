@@ -77,13 +77,13 @@ export default function DigitalDossierModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-amber-500/10 text-amber-400 rounded-2xl border border-amber-500/20">
+            <div className="p-2 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-2xl border border-amber-500/20">
               <PackageCheck className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Exportador de Expediente Digital Integral (Dossier)</span>
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-amber-500/20 text-amber-800 dark:text-amber-300 px-2 py-0.2 rounded-full font-mono">
                   SELLO FORENSE SHA-256
                 </span>
               </h3>
@@ -106,8 +106,8 @@ export default function DigitalDossierModal({
           
           {/* Banner de Éxito */}
           {successExportMessage && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successExportMessage}</span>
             </div>
           )}
@@ -152,7 +152,7 @@ export default function DigitalDossierModal({
           <div className="p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3 gap-2">
               <div>
-                <span className="text-[10px] text-amber-400 font-bold uppercase">TITULAR DEL FINANCIAMIENTO</span>
+                <span className="text-[10px] text-amber-700 dark:text-amber-400 font-bold uppercase">TITULAR DEL FINANCIAMIENTO</span>
                 <h4 className="text-lg font-black text-zinc-900 dark:text-zinc-100">{dossier.clientName}</h4>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">
                   C.I. {dossier.clientDocId} • Teléfono: {dossier.clientPhone} • Contrato: #{dossier.contractNumber}
@@ -161,7 +161,7 @@ export default function DigitalDossierModal({
 
               <div className="text-right">
                 <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">VEHÍCULO ADQUIRIDO</span>
-                <p className="text-sm font-bold text-emerald-400">{dossier.vehicleBrandModel}</p>
+                <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{dossier.vehicleBrandModel}</p>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">
                   Placa: {dossier.vehiclePlate} • VIN: {dossier.vinChassis}
                 </p>
@@ -176,17 +176,17 @@ export default function DigitalDossierModal({
 
               <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                 <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Total Amortizado:</span>
-                <strong className="text-emerald-400 text-sm">{"$" + dossier.totalPaidUSD} USD</strong>
+                <strong className="text-emerald-700 dark:text-emerald-400 text-sm">{"$" + dossier.totalPaidUSD} USD</strong>
               </div>
 
               <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                 <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Saldo Remanente:</span>
-                <strong className="text-amber-400 text-sm">{"$" + dossier.totalOutstandingUSD} USD</strong>
+                <strong className="text-amber-700 dark:text-amber-400 text-sm">{"$" + dossier.totalOutstandingUSD} USD</strong>
               </div>
 
               <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                 <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Documentos Anexos:</span>
-                <strong className="text-indigo-400 text-sm">{dossier.documents.length} Archivos</strong>
+                <strong className="text-indigo-700 dark:text-indigo-400 text-sm">{dossier.documents.length} Archivos</strong>
               </div>
             </div>
           </div>
@@ -194,7 +194,7 @@ export default function DigitalDossierModal({
           {/* Lista de Documentos Integrados en el Expediente */}
           <div className="space-y-3">
             <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100 uppercase tracking-wider flex items-center space-x-2">
-              <Layers className="w-4 h-4 text-amber-400" />
+              <Layers className="w-4 h-4 text-amber-700 dark:text-amber-400" />
               <span>Documentos Integrados en el Expediente Forense:</span>
             </h4>
 
@@ -208,12 +208,12 @@ export default function DigitalDossierModal({
                     <div className="flex items-center space-x-2">
                       <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{idx + 1}. {doc.title}</span>
                       <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{doc.documentNumber}</span>
-                      <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-mono font-bold">
+                      <span className="text-[9px] bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-1.5 py-0.2 rounded font-mono font-bold">
                         ● {doc.status.replace(/_/g, ' ')}
                       </span>
                     </div>
 
-                    <p className="text-zinc-300 font-sans text-xs">
+                    <p className="text-slate-700 dark:text-zinc-300 font-sans text-xs">
                       {doc.summaryDetails}
                     </p>
 
@@ -233,9 +233,9 @@ export default function DigitalDossierModal({
           </div>
 
           {/* Sello Master Criptográfico */}
-          <div className="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/30 text-xs font-mono text-amber-300 space-y-1">
+          <div className="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/30 text-xs font-mono text-amber-800 dark:text-amber-300 space-y-1">
             <p className="font-bold flex items-center space-x-1.5 font-sans">
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              <ShieldCheck className="w-4 h-4 text-amber-700 dark:text-amber-400" />
               <span>Sello Master de Integridad Forense (Merkle Root SHA-256):</span>
             </p>
             <p className="text-zinc-900 dark:text-zinc-100 text-xs truncate font-bold">{dossier.masterDossierSha256}</p>

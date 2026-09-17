@@ -89,13 +89,13 @@ export default function DealersPayableModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-500/10 text-blue-400 rounded-2xl border border-blue-500/20">
+            <div className="p-2 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-2xl border border-blue-500/20">
               <Store className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Gestor Interno de Concesionarios & Cuentas por Pagar</span>
-                <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-blue-500/20 text-blue-800 dark:text-blue-300 px-2 py-0.2 rounded-full font-mono">
                   PROVEEDORES B2B
                 </span>
               </h3>
@@ -128,8 +128,8 @@ export default function DealersPayableModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-blue-500 text-blue-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-blue-500 text-blue-700 dark:text-blue-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -149,8 +149,8 @@ export default function DealersPayableModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -179,13 +179,13 @@ export default function DealersPayableModal({
                       <div className="flex items-start justify-between">
                         <div>
                           <div className="flex items-center space-x-2">
-                            <span className="text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md font-mono">
+                            <span className="text-[10px] font-bold bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md font-mono">
                               {ord.dealerName}
                             </span>
                             <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold uppercase " + (
                               isDone ? "bg-zinc-800 text-zinc-600 dark:text-zinc-400" :
-                              isReady ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 animate-pulse" :
-                              "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                              isReady ? "bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30 animate-pulse" :
+                              "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20"
                             )}>
                               ● {ord.status.replace(/_/g, " ")}
                             </span>
@@ -210,8 +210,8 @@ export default function DealersPayableModal({
                       {/* Info del Cliente y Contacto del Concesionario */}
                       <div className="p-3 bg-white dark:bg-zinc-900/80 rounded-lg border border-zinc-200 dark:border-zinc-800/80 space-y-1 text-xs font-mono">
                         <p>Cliente: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{ord.clientName}</strong> ({ord.clientDocId})</p>
-                        <p>Contacto Tienda: <span className="text-blue-400 font-sans">{ord.contactName}</span> ({ord.contactPhone})</p>
-                        <p>Serial VIN: <span className="text-zinc-300">{ord.vinChassis || "Pendiente asignación"}</span></p>
+                        <p>Contacto Tienda: <span className="text-blue-700 dark:text-blue-400 font-sans">{ord.contactName}</span> ({ord.contactPhone})</p>
+                        <p className="text-slate-700 dark:text-zinc-300">Serial VIN: <span className="text-slate-900 dark:text-zinc-100 font-mono">{ord.vinChassis || "Pendiente asignación"}</span></p>
                       </div>
 
                       {/* Acciones de Presión y Estado */}
@@ -254,14 +254,14 @@ export default function DealersPayableModal({
               {/* Tarjetas de Resumen Financiero */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-2xl border border-amber-500/30 bg-amber-950/10 space-y-1">
-                  <span className="text-[10px] text-amber-400 font-bold uppercase">TOTAL CUENTAS POR PAGAR (DEUDA A CONCESIONARIOS)</span>
-                  <p className="text-2xl font-black font-mono text-amber-400">{"$" + totalPayableAllUSD.toLocaleString("es-VE") + " USD"}</p>
+                  <span className="text-[10px] text-amber-700 dark:text-amber-400 font-bold uppercase">TOTAL CUENTAS POR PAGAR (DEUDA A CONCESIONARIOS)</span>
+                  <p className="text-2xl font-black font-mono text-amber-700 dark:text-amber-400">{"$" + totalPayableAllUSD.toLocaleString("es-VE") + " USD"}</p>
                   <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Pendiente por transferir por unidades en proceso o retiradas</p>
                 </div>
 
                 <div className="p-4 rounded-2xl border border-emerald-500/30 bg-emerald-950/10 space-y-1">
-                  <span className="text-[10px] text-emerald-400 font-bold uppercase">TOTAL HISTÓRICO LIQUIDADO A CONCESIONARIOS</span>
-                  <p className="text-2xl font-black font-mono text-emerald-400">{"$" + totalPaidAllUSD.toLocaleString("es-VE") + " USD"}</p>
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold uppercase">TOTAL HISTÓRICO LIQUIDADO A CONCESIONARIOS</span>
+                  <p className="text-2xl font-black font-mono text-emerald-700 dark:text-emerald-400">{"$" + totalPaidAllUSD.toLocaleString("es-VE") + " USD"}</p>
                   <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Pagos completados satisfactoriamente</p>
                 </div>
               </div>
@@ -286,20 +286,20 @@ export default function DealersPayableModal({
                           <p className="font-bold text-zinc-900 dark:text-zinc-100">{ord.id}</p>
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400">#{ord.contractNumber}</span>
                         </td>
-                        <td className="p-3 font-sans font-semibold text-zinc-200">
+                        <td className="p-3 font-sans font-semibold text-slate-900 dark:text-zinc-100">
                           {ord.dealerName}
                         </td>
                         <td className="p-3 font-sans">
                           <p className="font-semibold text-zinc-900 dark:text-zinc-100">{ord.vehicleModel}</p>
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">{ord.clientName}</span>
                         </td>
-                        <td className="p-3 font-bold text-emerald-400">
+                        <td className="p-3 font-bold text-emerald-700 dark:text-emerald-400">
                           {"$" + ord.dealerPriceUSD.toFixed(2) + " USD"}
                         </td>
                         <td className="p-3">
                           <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold " + (
-                            ord.payableStatus === "LIQUIDADO_TOTAL" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
-                            "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                            ord.payableStatus === "LIQUIDADO_TOTAL" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20" :
+                            "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20"
                           )}>
                             ● {ord.payableStatus}
                           </span>
@@ -340,12 +340,12 @@ export default function DealersPayableModal({
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">{d.rif} • {d.city}</p>
                     </div>
 
-                    <div className="space-y-1 text-xs font-mono text-zinc-300">
+                    <div className="space-y-1 text-xs font-mono text-slate-700 dark:text-zinc-300">
                       <p>Contacto: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{d.contactName}</strong> ({d.contactRole})</p>
-                      <p>Teléfono: <span className="text-blue-400">{d.contactPhone}</span></p>
+                      <p>Teléfono: <span className="text-blue-700 dark:text-blue-400">{d.contactPhone}</span></p>
                       <p>Condición: <span className="text-zinc-600 dark:text-zinc-400">{d.paymentTerms}</span></p>
-                      <p className="pt-1">Unidades Entregadas: <strong className="text-emerald-400">{d.totalUnitsDeliveredCount}</strong></p>
-                      <p>Saldo Pendiente: <strong className="text-amber-400">{"$" + d.totalPayableUSD} USD</strong></p>
+                      <p className="pt-1">Unidades Entregadas: <strong className="text-emerald-700 dark:text-emerald-400">{d.totalUnitsDeliveredCount}</strong></p>
+                      <p>Saldo Pendiente: <strong className="text-amber-700 dark:text-amber-400">{"$" + d.totalPayableUSD} USD</strong></p>
                     </div>
                   </div>
                 ))}
@@ -360,7 +360,7 @@ export default function DealersPayableModal({
           <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs backdrop-blur-md animate-in fade-in">
             <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl w-full max-w-5xl h-[86vh] max-h-[820px] min-h-[620px] p-6 space-y-4 shadow-2xl text-zinc-900 dark:text-zinc-100 font-sans">
               
-              <div className="flex items-center space-x-3 text-emerald-400">
+              <div className="flex items-center space-x-3 text-emerald-700 dark:text-emerald-400">
                 <div className="p-2.5 bg-emerald-500/20 rounded-2xl border border-emerald-500/30">
                   <Wallet className="w-6 h-6" />
                 </div>
@@ -372,8 +372,8 @@ export default function DealersPayableModal({
 
               <div className="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1.5 text-xs font-mono">
                 <p>Concesionario: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{payingOrder.dealerName}</strong></p>
-                <p>Vehículo: <span className="text-zinc-300">{payingOrder.vehicleModel}</span></p>
-                <p>Monto a Liquidar: <strong className="text-emerald-400 font-bold">{"$" + payingOrder.dealerPriceUSD + " USD"}</strong></p>
+                <p className="text-slate-700 dark:text-zinc-300">Vehículo: <strong className="text-slate-900 dark:text-zinc-100">{payingOrder.vehicleModel}</strong></p>
+                <p>Monto a Liquidar: <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{"$" + payingOrder.dealerPriceUSD + " USD"}</strong></p>
               </div>
 
               <div className="space-y-3 text-xs">

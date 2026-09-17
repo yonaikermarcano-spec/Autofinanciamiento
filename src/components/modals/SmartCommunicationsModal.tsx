@@ -69,13 +69,13 @@ export default function SmartCommunicationsModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-2xl border border-emerald-500/20">
+            <div className="p-2 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-2xl border border-emerald-500/20">
               <MessageSquare className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Centro de Notificaciones In-App & Contacto Manual Anti-Spam</span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 px-2 py-0.2 rounded-full font-mono">
                   WHATSAPP 1-A-1 SEGURO
                 </span>
               </h3>
@@ -108,14 +108,14 @@ export default function SmartCommunicationsModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-emerald-500 text-emerald-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-emerald-500 text-emerald-700 dark:text-emerald-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
                 <span>{t.label}</span>
                 {t.count !== undefined && (
-                  <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-mono px-1.5 py-0.2 rounded-full font-bold">
+                  <span className="text-[10px] bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-mono px-1.5 py-0.2 rounded-full font-bold">
                     {t.count}
                   </span>
                 )}
@@ -129,8 +129,8 @@ export default function SmartCommunicationsModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -141,10 +141,10 @@ export default function SmartCommunicationsModal({
           {activeTab === "MANUAL_QUEUE" && (
             <div className="space-y-4">
               
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-xs text-zinc-300 flex items-center justify-between">
+              <div className="p-4 bg-slate-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-xs text-slate-800 dark:text-zinc-200 flex items-center justify-between">
                 <div>
                   <p className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center space-x-1.5">
-                    <Shield className="w-4 h-4 text-emerald-400" />
+                    <Shield className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
                     <span>Gestión Humana Individual (Protección contra Spam y Baneo)</span>
                   </p>
                   <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
@@ -167,21 +167,21 @@ export default function SmartCommunicationsModal({
                       <div className="flex items-center space-x-2">
                         <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 font-sans">{item.clientName}</span>
                         <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{item.contractNumber}</span>
-                        <span className="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.2 rounded font-mono font-bold">
+                        <span className="text-[9px] bg-blue-500/20 text-blue-800 dark:text-blue-300 px-2 py-0.2 rounded font-mono font-bold">
                           {item.categoryLabel}
                         </span>
                         {item.isContactedToday && (
-                          <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-0.2 rounded font-mono font-bold flex items-center space-x-1">
+                          <span className="text-[9px] bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-2 py-0.2 rounded font-mono font-bold flex items-center space-x-1">
                             <Check className="w-2.5 h-2.5" />
                             <span>CONTACTADO HOY</span>
                           </span>
                         )}
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-3 font-mono text-zinc-300">
+                      <div className="flex flex-wrap items-center gap-3 font-mono text-slate-700 dark:text-zinc-300">
                         <p>Vehículo: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{item.vehicleModel}</strong></p>
-                        <p>Cuota: <strong className="text-emerald-400">{"$" + item.dueAmountUSD} USD</strong> (Bs. {item.dueAmountVES.toLocaleString("es-VE")} BCV)</p>
-                        <p>Vence: <strong className="text-amber-400">{item.dueDate}</strong></p>
+                        <p>Cuota: <strong className="text-emerald-700 dark:text-emerald-400">{"$" + item.dueAmountUSD} USD</strong> (Bs. {item.dueAmountVES.toLocaleString("es-VE")} BCV)</p>
+                        <p>Vence: <strong className="text-amber-700 dark:text-amber-400">{item.dueDate}</strong></p>
                       </div>
 
                       <div className="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] font-sans text-zinc-600 dark:text-zinc-400 italic">
@@ -223,9 +223,9 @@ export default function SmartCommunicationsModal({
           {/* ========================================================================= */}
           {activeTab === "IN_APP_LOG" && (
             <div className="space-y-4">
-              <div className="p-4 bg-blue-950/20 border border-blue-500/30 rounded-2xl text-xs text-blue-300">
+              <div className="p-4 bg-blue-950/20 border border-blue-500/30 rounded-2xl text-xs text-blue-800 dark:text-blue-300">
                 <p className="font-bold flex items-center space-x-1.5">
-                  <Smartphone className="w-4 h-4 text-blue-400" />
+                  <Smartphone className="w-4 h-4 text-blue-700 dark:text-blue-400" />
                   <span>Notificaciones In-App en el Portal del Cliente (Seguras & Automáticas)</span>
                 </p>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
@@ -240,7 +240,7 @@ export default function SmartCommunicationsModal({
                       <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{notif.title}</span>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">{notif.createdAt}</span>
                     </div>
-                    <p className="text-zinc-300 text-xs font-sans">{notif.message}</p>
+                    <p className="text-slate-700 dark:text-zinc-300 text-xs font-sans">{notif.message}</p>
                   </div>
                 ))}
               </div>
@@ -251,15 +251,15 @@ export default function SmartCommunicationsModal({
           {/* 3. PROTOCOLO ANTI-BANEO DE WHATSAPP                                       */}
           {/* ========================================================================= */}
           {activeTab === "ANTI_BAN_POLICY" && (
-            <div className="p-6 bg-zinc-50 dark:bg-zinc-950 rounded-3xl border border-zinc-200 dark:border-zinc-800 space-y-4 text-xs text-zinc-300">
+            <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-3xl border border-zinc-200 dark:border-zinc-800 space-y-4 text-xs text-slate-800 dark:text-zinc-200">
               <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
-                <Shield className="w-4 h-4 text-emerald-400" />
+                <Shield className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
                 <span>Protocolo de Protección Anti-Baneo de Cuentas de WhatsApp</span>
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                 <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5">
-                  <strong className="text-emerald-400 block">✅ Buenas Prácticas Implementadas:</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400 block">✅ Buenas Prácticas Implementadas:</strong>
                   <ul className="list-disc pl-4 space-y-1 text-zinc-600 dark:text-zinc-400">
                     <li>Envío 1 a 1 iniciado por clic manual del asesor.</li>
                     <li>Plantillas personalizadas con el nombre y datos exactos del cliente.</li>

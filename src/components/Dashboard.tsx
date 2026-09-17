@@ -174,7 +174,7 @@ function DimensionHelpTooltip({ text }: { text: string }) {
               ✕
             </button>
           </span>
-          <span className="block text-zinc-200 dark:text-zinc-800 font-sans">{text}</span>
+          <span className="block text-zinc-100 dark:text-zinc-900 font-sans">{text}</span>
         </span>
       )}
     </span>
@@ -709,13 +709,13 @@ export default function Dashboard() {
 
               <button
                 onClick={() => { setIsManageUsersModalOpen(true); setIsProfileMenuOpen(false); }}
-                className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/80 flex items-center justify-between text-emerald-400 font-semibold cursor-pointer"
+                className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/80 flex items-center justify-between text-emerald-700 dark:text-emerald-400 font-bold cursor-pointer"
               >
                 <div className="flex items-center space-x-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
                   <span>Seguridad & Permisos RBAC</span>
                 </div>
-                <KeyRound className="w-3 h-3" />
+                <KeyRound className="w-3 h-3 text-emerald-700 dark:text-emerald-400" />
               </button>
 
               <div className="flex items-center justify-between p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800/80">
@@ -814,13 +814,13 @@ export default function Dashboard() {
               {/* DROPDOWN DE LAS 3 TASAS */}
               {isRateMenuOpen && (
                 <div className={"absolute right-0 top-11 w-72 rounded-3xl p-3.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
-                  isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-800"
+                  isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-900"
                 )}>
                   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
-                    <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
+                    <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                       Seleccionar Tasa Activa
                     </span>
-                    <span className="text-[10px] text-emerald-500 font-semibold">● En Vivo</span>
+                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold">● En Vivo</span>
                   </div>
 
                   {/* 1. DÓLAR BCV */}
@@ -828,16 +828,16 @@ export default function Dashboard() {
                     onClick={() => { setActiveBenchmark("USD_BCV"); setIsRateMenuOpen(false); }}
                     className={"p-2.5 rounded-xl border transition cursor-pointer space-y-1.5 " + (
                       activeBenchmark === "USD_BCV"
-                        ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
-                        : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
+                        ? "bg-emerald-50 border-emerald-300 text-emerald-950 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-200 shadow-xs"
+                        : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
                     )}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-xs flex items-center space-x-1.5">
-                        <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
+                        <DollarSign className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                         <span>1. Dólar BCV Oficial ($)</span>
                       </span>
-                      {activeBenchmark === "USD_BCV" && <Check className="w-4 h-4 text-emerald-500" />}
+                      {activeBenchmark === "USD_BCV" && <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
                     </div>
                     <div className="flex items-center justify-between font-mono">
                       <span className="text-sm font-black">Bs. {usdRate.toFixed(2)}</span>
@@ -849,16 +849,16 @@ export default function Dashboard() {
                     onClick={() => { setActiveBenchmark("EUR_BCV"); setIsRateMenuOpen(false); }}
                     className={"p-2.5 rounded-xl border transition cursor-pointer space-y-1.5 " + (
                       activeBenchmark === "EUR_BCV"
-                        ? "bg-blue-500/10 border-blue-500/40 text-blue-400"
-                        : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
+                        ? "bg-blue-50 border-blue-300 text-blue-950 dark:bg-blue-950/40 dark:border-blue-600 dark:text-blue-200 shadow-xs"
+                        : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
                     )}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-xs flex items-center space-x-1.5">
-                        <Coins className="w-3.5 h-3.5 text-blue-500" />
+                        <Coins className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                         <span>2. Euro BCV Oficial (€)</span>
                       </span>
-                      {activeBenchmark === "EUR_BCV" && <Check className="w-4 h-4 text-blue-500" />}
+                      {activeBenchmark === "EUR_BCV" && <Check className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
                     </div>
                     <div className="flex items-center justify-between font-mono">
                       <span className="text-sm font-black">Bs. {eurRate.toFixed(2)}</span>
@@ -870,16 +870,16 @@ export default function Dashboard() {
                     onClick={() => { setActiveBenchmark("USDT_BINANCE"); setIsRateMenuOpen(false); }}
                     className={"p-2.5 rounded-xl border transition cursor-pointer space-y-1.5 " + (
                       activeBenchmark === "USDT_BINANCE"
-                        ? "bg-amber-500/10 border-amber-500/40 text-amber-400"
-                        : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
+                        ? "bg-amber-50 border-amber-300 text-amber-950 dark:bg-amber-950/40 dark:border-amber-600 dark:text-amber-200 shadow-xs"
+                        : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
                     )}
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-xs flex items-center space-x-1.5">
-                        <Wallet className="w-3.5 h-3.5 text-amber-500" />
+                        <Wallet className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                         <span>3. Binance USDT (P2P)</span>
                       </span>
-                      {activeBenchmark === "USDT_BINANCE" && <Check className="w-4 h-4 text-amber-500" />}
+                      {activeBenchmark === "USDT_BINANCE" && <Check className="w-4 h-4 text-amber-600 dark:text-amber-400" />}
                     </div>
                     <div className="flex items-center justify-between font-mono">
                       <span className="text-sm font-black">Bs. {usdtRate.toFixed(2)}</span>
@@ -930,56 +930,56 @@ export default function Dashboard() {
                     {/* COLUMNA 1: FINANZAS & LEGAL */}
                     <div className="space-y-3">
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-500 block mb-1.5">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 block mb-1.5">
                           💰 Finanzas, Cobranzas & Cripto
                         </span>
                         <div className="space-y-1">
-                          {activeModules.loan_restructuring && <button onClick={() => { setIsRestructureModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <RefreshCw className="w-3.5 h-3.5 text-orange-400" />
+                          {activeModules.loan_restructuring && <button onClick={() => { setIsRestructureModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <RefreshCw className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
                             <span>Reestructuración & Refinanciamiento</span>
                           </button>}
-                          {activeModules.crypto_reconciliation && <button onClick={() => { setIsCryptoModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Coins className="w-3.5 h-3.5 text-amber-400" />
+                          {activeModules.crypto_reconciliation && <button onClick={() => { setIsCryptoModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Coins className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                             <span>Conciliador Cripto USDT (Binance/TRC-20)</span>
                           </button>}
-                          {activeModules.bank_push && <button onClick={() => { setIsBankPushModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
+                          {activeModules.bank_push && <button onClick={() => { setIsBankPushModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Smartphone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                             <span>Push Bancario & Pagos Cashea</span>
                           </button>}
-                          {activeModules.commissions && <button onClick={() => { setIsCommissionsModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Award className="w-3.5 h-3.5 text-yellow-400" />
+                          {activeModules.commissions && <button onClick={() => { setIsCommissionsModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Award className="w-3.5 h-3.5 text-yellow-600 dark:text-yellow-400" />
                             <span>Comisiones de Asesores & Cobradores</span>
                           </button>}
-                          {activeModules.dealers_payable && <button onClick={() => { setIsDealersPayableModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Store className="w-3.5 h-3.5 text-blue-400" />
+                          {activeModules.dealers_payable && <button onClick={() => { setIsDealersPayableModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Store className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                             <span>Proveedores Flota & Cuentas x Pagar</span>
                           </button>}
                         </div>
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-500 block mb-1.5">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 block mb-1.5">
                           ⚖️ Legal, Títulos & Forense
                         </span>
                         <div className="space-y-1">
-                          {activeModules.digital_dossier && <button onClick={() => { setIsDigitalDossierModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <PackageCheck className="w-3.5 h-3.5 text-amber-400" />
+                          {activeModules.digital_dossier && <button onClick={() => { setIsDigitalDossierModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <PackageCheck className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                             <span>Expediente Digital Forense (1-Clic)</span>
                           </button>}
-                          {activeModules.debt_assignment && <button onClick={() => { setIsDebtModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <UserCheck className="w-3.5 h-3.5 text-indigo-400" />
+                          {activeModules.debt_assignment && <button onClick={() => { setIsDebtModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <UserCheck className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                             <span>Cesión de Deuda & Traspaso Tripartito</span>
                           </button>}
-                          {activeModules.promissory_otp && <button onClick={() => { setIsPromissoryModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                          {activeModules.promissory_otp && <button onClick={() => { setIsPromissoryModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <FileText className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                             <span>Pagarés Mercantiles OTP (Art. 486)</span>
                           </button>}
-                          {activeModules.judicial_collection && <button onClick={() => { setIsJudicialModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Scale className="w-3.5 h-3.5 text-rose-400" />
+                          {activeModules.judicial_collection && <button onClick={() => { setIsJudicialModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Scale className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                             <span>Cobro Judicial & Costas CPC 640</span>
                           </button>}
-                          {activeModules.forensic_audit && <button onClick={() => { setIsForensicModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+                          {activeModules.forensic_audit && <button onClick={() => { setIsForensicModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <ShieldCheck className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                             <span>Auditoría Forense SHA-256</span>
                           </button>}
                         </div>
@@ -989,56 +989,56 @@ export default function Dashboard() {
                     {/* COLUMNA 2: FLOTA, MARKETING & BI */}
                     <div className="space-y-3">
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-rose-500 block mb-1.5">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400 block mb-1.5">
                           🛰️ Flota, GPS & Post-Venta
                         </span>
                         <div className="space-y-1">
-                          {activeModules.gps_telemetry && <button onClick={() => { setIsGPSModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Radio className="w-3.5 h-3.5 text-rose-400" />
+                          {activeModules.gps_telemetry && <button onClick={() => { setIsGPSModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Radio className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
                             <span>Radar Satelital GPS & Kill-Switch</span>
                           </button>}
-                          {activeModules.mechanical_workshop && <button onClick={() => { setIsMaintenanceModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Wrench className="w-3.5 h-3.5 text-purple-400" />
+                          {activeModules.mechanical_workshop && <button onClick={() => { setIsMaintenanceModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Wrench className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                             <span>Taller & Mantenimientos (500 km)</span>
                           </button>}
-                          {activeModules.legal_docs_allied && <button onClick={() => { setIsLegalDocsModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <FolderLock className="w-3.5 h-3.5 text-blue-400" />
+                          {activeModules.legal_docs_allied && <button onClick={() => { setIsLegalDocsModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <FolderLock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                             <span>Docs en 3 Fases & RCV Aliado</span>
                           </button>}
-                          {activeModules.field_app_pwa && <button onClick={() => { setIsFieldAppActive(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
+                          {activeModules.field_app_pwa && <button onClick={() => { setIsFieldAppActive(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Smartphone className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                             <span>App Móvil de Campo (PWA)</span>
                           </button>}
                         </div>
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-purple-500 block mb-1.5">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-purple-700 dark:text-purple-400 block mb-1.5">
                           📈 Estrategia, Clientes & BI
                         </span>
                         <div className="space-y-1">
-                          {activeModules.executive_bi && <button onClick={() => { setIsBIModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+                          {activeModules.executive_bi && <button onClick={() => { setIsBIModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                             <span>BI Ejecutivo & Flujo 30/60/90</span>
                           </button>}
-                          {activeModules.credit_scoring && <button onClick={() => { setIsCreditScoringModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Brain className="w-3.5 h-3.5 text-indigo-400" />
+                          {activeModules.credit_scoring && <button onClick={() => { setIsCreditScoringModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Brain className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                             <span>Scoring Crediticio Predictivo IA</span>
                           </button>}
-                          {activeModules.investor_portal && <button onClick={() => { setIsInvestorModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Building2 className="w-3.5 h-3.5 text-purple-400" />
+                          {activeModules.investor_portal && <button onClick={() => { setIsInvestorModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Building2 className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                             <span>Portal del Inversionista (Dividendos)</span>
                           </button>}
-                          {activeModules.smart_communications && <button onClick={() => { setIsSmartCommsModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <MessageSquare className="w-3.5 h-3.5 text-teal-400" />
+                          {activeModules.smart_communications && <button onClick={() => { setIsSmartCommsModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <MessageSquare className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
                             <span>WhatsApp 1a1 & Notificaciones In-App</span>
                           </button>}
-                          {activeModules.promotions_referrals && <button onClick={() => { setIsPromoModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Ticket className="w-3.5 h-3.5 text-pink-400" />
+                          {activeModules.promotions_referrals && <button onClick={() => { setIsPromoModalOpen(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Ticket className="w-3.5 h-3.5 text-pink-600 dark:text-pink-400" />
                             <span>Cupones & Programa de Referidos</span>
                           </button>}
-                          {activeModules.public_simulator && <button onClick={() => { setIsPublicSimulatorActive(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-700 dark:text-zinc-300">
-                            <Calculator className="w-3.5 h-3.5 text-purple-400" />
+                          {activeModules.public_simulator && <button onClick={() => { setIsPublicSimulatorActive(true); setIsToolsHubOpen(false); }} className="w-full text-left p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 flex items-center space-x-2 text-zinc-800 dark:text-zinc-200 font-medium">
+                            <Calculator className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
                             <span>Simulador Web Público</span>
                           </button>}
                         </div>
@@ -1286,11 +1286,11 @@ export default function Dashboard() {
                       isDark ? "bg-zinc-900 border-zinc-800 hover:border-zinc-700 hover:shadow-md" : "bg-white border-zinc-200/90 hover:border-zinc-300 hover:shadow-md"
                     )}
                   >
-                    <span className="text-xs text-zinc-500 font-semibold">TOTAL CUOTAS POR COBRAR</span>
+                    <span className="text-xs text-zinc-600 dark:text-zinc-400 font-semibold">TOTAL CUOTAS POR COBRAR</span>
                     <h3 className="text-2xl font-black font-mono text-zinc-900 dark:text-zinc-100">
                       {"$" + totalCuotasPorCobrarUSD.toLocaleString("es-VE") + " USD"}
                     </h3>
-                    <p className="text-[11px] text-zinc-500">Capital e intereses regulares</p>
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Capital e intereses regulares</p>
                   </div>
 
                   <div 
@@ -1299,11 +1299,11 @@ export default function Dashboard() {
                       isDark ? "bg-zinc-900 border-zinc-800 hover:border-zinc-700 hover:shadow-md" : "bg-white border-zinc-200/90 hover:border-zinc-300 hover:shadow-md"
                     )}
                   >
-                    <span className="text-xs text-zinc-500 font-semibold">TOTAL MORAS POR COBRAR</span>
-                    <h3 className="text-2xl font-black font-mono text-amber-500">
+                    <span className="text-xs text-zinc-600 dark:text-zinc-400 font-semibold">TOTAL MORAS POR COBRAR</span>
+                    <h3 className="text-2xl font-black font-mono text-amber-700 dark:text-amber-400">
                       {"$" + totalMorasPorCobrarUSD.toLocaleString("es-VE") + " USD"}
                     </h3>
-                    <p className="text-[11px] text-zinc-500">Recargos acumulados por retraso</p>
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Recargos acumulados por retraso</p>
                   </div>
 
                   <div 
@@ -1312,11 +1312,11 @@ export default function Dashboard() {
                       isDark ? "bg-google-green-950/20 border-google-green-500/30 hover:border-google-green-500/60 hover:shadow-md" : "bg-google-green-50/50 border-google-green-200 hover:border-google-green-300 hover:shadow-md"
                     )}
                   >
-                    <span className="text-xs text-google-green-600 dark:text-google-green-400 font-bold">TOTAL X COBRAR (TODO SUMADO)</span>
-                    <h3 className="text-3xl font-black font-mono text-google-green-600 dark:text-google-green-400">
+                    <span className="text-xs text-google-green-700 dark:text-google-green-400 font-bold">TOTAL X COBRAR (TODO SUMADO)</span>
+                    <h3 className="text-3xl font-black font-mono text-google-green-700 dark:text-google-green-400">
                       {"$" + totalTotalPorCobrarUSD.toLocaleString("es-VE") + " USD"}
                     </h3>
-                    <p className="text-[11px] text-google-green-700 dark:text-google-green-300/80">Suma de Cuotas + Moras activas</p>
+                    <p className="text-[11px] text-google-green-800 dark:text-google-green-300 font-medium">Suma de Cuotas + Moras activas</p>
                   </div>
 
                 </div>
@@ -1329,31 +1329,31 @@ export default function Dashboard() {
                 )}>
                   <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
                     <div className="flex items-center space-x-2.5">
-                      <ShieldAlert className="w-5 h-5 text-amber-500" />
+                      <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400" />
                       <h3 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Guardián de Bóveda & Runway de Tesorería</h3>
                     </div>
-                    <span className="text-[11px] bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full font-semibold">
+                    <span className="text-[11px] bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full font-semibold">
                       Protegido contra Descapitalización
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
                     <div className={"p-4 rounded-2xl border " + (isDark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-50 border-zinc-200")}>
-                      <span className="text-zinc-600 dark:text-zinc-400 font-semibold block">Bóveda Iniciales Comprometidas</span>
-                      <p className="text-xl font-bold font-mono text-amber-500 mt-1">{"$" + treasuryMetrics.committedDownPaymentsUSD.toLocaleString("es-VE") + " USD"}</p>
-                      <p className="text-[10px] text-zinc-500 mt-0.5">🔒 Intocable (Reservado ensambladoras)</p>
+                      <span className="text-zinc-700 dark:text-zinc-300 font-semibold block">Bóveda Iniciales Comprometidas</span>
+                      <p className="text-xl font-bold font-mono text-amber-700 dark:text-amber-400 mt-1">{"$" + treasuryMetrics.committedDownPaymentsUSD.toLocaleString("es-VE") + " USD"}</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400 mt-0.5">🔒 Intocable (Reservado ensambladoras)</p>
                     </div>
 
                     <div className={"p-4 rounded-2xl border " + (isDark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-50 border-zinc-200")}>
-                      <span className="text-zinc-600 dark:text-zinc-400 font-semibold block">Capital Libre Operativo Real</span>
-                      <p className="text-xl font-bold font-mono text-google-green-600 dark:text-google-green-400 mt-1">{"$" + treasuryMetrics.freeOperatingCapitalUSD.toLocaleString("es-VE") + " USD"}</p>
-                      <p className="text-[10px] text-zinc-500 mt-0.5">Disponible para nómina y gastos</p>
+                      <span className="text-zinc-700 dark:text-zinc-300 font-semibold block">Capital Libre Operativo Real</span>
+                      <p className="text-xl font-bold font-mono text-google-green-700 dark:text-google-green-400 mt-1">{"$" + treasuryMetrics.freeOperatingCapitalUSD.toLocaleString("es-VE") + " USD"}</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400 mt-0.5">Disponible para nómina y gastos</p>
                     </div>
 
                     <div className={"p-4 rounded-2xl border " + (isDark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-50 border-zinc-200")}>
-                      <span className="text-zinc-600 dark:text-zinc-400 font-semibold block">Runway Operativo Real</span>
+                      <span className="text-zinc-700 dark:text-zinc-300 font-semibold block">Runway Operativo Real</span>
                       <p className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">{treasuryMetrics.runwayMonths} Meses</p>
-                      <p className="text-[10px] text-google-green-600 dark:text-google-green-400 mt-0.5 font-medium">✅ Salud Financiera Protegida</p>
+                      <p className="text-[10px] text-google-green-700 dark:text-google-green-400 mt-0.5 font-medium">✅ Salud Financiera Protegida</p>
                     </div>
                   </div>
                 </div>
@@ -2352,10 +2352,12 @@ export default function Dashboard() {
                       </button>
                     </div>
                   ) : (
-                    <div className="p-6 text-center space-y-2 bg-zinc-950 rounded-xl border border-zinc-850">
-                      <Lock className="w-6 h-6 text-amber-400 mx-auto" />
-                      <p className="text-xs font-semibold text-zinc-200">Terminal Bloqueada para tu Rol</p>
-                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Solo usuarios con rol <strong>CAJERO</strong> o <strong>GERENTE GENERAL</strong> pueden procesar recaudos.</p>
+                    <div className={"p-6 text-center space-y-2 rounded-xl border " + (
+                      isDark ? "bg-zinc-950 border-zinc-850" : "bg-slate-50 border-slate-200"
+                    )}>
+                      <Lock className="w-6 h-6 text-amber-500 mx-auto" />
+                      <p className="text-xs font-semibold text-slate-900 dark:text-zinc-100">Terminal Bloqueada para tu Rol</p>
+                      <p className="text-[11px] text-slate-600 dark:text-zinc-400">Solo usuarios con rol <strong>CAJERO</strong> o <strong>GERENTE GENERAL</strong> pueden procesar recaudos.</p>
                     </div>
                   )}
                 </div>
@@ -2515,10 +2517,12 @@ export default function Dashboard() {
                   </div>
                 </div>
               ) : (
-                <div className="p-8 text-center bg-zinc-900/40 rounded-xl border border-zinc-850 space-y-2">
-                  <Lock className="w-6 h-6 text-amber-400 mx-auto" />
-                  <p className="text-xs font-semibold text-zinc-200">Acceso Restringido a Arqueos</p>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{"Tu rol (" + userRole + ") no posee privilegios de arqueo de caja."}</p>
+                <div className={"p-8 text-center rounded-xl border space-y-2 " + (
+                  isDark ? "bg-zinc-900/40 border-zinc-850" : "bg-slate-50 border-slate-200"
+                )}>
+                  <Lock className="w-6 h-6 text-amber-500 mx-auto" />
+                  <p className="text-xs font-semibold text-slate-900 dark:text-zinc-100">Acceso Restringido a Arqueos</p>
+                  <p className="text-[11px] text-slate-600 dark:text-zinc-400">{"Tu rol (" + userRole + ") no posee privilegios de arqueo de caja."}</p>
                 </div>
               )}
             </div>

@@ -86,13 +86,13 @@ export default function JudicialCollectionModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-amber-500/10 text-amber-400 rounded-2xl border border-amber-500/20">
+            <div className="p-2 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-2xl border border-amber-500/20">
               <Scale className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Gestión de Cobranza Judicial & Intimaciones Extrajudiciales</span>
-                <span className="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-amber-500/20 text-amber-700 dark:text-amber-400 px-2 py-0.2 rounded-full font-mono">
                   CPC ART. 640
                 </span>
               </h3>
@@ -125,8 +125,8 @@ export default function JudicialCollectionModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-amber-500 text-amber-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-amber-500 text-amber-700 dark:text-amber-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -170,7 +170,7 @@ export default function JudicialCollectionModal({
               {/* Formulario de Nuevo Litigio */}
               {isCreatingCase && (
                 <div className="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-amber-500/30 space-y-3 animate-in fade-in">
-                  <h4 className="font-bold text-xs text-amber-400">Seleccionar Contrato Moroso para Demanda</h4>
+                  <h4 className="font-bold text-xs text-amber-700 dark:text-amber-400">Seleccionar Contrato Moroso para Demanda</h4>
                   <div className="flex items-center space-x-3">
                     <select
                       value={targetContractId}
@@ -212,13 +212,13 @@ export default function JudicialCollectionModal({
                       <div className="flex items-start justify-between">
                         <div>
                           <div className="flex items-center space-x-2">
-                            <span className="text-[10px] font-mono font-bold bg-zinc-100/80 dark:bg-zinc-800/80 text-amber-400 px-2 py-0.5 rounded-md">
+                            <span className="text-[10px] font-mono font-bold bg-zinc-100/80 dark:bg-zinc-800/80 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-md">
                               {c.id}
                             </span>
                             <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold uppercase " + (
-                              c.currentPhase === "EXTRAJUDICIAL_INTIMATION" ? "bg-amber-500/10 text-amber-400 border border-amber-500/20" :
-                              c.currentPhase === "COURT_INTIMATION_FILED" ? "bg-purple-500/10 text-purple-400 border border-purple-500/20" :
-                              "bg-rose-500/10 text-rose-400 border border-rose-500/20"
+                              c.currentPhase === "EXTRAJUDICIAL_INTIMATION" ? "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20" :
+                              c.currentPhase === "COURT_INTIMATION_FILED" ? "bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20" :
+                              "bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20"
                             )}>
                               ● {c.currentPhase.replace(/_/g, " ")}
                             </span>
@@ -231,7 +231,7 @@ export default function JudicialCollectionModal({
                         </div>
 
                         <div className="text-right">
-                          <span className="text-xs font-mono font-bold text-emerald-400 block">
+                          <span className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400 block">
                             {"$" + c.totalClaimUSD.toFixed(2) + " USD"}
                           </span>
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">
@@ -242,11 +242,11 @@ export default function JudicialCollectionModal({
 
                       {/* Desglose Económico */}
                       <div className="p-3 bg-white dark:bg-zinc-900/80 rounded-lg border border-zinc-200 dark:border-zinc-800/80 space-y-1 text-xs font-mono">
-                        <div className="flex justify-between text-zinc-300">
+                        <div className="flex justify-between text-slate-700 dark:text-zinc-300">
                           <span>Capital Líquido:</span>
                           <span>{"$" + c.capitalOwedUSD.toFixed(2)} USD</span>
                         </div>
-                        <div className="flex justify-between text-amber-400">
+                        <div className="flex justify-between text-amber-700 dark:text-amber-400">
                           <span>Intereses de Mora:</span>
                           <span>{"$" + c.lateFeesOwedUSD.toFixed(2)} USD</span>
                         </div>
@@ -256,7 +256,7 @@ export default function JudicialCollectionModal({
                         </div>
                         <div className="flex justify-between text-zinc-900 dark:text-zinc-100 font-bold pt-1 border-t border-zinc-200 dark:border-zinc-800">
                           <span>Pretensión Total Demanda:</span>
-                          <span className="text-emerald-400">{"$" + c.totalClaimUSD.toFixed(2)} USD</span>
+                          <span className="text-emerald-700 dark:text-emerald-400">{"$" + c.totalClaimUSD.toFixed(2)} USD</span>
                         </div>
                       </div>
 
@@ -264,7 +264,7 @@ export default function JudicialCollectionModal({
                         <span className="truncate max-w-[200px]">{c.assignedLawyer}</span>
                         <button
                           onClick={(e) => { e.stopPropagation(); setSelectedCaseId(c.id); setActiveTab("INTIMATION_LETTER"); }}
-                          className="text-amber-400 hover:text-amber-300 font-semibold flex items-center space-x-1"
+                          className="text-amber-700 dark:text-amber-400 hover:text-amber-300 font-semibold flex items-center space-x-1"
                         >
                           <span>Ver Notificación</span>
                           <ChevronRight className="w-3.5 h-3.5" />
@@ -298,12 +298,12 @@ export default function JudicialCollectionModal({
                   )}
                   className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5 text-amber-400" />
+                  <Download className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
                   <span>Descargar Documento (.TXT)</span>
                 </button>
               </div>
 
-              <div className="p-6 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 font-mono text-xs text-zinc-300 whitespace-pre-wrap leading-relaxed overflow-y-auto">
+              <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 font-mono text-xs text-slate-800 dark:text-zinc-200 whitespace-pre-wrap leading-relaxed overflow-y-auto">
                 {JudicialCollectionEngine.generateNotarizedIntimationLetter(currentCase, bcvRate)}
               </div>
             </div>
@@ -329,12 +329,12 @@ export default function JudicialCollectionModal({
                   )}
                   className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5 text-amber-400" />
+                  <Download className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
                   <span>Descargar Libelo de Demanda</span>
                 </button>
               </div>
 
-              <div className="p-6 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 font-mono text-xs text-zinc-300 whitespace-pre-wrap leading-relaxed overflow-y-auto">
+              <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 font-mono text-xs text-slate-800 dark:text-zinc-200 whitespace-pre-wrap leading-relaxed overflow-y-auto">
                 {JudicialCollectionEngine.generateCourtComplaintLibel(currentCase)}
               </div>
             </div>

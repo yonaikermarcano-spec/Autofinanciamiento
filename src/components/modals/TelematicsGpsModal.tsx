@@ -101,13 +101,13 @@ export default function TelematicsGpsModal({
         {/* Encabezado */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-rose-500/10 text-rose-400 rounded-2xl border border-rose-500/20">
+            <div className="p-2 bg-rose-500/10 text-rose-700 dark:text-rose-400 rounded-2xl border border-rose-500/20">
               <Radio className="w-5 h-5 animate-pulse" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Centro Telemático GPS & Gestor de Pólizas RCV</span>
-                <span className="text-[10px] bg-rose-500/20 text-rose-400 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-rose-500/20 text-rose-700 dark:text-rose-400 px-2 py-0.2 rounded-full font-mono">
                   KILL-SWITCH READY
                 </span>
               </h3>
@@ -140,8 +140,8 @@ export default function TelematicsGpsModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-rose-500 text-rose-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-rose-500 text-rose-700 dark:text-rose-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -159,8 +159,8 @@ export default function TelematicsGpsModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -193,10 +193,10 @@ export default function TelematicsGpsModal({
                           <div className="flex items-center space-x-2">
                             <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold uppercase flex items-center space-x-1 " + (
                               isTampered
-                                ? "bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse"
+                                ? "bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30 animate-pulse"
                                 : isLocked
-                                ? "bg-rose-500/20 text-rose-300 border border-rose-500/30"
-                                : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                ? "bg-rose-500/20 text-rose-800 dark:text-rose-300 border border-rose-500/30"
+                                : "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
                             )}>
                               <Activity className="w-3 h-3" />
                               <span>{dev.status.replace("_", " ")}</span>
@@ -225,8 +225,8 @@ export default function TelematicsGpsModal({
                       <div className="p-3 rounded-lg bg-white dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-1.5 text-xs font-mono">
                         <div className="flex items-center justify-between">
                           <span className="text-zinc-600 dark:text-zinc-400 flex items-center space-x-1">
-                            <MapPin className="w-3.5 h-3.5 text-blue-400" />
-                            <span className="font-sans text-[11px] text-zinc-300">{dev.locationName}</span>
+                            <MapPin className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" />
+                            <span className="font-sans text-[11px] text-slate-700 dark:text-zinc-300 font-medium">{dev.locationName}</span>
                           </span>
                           <span className="text-zinc-600 dark:text-zinc-400 text-[10px]">
                             {dev.latitude.toFixed(4)}, {dev.longitude.toFixed(4)}
@@ -235,11 +235,11 @@ export default function TelematicsGpsModal({
 
                         <div className="flex items-center justify-between pt-1 border-t border-zinc-200 dark:border-zinc-800/60">
                           <span className="text-zinc-600 dark:text-zinc-400 flex items-center space-x-1">
-                            <BatteryCharging className="w-3.5 h-3.5 text-emerald-400" />
+                            <BatteryCharging className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
                             <span>Batería: <strong>{dev.batteryVoltage}V</strong></span>
                           </span>
 
-                          <span className={"text-[10px] " + (dev.isOutsideGeofence ? "text-amber-400 font-bold" : "text-zinc-600 dark:text-zinc-400")}>
+                          <span className={"text-[10px] " + (dev.isOutsideGeofence ? "text-amber-700 dark:text-amber-400 font-bold" : "text-zinc-600 dark:text-zinc-400")}>
                             {dev.isOutsideGeofence ? "⚠️ Fuera de Geocerca" : "✓ Dentro de Geocerca"}
                           </span>
                         </div>
@@ -299,23 +299,23 @@ export default function TelematicsGpsModal({
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">{rcv.insurer.replace("_", " ")}</span>
                         </td>
                         <td className="p-3">
-                          <p className="font-semibold text-zinc-200 font-sans">{rcv.clientName}</p>
+                          <p className="font-semibold text-slate-900 dark:text-zinc-100 font-sans">{rcv.clientName}</p>
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400">#{rcv.contractNumber} • VIN: {rcv.vehicleVin}</span>
                         </td>
                         <td className="p-3">
-                          <p className="text-zinc-200">{rcv.startDate} al {rcv.expirationDate}</p>
+                          <p className="text-slate-700 dark:text-zinc-300">{rcv.startDate} al {rcv.expirationDate}</p>
                           <span className={"text-[10px] " + (
-                            rcv.daysToExpiration < 0 ? "text-rose-400 font-bold" :
-                            rcv.daysToExpiration <= 30 ? "text-amber-400 font-bold" : "text-emerald-400"
+                            rcv.daysToExpiration < 0 ? "text-rose-700 dark:text-rose-400 font-bold" :
+                            rcv.daysToExpiration <= 30 ? "text-amber-700 dark:text-amber-400 font-bold" : "text-emerald-700 dark:text-emerald-400"
                           )}>
                             {rcv.daysToExpiration < 0 ? ("Vencida hace " + Math.abs(rcv.daysToExpiration) + " días") : ("Quedan " + rcv.daysToExpiration + " días")}
                           </span>
                         </td>
                         <td className="p-3">
                           <span className={"text-[10px] px-2.5 py-0.5 rounded-full font-bold " + (
-                            rcv.status === "VIGENTE" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
-                            rcv.status === "POR_VENCER" ? "bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse" :
-                            "bg-rose-500/10 text-rose-400 border border-rose-500/20"
+                            rcv.status === "VIGENTE" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20" :
+                            rcv.status === "POR_VENCER" ? "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 animate-pulse" :
+                            "bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/20"
                           )}>
                             ● {rcv.status}
                           </span>
@@ -360,12 +360,12 @@ export default function TelematicsGpsModal({
                           <p className="text-zinc-900 dark:text-zinc-100 font-bold">{l.id}</p>
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{l.timestamp}</span>
                         </td>
-                        <td className="p-3 font-sans text-zinc-300 font-medium">
+                        <td className="p-3 font-sans text-slate-800 dark:text-zinc-200 font-medium">
                           {l.operatorName}
                         </td>
                         <td className="p-3">
                           <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold " + (
-                            l.action === "ENGINE_CUT_OFF" ? "bg-rose-500/20 text-rose-400 border border-rose-500/30" : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                            l.action === "ENGINE_CUT_OFF" ? "bg-rose-500/20 text-rose-700 dark:text-rose-400 border border-rose-500/30" : "bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30"
                           )}>
                             {l.action}
                           </span>
@@ -391,7 +391,7 @@ export default function TelematicsGpsModal({
           <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs backdrop-blur-md animate-in fade-in">
             <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl w-full max-w-5xl h-[86vh] max-h-[820px] min-h-[620px] p-6 space-y-4 shadow-2xl text-zinc-900 dark:text-zinc-100 font-sans">
               
-              <div className="flex items-center space-x-3 text-rose-400">
+              <div className="flex items-center space-x-3 text-rose-700 dark:text-rose-400">
                 <div className="p-2.5 bg-rose-500/20 rounded-2xl border border-rose-500/30">
                   <Power className="w-6 h-6 animate-pulse" />
                 </div>
@@ -405,15 +405,15 @@ export default function TelematicsGpsModal({
 
               <div className="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2 text-xs font-mono">
                 <p>Cliente: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{confirmDevice.clientName}</strong></p>
-                <p>Contrato: <strong className="text-zinc-300">{confirmDevice.contractNumber}</strong></p>
-                <p>VIN Chasis: <strong className="text-zinc-300">{confirmDevice.vehicleVin}</strong></p>
-                <p>IMEI GPS: <strong className="text-emerald-400">{confirmDevice.imei}</strong></p>
+                <p>Contrato: <strong className="text-slate-900 dark:text-zinc-100">{confirmDevice.contractNumber}</strong></p>
+                <p>VIN Chasis: <strong className="text-slate-900 dark:text-zinc-100">{confirmDevice.vehicleVin}</strong></p>
+                <p>IMEI GPS: <strong className="text-emerald-700 dark:text-emerald-400">{confirmDevice.imei}</strong></p>
                 <p>Ubicación: <span className="text-zinc-600 dark:text-zinc-400 font-sans">{confirmDevice.locationName}</span></p>
               </div>
 
               {confirmAction === "CUT_OFF" && (
-                <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-[11px] text-amber-300 flex items-start space-x-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-[11px] text-amber-800 dark:text-amber-300 flex items-start space-x-2">
+                  <AlertTriangle className="w-4 h-4 text-amber-700 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                   <span>
                     El corte inmoviliza la bomba de gasolina o CDI. Verifique que la unidad no se encuentre en autopista de alta velocidad.
                   </span>

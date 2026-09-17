@@ -77,7 +77,7 @@ export default function PrintDocumentModal({
         <div className="space-y-3 border-b border-zinc-200 dark:border-zinc-200 dark:border-zinc-800 pb-4 print:hidden">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
-              <div className="p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-400">
+              <div className="p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-700 dark:text-emerald-400">
                 <FileText className="w-5 h-5" />
               </div>
               <div>
@@ -101,7 +101,7 @@ export default function PrintDocumentModal({
               </button>
               <button 
                 onClick={onClose} 
-                className="p-2 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition cursor-pointer"
+                className="p-2 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-800 transition cursor-pointer"
                 title="Cerrar vista previa"
               >
                 <X className="w-5 h-5" />

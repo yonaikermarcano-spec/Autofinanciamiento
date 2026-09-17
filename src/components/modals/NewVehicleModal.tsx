@@ -74,7 +74,7 @@ export default function NewVehicleModal({
       >
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-950/50">
           <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-base flex items-center space-x-2">
-            <Bike className="w-5 h-5 text-emerald-400" />
+            <Bike className="w-5 h-5 text-emerald-700 dark:text-emerald-400" />
             <span>Registrar Unidad al Inventario</span>
           </h3>
           <button onClick={onClose} className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100">

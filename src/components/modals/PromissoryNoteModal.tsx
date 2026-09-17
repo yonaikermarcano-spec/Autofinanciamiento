@@ -108,13 +108,13 @@ export default function PromissoryNoteModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-2xl border border-emerald-500/20">
+            <div className="p-2 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-2xl border border-emerald-500/20">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Pagarés Mercantiles Electrónicos & Firma OTP / QR</span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 px-2 py-0.2 rounded-full font-mono">
                   CÓDIGO COMERCIO ART. 486
                 </span>
               </h3>
@@ -147,8 +147,8 @@ export default function PromissoryNoteModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-emerald-500 text-emerald-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-emerald-500 text-emerald-700 dark:text-emerald-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -163,8 +163,8 @@ export default function PromissoryNoteModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -193,8 +193,8 @@ export default function PromissoryNoteModal({
               <div className="flex items-center space-x-2">
                 <span className={"text-[10px] px-2.5 py-1 rounded-full font-bold uppercase " + (
                   currentNote.status === "SIGNED_AND_ACTIVE" 
-                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
-                    : "bg-amber-500/10 text-amber-400 border border-amber-500/30"
+                    ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30"
+                    : "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30"
                 )}>
                   ● {currentNote.status.replace(/_/g, " ")}
                 </span>
@@ -220,13 +220,13 @@ export default function PromissoryNoteModal({
                     onClick={handleDownloadText}
                     className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5 text-emerald-400" />
+                    <Download className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
                     <span>Descargar Pagaré (.TXT)</span>
                   </button>
                 </div>
               </div>
 
-              <div className="p-6 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 font-mono text-xs text-zinc-300 whitespace-pre-wrap leading-relaxed overflow-y-auto">
+              <div className="p-6 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 font-mono text-xs text-slate-800 dark:text-zinc-200 whitespace-pre-wrap leading-relaxed overflow-y-auto">
                 {PromissoryNoteEngine.generatePromissoryNoteLegalText(currentNote)}
               </div>
             </div>
@@ -244,11 +244,11 @@ export default function PromissoryNoteModal({
                 <div className="p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50 space-y-4">
                   <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
                     <div className="flex items-center space-x-2">
-                      <UserCheck className="w-4 h-4 text-blue-400" />
+                      <UserCheck className="w-4 h-4 text-blue-700 dark:text-blue-400" />
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">1. Firma Deudor Principal</h4>
                     </div>
                     <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold " + (
-                      currentNote.clientSignature.isSigned ? "bg-emerald-500/10 text-emerald-400" : "bg-amber-500/10 text-amber-400"
+                      currentNote.clientSignature.isSigned ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" : "bg-amber-500/10 text-amber-700 dark:text-amber-400"
                     )}>
                       {currentNote.clientSignature.isSigned ? "✓ FIRMADO" : "PENDIENTE"}
                     </span>
@@ -256,13 +256,13 @@ export default function PromissoryNoteModal({
 
                   <div className="space-y-1 text-xs font-mono">
                     <p>Nombre: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{currentNote.clientSignature.name}</strong></p>
-                    <p>C.I.: <span className="text-zinc-300">{currentNote.clientSignature.docId}</span></p>
+                    <p className="text-slate-700 dark:text-zinc-300">C.I.: <strong className="text-slate-900 dark:text-zinc-100">{currentNote.clientSignature.docId}</strong></p>
                     <p>Teléfono: <span className="text-zinc-600 dark:text-zinc-400">{currentNote.clientSignature.phone}</span></p>
-                    <p>Código OTP Generado: <strong className="text-amber-400 font-bold">{currentNote.clientSignature.otpCode}</strong></p>
+                    <p>Código OTP Generado: <strong className="text-amber-700 dark:text-amber-400 font-bold">{currentNote.clientSignature.otpCode}</strong></p>
                   </div>
 
                   {currentNote.clientSignature.isSigned ? (
-                    <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl space-y-1 text-[11px] font-mono text-emerald-300">
+                    <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl space-y-1 text-[11px] font-mono text-emerald-800 dark:text-emerald-300">
                       <p>Fecha Firma: {currentNote.clientSignature.signedAt}</p>
                       <p className="truncate">Hash: {currentNote.clientSignature.signatureHash}</p>
                       <p>IP: {currentNote.clientSignature.ipAddress}</p>
@@ -291,11 +291,11 @@ export default function PromissoryNoteModal({
                 <div className="p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50 space-y-4">
                   <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
                     <div className="flex items-center space-x-2">
-                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                      <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">2. Firma Fiador Solidario</h4>
                     </div>
                     <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold " + (
-                      currentNote.guarantorSignature.isSigned ? "bg-emerald-500/10 text-emerald-400" : "bg-amber-500/10 text-amber-400"
+                      currentNote.guarantorSignature.isSigned ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" : "bg-amber-500/10 text-amber-700 dark:text-amber-400"
                     )}>
                       {currentNote.guarantorSignature.isSigned ? "✓ FIRMADO" : "PENDIENTE"}
                     </span>
@@ -303,13 +303,13 @@ export default function PromissoryNoteModal({
 
                   <div className="space-y-1 text-xs font-mono">
                     <p>Fiador: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{currentNote.guarantorSignature.name}</strong></p>
-                    <p>C.I.: <span className="text-zinc-300">{currentNote.guarantorSignature.docId}</span></p>
+                    <p className="text-slate-700 dark:text-zinc-300">C.I.: <strong className="text-slate-900 dark:text-zinc-100">{currentNote.guarantorSignature.docId}</strong></p>
                     <p>Teléfono: <span className="text-zinc-600 dark:text-zinc-400">{currentNote.guarantorSignature.phone}</span></p>
-                    <p>Código OTP Generado: <strong className="text-amber-400 font-bold">{currentNote.guarantorSignature.otpCode}</strong></p>
+                    <p>Código OTP Generado: <strong className="text-amber-700 dark:text-amber-400 font-bold">{currentNote.guarantorSignature.otpCode}</strong></p>
                   </div>
 
                   {currentNote.guarantorSignature.isSigned ? (
-                    <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl space-y-1 text-[11px] font-mono text-emerald-300">
+                    <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl space-y-1 text-[11px] font-mono text-emerald-800 dark:text-emerald-300">
                       <p>Fecha Firma: {currentNote.guarantorSignature.signedAt}</p>
                       <p className="truncate">Hash: {currentNote.guarantorSignature.signatureHash}</p>
                       <p>IP: {currentNote.guarantorSignature.ipAddress}</p>
@@ -353,8 +353,8 @@ export default function PromissoryNoteModal({
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono mt-1">{currentNote.qrVerificationUrl}</p>
               </div>
 
-              <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-300 space-y-1 text-left">
-                <p>Pagaré: <strong className="text-emerald-400">{currentNote.noteNumber}</strong></p>
+              <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-slate-800 dark:text-zinc-200 space-y-1 text-left">
+                <p>Pagaré: <strong className="text-emerald-700 dark:text-emerald-400">{currentNote.noteNumber}</strong></p>
                 <p>Sello SHA-256: <span className="text-[10px] text-zinc-600 dark:text-zinc-400 break-all">{currentNote.sha256Seal}</span></p>
                 <p>Estatus de Ejecución: <strong className="text-zinc-900 dark:text-zinc-100">{currentNote.status}</strong></p>
               </div>

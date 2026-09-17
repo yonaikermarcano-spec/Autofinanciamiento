@@ -108,13 +108,13 @@ export default function DebtAssignmentModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-2xl border border-indigo-500/20">
+            <div className="p-2 bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 rounded-2xl border border-indigo-500/20">
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Cesión de Deuda & Traspaso de Crédito entre Clientes</span>
-                <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 px-2 py-0.2 rounded-full font-mono">
                   ACUERDO TRIPARTITO
                 </span>
               </h3>
@@ -137,8 +137,8 @@ export default function DebtAssignmentModal({
           
           {/* Banner de Éxito */}
           {successMessage && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successMessage}</span>
             </div>
           )}
@@ -150,7 +150,7 @@ export default function DebtAssignmentModal({
             <div className="lg:col-span-6 p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-4 text-xs">
               <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
                 <span className="font-bold text-zinc-900 dark:text-zinc-100 uppercase text-[11px] flex items-center space-x-1.5">
-                  <UserCheck className="w-4 h-4 text-indigo-400" />
+                  <UserCheck className="w-4 h-4 text-indigo-700 dark:text-indigo-400" />
                   <span>1. Datos del Nuevo Titular (Cesionario)</span>
                 </span>
               </div>
@@ -209,7 +209,7 @@ export default function DebtAssignmentModal({
                     type="number"
                     value={transferFeeUSD}
                     onChange={e => setTransferFeeUSD(parseFloat(e.target.value) || 0)}
-                    className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-400 font-bold font-mono text-xs"
+                    className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 font-bold font-mono text-xs"
                   />
                 </div>
               </div>
@@ -226,7 +226,7 @@ export default function DebtAssignmentModal({
 
               {/* Fiador del Nuevo Titular */}
               <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2">
-                <span className="font-semibold text-zinc-300 block text-[11px]">Fiador / Aval Solidario del Nuevo Titular:</span>
+                <span className="font-semibold text-slate-800 dark:text-zinc-200 block text-[11px]">Fiador / Aval Solidario del Nuevo Titular:</span>
                 <div className="grid grid-cols-3 gap-2">
                   <input
                     type="text"
@@ -255,17 +255,17 @@ export default function DebtAssignmentModal({
 
             {/* Columna Derecha: Resumen Legal y Ejecución (Col 6) */}
             <div className="lg:col-span-6 p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-4">
-              <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">2. CONDICIONES Y DOCUMENTOS DEL TRASPASO</span>
+              <span className="text-[10px] text-indigo-700 dark:text-indigo-400 font-bold uppercase tracking-wider">2. CONDICIONES Y DOCUMENTOS DEL TRASPASO</span>
 
               <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                 <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Titular Saliente (Cedente):</span>
-                  <strong className="text-zinc-300">{transferResult.outgoingClientName}</strong>
+                  <strong className="text-slate-900 dark:text-zinc-100">{transferResult.outgoingClientName}</strong>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">CI: {transferResult.outgoingClientDocId}</span>
                 </div>
 
                 <div className="p-3.5 bg-indigo-950/20 rounded-2xl border border-indigo-500/30">
-                  <span className="text-[10px] text-indigo-400 font-sans block">Nuevo Titular (Cesionario):</span>
+                  <span className="text-[10px] text-indigo-700 dark:text-indigo-400 font-sans block">Nuevo Titular (Cesionario):</span>
                   <strong className="text-zinc-900 dark:text-zinc-100">{transferResult.newClientName}</strong>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">CI: {transferResult.newClientDocId}</span>
                 </div>
@@ -274,7 +274,7 @@ export default function DebtAssignmentModal({
               <div className="grid grid-cols-3 gap-2 text-xs font-mono">
                 <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Deuda Asumida:</span>
-                  <strong className="text-emerald-400">{"$" + transferResult.transferredOutstandingUSD} USD</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400">{"$" + transferResult.transferredOutstandingUSD} USD</strong>
                 </div>
 
                 <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
@@ -284,7 +284,7 @@ export default function DebtAssignmentModal({
 
                 <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Tasa Administrativa:</span>
-                  <strong className="text-amber-400">{"$" + transferResult.transferFeeUSD} USD</strong>
+                  <strong className="text-amber-700 dark:text-amber-400">{"$" + transferResult.transferFeeUSD} USD</strong>
                 </div>
               </div>
 
@@ -292,21 +292,21 @@ export default function DebtAssignmentModal({
               <div className="p-4 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2 text-xs">
                 <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center space-x-1.5">
-                    <FileSignature className="w-4 h-4 text-indigo-400" />
+                    <FileSignature className="w-4 h-4 text-indigo-700 dark:text-indigo-400" />
                     <span>Documentos Generados Automáticamente</span>
                   </span>
-                  <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.2 rounded font-mono">
+                  <span className="text-[10px] bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 px-2 py-0.2 rounded font-mono">
                     3 TÍTULOS LEGALES
                   </span>
                 </div>
 
-                <p className="text-zinc-300 font-mono text-[11px]">
+                <p className="text-slate-700 dark:text-zinc-300 font-mono text-[11px]">
                   1. Contrato Tripartito: <strong className="text-zinc-900 dark:text-zinc-100">{transferResult.tripartiteAgreementCode}</strong>
                 </p>
-                <p className="text-zinc-300 font-mono text-[11px]">
+                <p className="text-slate-700 dark:text-zinc-300 font-mono text-[11px]">
                   2. Nuevo Pagaré Mercantil: <strong className="text-zinc-900 dark:text-zinc-100">{transferResult.newPromissoryNoteId}</strong>
                 </p>
-                <p className="text-zinc-300 font-mono text-[11px]">
+                <p className="text-slate-700 dark:text-zinc-300 font-mono text-[11px]">
                   3. Finiquito al Cedente: <strong className="text-zinc-900 dark:text-zinc-100">{transferResult.outgoingReleaseReceiptId}</strong>
                 </p>
                 <p className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono truncate">

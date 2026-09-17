@@ -83,13 +83,13 @@ export default function ExecutiveBIModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-2xl border border-emerald-500/20">
+            <div className="p-2 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-2xl border border-emerald-500/20">
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Centro de Inteligencia Ejecutiva (BI) & Proyecciones</span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 px-2 py-0.2 rounded-full font-mono">
                   FINANCIAL ANALYTICS
                 </span>
               </h3>
@@ -123,8 +123,8 @@ export default function ExecutiveBIModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-emerald-500 text-emerald-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-emerald-500 text-emerald-700 dark:text-emerald-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -155,7 +155,7 @@ export default function ExecutiveBIModal({
                     className="p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-3 relative overflow-hidden"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">{cf.label}</span>
+                      <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wider">{cf.label}</span>
                       <span className="text-[10px] bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 px-2 py-0.5 rounded font-mono">
                         {cf.expectedQuotasCount} cuotas estimadas
                       </span>
@@ -165,7 +165,7 @@ export default function ExecutiveBIModal({
                       <span className="text-2xl font-black font-mono text-zinc-900 dark:text-zinc-100">
                         {"$" + cf.netExpectedCashFlowUSD.toLocaleString("es-VE")} USD
                       </span>
-                      <span className="text-xs text-emerald-400 font-mono block mt-0.5">
+                      <span className="text-xs text-emerald-700 dark:text-emerald-400 font-mono block mt-0.5">
                         {"≈ Bs. " + cf.netExpectedCashFlowVES.toLocaleString("es-VE") + " BCV"}
                       </span>
                     </div>
@@ -173,9 +173,9 @@ export default function ExecutiveBIModal({
                     <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 space-y-1 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
                       <div className="flex justify-between">
                         <span>Cobranza Bruta Teórica:</span>
-                        <span className="text-zinc-200">{"$" + cf.grossProjectedUSD}</span>
+                        <span className="text-slate-900 dark:text-zinc-100 font-bold">{"$" + cf.grossProjectedUSD}</span>
                       </div>
-                      <div className="flex justify-between text-amber-400/90">
+                      <div className="flex justify-between text-amber-700 dark:text-amber-400/90">
                         <span>Castigo por Mora Estimada:</span>
                         <span>-{"$" + cf.expectedDefaultRiskUSD}</span>
                       </div>
@@ -184,9 +184,9 @@ export default function ExecutiveBIModal({
                 ))}
               </div>
 
-              <div className="p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-2 text-xs text-zinc-300">
+              <div className="p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950 space-y-2 text-xs text-slate-800 dark:text-zinc-200">
                 <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
-                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <Sparkles className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
                   <span>Criterio Metodológico de la Proyección de Liquidez</span>
                 </h4>
                 <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -214,11 +214,11 @@ export default function ExecutiveBIModal({
                 <div className="text-right">
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-bold uppercase">ÍNDICE DE MORA CRÍTICA (NPL)</span>
                   <div className="flex items-baseline justify-end space-x-1 mt-0.5">
-                    <span className="text-3xl font-black font-mono text-emerald-400">{portfolioHealth.nplRatioPercent}%</span>
+                    <span className="text-3xl font-black font-mono text-emerald-700 dark:text-emerald-400">{portfolioHealth.nplRatioPercent}%</span>
                   </div>
                   <span className={"text-[10px] font-bold px-2 py-0.5 rounded border inline-block mt-1 " + (
-                    portfolioHealth.portfolioHealthStatus === 'EXCELENTE' ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" :
-                    "bg-amber-500/10 text-amber-400 border-amber-500/30"
+                    portfolioHealth.portfolioHealthStatus === 'EXCELENTE' ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30" :
+                    "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30"
                   )}>
                     ● SALUD: {portfolioHealth.portfolioHealthStatus}
                   </span>
@@ -227,7 +227,7 @@ export default function ExecutiveBIModal({
 
               {/* Barra de Distribución de Cartera */}
               <div className="space-y-2">
-                <span className="text-xs font-bold text-zinc-300">Composición de la Cartera por Nivel de Riesgo:</span>
+                <span className="text-xs font-bold text-slate-800 dark:text-zinc-200">Composición de la Cartera por Nivel de Riesgo:</span>
                 <div className="h-4 rounded-full bg-zinc-800 flex overflow-hidden">
                   <div style={{ width: portfolioHealth.healthyPercent + "%" }} className="bg-emerald-500" title="Cartera Sana" />
                   <div style={{ width: portfolioHealth.moderateRiskPercent + "%" }} className="bg-blue-500" title="Riesgo Moderado" />
@@ -239,19 +239,19 @@ export default function ExecutiveBIModal({
               {/* Detalle por Tramo */}
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
                 <div className="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-1">
-                  <span className="text-[10px] text-emerald-400 font-bold block">🟢 CARTERA SANA (0-7 DÍAS)</span>
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold block">🟢 CARTERA SANA (0-7 DÍAS)</span>
                   <strong className="text-zinc-900 dark:text-zinc-100 text-base font-mono block">{"$" + portfolioHealth.healthyPortfolioUSD.toLocaleString("es-VE")} USD</strong>
                   <span className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">{portfolioHealth.healthyPercent}% de la cartera</span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-blue-950/20 border border-blue-500/30 space-y-1">
-                  <span className="text-[10px] text-blue-400 font-bold block">🔵 RIESGO MODERADO (8-30 DÍAS)</span>
+                  <span className="text-[10px] text-blue-700 dark:text-blue-400 font-bold block">🔵 RIESGO MODERADO (8-30 DÍAS)</span>
                   <strong className="text-zinc-900 dark:text-zinc-100 text-base font-mono block">{"$" + portfolioHealth.moderateRiskPortfolioUSD.toLocaleString("es-VE")} USD</strong>
                   <span className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">{portfolioHealth.moderateRiskPercent}% de la cartera</span>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/30 space-y-1">
-                  <span className="text-[10px] text-amber-400 font-bold block">🟡 RIESGO ALTO (31-60 DÍAS)</span>
+                  <span className="text-[10px] text-amber-700 dark:text-amber-400 font-bold block">🟡 RIESGO ALTO (31-60 DÍAS)</span>
                   <strong className="text-zinc-900 dark:text-zinc-100 text-base font-mono block">{"$" + portfolioHealth.highRiskPortfolioUSD.toLocaleString("es-VE")} USD</strong>
                   <span className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">{portfolioHealth.highRiskPercent}% de la cartera</span>
                 </div>
@@ -272,9 +272,9 @@ export default function ExecutiveBIModal({
           {activeTab === "MODEL_PROFIT" && (
             <div className="space-y-4">
               
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-xs text-zinc-300">
+              <div className="p-4 bg-slate-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-xs text-slate-800 dark:text-zinc-200">
                 <p className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center space-x-1.5">
-                  <Bike className="w-4 h-4 text-emerald-400" />
+                  <Bike className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
                   <span>Matriz de Desempeño Financiero y Riesgo por Marca & Modelo</span>
                 </p>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
@@ -297,25 +297,25 @@ export default function ExecutiveBIModal({
                       </div>
                       <div className="flex flex-wrap items-center gap-3 text-zinc-600 dark:text-zinc-400 text-xs">
                         <p>Financiamiento Promedio: <strong className="text-zinc-900 dark:text-zinc-100 font-mono">{"$" + item.avgFinancedUSD}</strong></p>
-                        <p>Interés Promedio Generado: <strong className="text-emerald-400 font-mono">+{"$" + item.avgInterestEarnedUSD}</strong></p>
+                        <p>Interés Promedio Generado: <strong className="text-emerald-700 dark:text-emerald-400 font-mono">+{"$" + item.avgInterestEarnedUSD}</strong></p>
                       </div>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-4 text-right">
                       <div>
                         <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">TASA MORA</span>
-                        <strong className="text-amber-400 text-xs">{item.defaultRatePercent}%</strong>
+                        <strong className="text-amber-700 dark:text-amber-400 text-xs">{item.defaultRatePercent}%</strong>
                       </div>
 
                       <div>
                         <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">MARGEN NETO</span>
-                        <strong className="text-emerald-400 text-sm">{item.netProfitMarginPercent}%</strong>
+                        <strong className="text-emerald-700 dark:text-emerald-400 text-sm">{item.netProfitMarginPercent}%</strong>
                       </div>
 
                       <span className={"text-[10px] font-bold px-2.5 py-1 rounded font-sans " + (
-                        item.recommendedInventoryAction === "AUMENTAR_COLOCACION" ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" :
-                        item.recommendedInventoryAction === "MANTENER_NIVEL" ? "bg-blue-500/20 text-blue-300 border border-blue-500/30" :
-                        "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                        item.recommendedInventoryAction === "AUMENTAR_COLOCACION" ? "bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30" :
+                        item.recommendedInventoryAction === "MANTENER_NIVEL" ? "bg-blue-500/20 text-blue-800 dark:text-blue-300 border border-blue-500/30" :
+                        "bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30"
                       )}>
                         ● {item.recommendedInventoryAction.replace(/_/g, ' ')}
                       </span>
@@ -349,7 +349,7 @@ export default function ExecutiveBIModal({
                       step="500"
                       value={simCapitalUSD}
                       onChange={e => setSimCapitalUSD(parseFloat(e.target.value) || 0)}
-                      className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-400 font-bold font-mono text-xs"
+                      className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 font-bold font-mono text-xs"
                     />
                   </div>
 
@@ -396,7 +396,7 @@ export default function ExecutiveBIModal({
 
               {/* Resultados Simulador (Col 7) */}
               <div className="lg:col-span-7 p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-4">
-                <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">RESULTADOS PROYECTADOS</span>
+                <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wider">RESULTADOS PROYECTADOS</span>
 
                 <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                   <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
@@ -406,21 +406,21 @@ export default function ExecutiveBIModal({
 
                   <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                     <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block font-sans">Inicial Recuperada al Instante:</span>
-                    <strong className="text-emerald-400 text-xl">{"$" + expansionResult.downPaymentRecoveredInstantUSD} USD</strong>
+                    <strong className="text-emerald-700 dark:text-emerald-400 text-xl">{"$" + expansionResult.downPaymentRecoveredInstantUSD} USD</strong>
                   </div>
 
                   <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                     <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block font-sans">Ingreso Mensual por Cuotas:</span>
-                    <strong className="text-indigo-400 text-xl">{"$" + expansionResult.monthlyCashInflowExpectedUSD} USD/mes</strong>
+                    <strong className="text-indigo-700 dark:text-indigo-400 text-xl">{"$" + expansionResult.monthlyCashInflowExpectedUSD} USD/mes</strong>
                   </div>
 
                   <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                     <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block font-sans">Retorno de Inversión (ROI):</span>
-                    <strong className="text-amber-400 text-xl">{expansionResult.netProfitabilityROI}%</strong>
+                    <strong className="text-amber-700 dark:text-amber-400 text-xl">{expansionResult.netProfitabilityROI}%</strong>
                   </div>
                 </div>
 
-                <div className="p-3.5 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl text-xs text-emerald-300 space-y-1">
+                <div className="p-3.5 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl text-xs text-emerald-800 dark:text-emerald-300 space-y-1">
                   <p className="font-bold">⏱️ Período de Recuperación Total del Capital (Payback):</p>
                   <p className="text-zinc-900 dark:text-zinc-100 font-mono text-sm">
                     {expansionResult.paybackPeriodMonths} meses para amortizar el 100% de la inversión y quedar en ganancia pura.

@@ -80,13 +80,13 @@ export default function LoanRestructuringModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-orange-500/10 text-orange-400 rounded-2xl border border-orange-500/20">
+            <div className="p-2 bg-orange-500/10 text-orange-700 dark:text-orange-400 rounded-2xl border border-orange-500/20">
               <RefreshCw className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Reestructuración de Créditos & Refinanciamiento</span>
-                <span className="text-[10px] bg-orange-500/20 text-orange-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-orange-500/20 text-orange-800 dark:text-orange-300 px-2 py-0.2 rounded-full font-mono">
                   ADDENDUM & NUEVO PAGARÉ
                 </span>
               </h3>
@@ -109,8 +109,8 @@ export default function LoanRestructuringModal({
           
           {/* Banner de Éxito */}
           {successMessage && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successMessage}</span>
             </div>
           )}
@@ -155,7 +155,7 @@ export default function LoanRestructuringModal({
                   rows={2}
                   value={customNotes}
                   onChange={e => setCustomNotes(e.target.value)}
-                  className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-200 text-xs"
+                  className="w-full p-2.5 rounded-2xl border border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-900 dark:text-zinc-100 text-xs"
                 />
               </div>
 
@@ -170,7 +170,7 @@ export default function LoanRestructuringModal({
                   <span className="font-semibold text-zinc-900 dark:text-zinc-100">Condonar 100% de Moras Acumuladas</span>
                 </label>
                 <span className="text-[11px] text-zinc-600 dark:text-zinc-400 block pl-5">
-                  Monto a exonerar: <strong className="text-emerald-400">${currentContract.lateFeesPendingUSD || 0} USD</strong>
+                  Monto a exonerar: <strong className="text-emerald-700 dark:text-emerald-400">${currentContract.lateFeesPendingUSD || 0} USD</strong>
                 </span>
               </div>
 
@@ -203,7 +203,7 @@ export default function LoanRestructuringModal({
 
             {/* Columna Derecha: Resultado y Nuevo Pagaré (Col 7) */}
             <div className="lg:col-span-7 p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-4">
-              <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider">PROPUESTA DE REFINANCIAMIENTO</span>
+              <span className="text-[10px] text-orange-700 dark:text-orange-400 font-bold uppercase tracking-wider">PROPUESTA DE REFINANCIAMIENTO</span>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono">
                 <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
@@ -217,8 +217,8 @@ export default function LoanRestructuringModal({
                 </div>
 
                 <div className="p-3.5 bg-emerald-950/20 rounded-2xl border border-emerald-500/30">
-                  <span className="text-[10px] text-emerald-400 font-sans block">Nueva Cuota Semanal:</span>
-                  <strong className="text-emerald-400 text-base">{"$" + proposal.newWeeklyQuotaUSD} USD</strong>
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-sans block">Nueva Cuota Semanal:</span>
+                  <strong className="text-emerald-700 dark:text-emerald-400 text-base">{"$" + proposal.newWeeklyQuotaUSD} USD</strong>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">≈ Bs. {(proposal.newWeeklyQuotaUSD * bcvRate).toFixed(2)} BCV</span>
                 </div>
               </div>
@@ -227,18 +227,18 @@ export default function LoanRestructuringModal({
               <div className="p-4 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2 text-xs">
                 <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center space-x-1.5">
-                    <FileSignature className="w-4 h-4 text-orange-400" />
+                    <FileSignature className="w-4 h-4 text-orange-700 dark:text-orange-400" />
                     <span>Documentos Jurídicos a Emitir</span>
                   </span>
-                  <span className="text-[10px] bg-orange-500/20 text-orange-300 px-2 py-0.2 rounded font-mono">
+                  <span className="text-[10px] bg-orange-500/20 text-orange-800 dark:text-orange-300 px-2 py-0.2 rounded font-mono">
                     SUSTITUCIÓN DE TÍTULO
                   </span>
                 </div>
 
-                <p className="text-zinc-300 font-mono text-[11px]">
+                <p className="text-slate-700 dark:text-zinc-300 font-mono text-[11px]">
                   • Código Addendum: <strong className="text-zinc-900 dark:text-zinc-100">{proposal.addendumCode}</strong>
                 </p>
-                <p className="text-zinc-300 font-mono text-[11px]">
+                <p className="text-slate-700 dark:text-zinc-300 font-mono text-[11px]">
                   • Nuevo Pagaré Mercantil: <strong className="text-zinc-900 dark:text-zinc-100">{proposal.newPromissoryNoteId}</strong>
                 </p>
                 <p className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono truncate">

@@ -113,13 +113,13 @@ export default function CreditScoringModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-2xl border border-indigo-500/20">
+            <div className="p-2 bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 rounded-2xl border border-indigo-500/20">
               <Brain className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Motor de Scoring Crediticio IA & Radar de Riesgo</span>
-                <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-indigo-500/20 text-indigo-800 dark:text-indigo-300 px-2 py-0.2 rounded-full font-mono">
                   SCORECARD VE (0 - 1000)
                 </span>
               </h3>
@@ -151,14 +151,14 @@ export default function CreditScoringModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-indigo-500 text-indigo-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-indigo-500 text-indigo-700 dark:text-indigo-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
                 <span>{t.label}</span>
                 {t.count !== undefined && (
-                  <span className="text-[10px] bg-amber-500/20 text-amber-400 font-bold px-1.5 py-0.2 rounded-full font-mono">
+                  <span className="text-[10px] bg-amber-500/20 text-amber-700 dark:text-amber-400 font-bold px-1.5 py-0.2 rounded-full font-mono">
                     {t.count}
                   </span>
                 )}
@@ -233,7 +233,7 @@ export default function CreditScoringModal({
                         min="100"
                         value={monthlyIncomeUSD}
                         onChange={e => setMonthlyIncomeUSD(parseFloat(e.target.value) || 0)}
-                        className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-400 font-bold font-mono text-xs"
+                        className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 font-bold font-mono text-xs"
                       />
                     </div>
                   </div>
@@ -272,7 +272,7 @@ export default function CreditScoringModal({
                         onChange={e => setHasGuarantor(e.target.checked)}
                         className="rounded text-indigo-500"
                       />
-                      <span className="font-semibold text-zinc-200">Presenta Fiador Solidario</span>
+                      <span className="font-semibold text-slate-900 dark:text-zinc-100">Presenta Fiador Solidario</span>
                     </label>
 
                     {hasGuarantor && (
@@ -341,8 +341,8 @@ export default function CreditScoringModal({
 
                       <div className="text-right">
                         <span className={"text-xs font-bold px-3 py-1 rounded-full border inline-block " + (
-                          scoringResult.riskTier === 'CLASE_A_BAJO_RIESGO' ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" :
-                          scoringResult.riskTier === 'CLASE_B_RIESGO_MODERADO' ? "bg-amber-500/10 text-amber-400 border-amber-500/30" :
+                          scoringResult.riskTier === 'CLASE_A_BAJO_RIESGO' ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30" :
+                          scoringResult.riskTier === 'CLASE_B_RIESGO_MODERADO' ? "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30" :
                           "bg-red-500/10 text-red-400 border-red-500/30"
                         )}>
                           ● {scoringResult.riskTier.replace(/_/g, ' ')}
@@ -357,7 +357,7 @@ export default function CreditScoringModal({
                     <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                       <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
                         <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block font-sans">Inicial Sugerida:</span>
-                        <strong className="text-indigo-400 text-sm">{scoringResult.recommendedDownPaymentPercent}%</strong>
+                        <strong className="text-indigo-700 dark:text-indigo-400 text-sm">{scoringResult.recommendedDownPaymentPercent}%</strong>
                       </div>
 
                       <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
@@ -367,7 +367,7 @@ export default function CreditScoringModal({
                     </div>
 
                     {/* Nota del Dictamen */}
-                    <div className="p-3.5 bg-indigo-950/20 border border-indigo-500/30 rounded-2xl text-xs text-indigo-300">
+                    <div className="p-3.5 bg-indigo-950/20 border border-indigo-500/30 rounded-2xl text-xs text-indigo-800 dark:text-indigo-300">
                       <p className="font-semibold">{scoringResult.recommendationNote}</p>
                     </div>
 
@@ -375,11 +375,11 @@ export default function CreditScoringModal({
                     <div className="space-y-3 text-xs">
                       {scoringResult.strengths.length > 0 && (
                         <div>
-                          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block mb-1">Factores Favorables (+):</span>
+                          <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block mb-1">Factores Favorables (+):</span>
                           <div className="space-y-1">
                             {scoringResult.strengths.map((s, idx) => (
-                              <p key={idx} className="flex items-center space-x-1.5 text-zinc-300">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                              <p key={idx} className="flex items-center space-x-1.5 text-slate-700 dark:text-zinc-300">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
                                 <span>{s}</span>
                               </p>
                             ))}
@@ -389,11 +389,11 @@ export default function CreditScoringModal({
 
                       {scoringResult.riskFactors.length > 0 && (
                         <div>
-                          <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block mb-1">Puntos de Atención / Riesgo (!):</span>
+                          <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider block mb-1">Puntos de Atención / Riesgo (!):</span>
                           <div className="space-y-1">
                             {scoringResult.riskFactors.map((r, idx) => (
                               <p key={idx} className="flex items-center space-x-1.5 text-zinc-600 dark:text-zinc-400">
-                                <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                                <AlertTriangle className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 flex-shrink-0" />
                                 <span>{r}</span>
                               </p>
                             ))}
@@ -420,9 +420,9 @@ export default function CreditScoringModal({
           {activeTab === "EARLY_WARNING" && (
             <div className="space-y-4">
               
-              <div className="p-4 bg-amber-950/20 border border-amber-500/30 rounded-2xl text-amber-300 text-xs">
+              <div className="p-4 bg-amber-950/20 border border-amber-500/30 rounded-2xl text-amber-800 dark:text-amber-300 text-xs">
                 <p className="font-bold flex items-center space-x-1.5">
-                  <AlertCircle className="w-4 h-4 text-amber-400" />
+                  <AlertCircle className="w-4 h-4 text-amber-700 dark:text-amber-400" />
                   <span>Detección Preventiva de Conducta de Pago & Retrasos Iniciales</span>
                 </p>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
@@ -448,22 +448,22 @@ export default function CreditScoringModal({
                           <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{item.contractNumber}</span>
                           <span className={"text-[9px] px-2 py-0.2 rounded font-bold " + (
                             item.riskLevel === "ALERTA_ROJA" ? "bg-red-500/20 text-red-400 border border-red-500/30" :
-                            item.riskLevel === "ALERTA_NARANJA" ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" :
-                            "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30"
+                            item.riskLevel === "ALERTA_NARANJA" ? "bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30" :
+                            "bg-yellow-500/20 text-yellow-800 dark:text-yellow-300 border border-yellow-500/30"
                           )}>
                             ● {item.riskLevel.replace(/_/g, ' ')}
                           </span>
                         </div>
 
-                        <p className="text-xs text-zinc-300">
-                          Vehículo: <strong className="text-zinc-900 dark:text-zinc-100">{item.vehicleModel}</strong> • Promedio de Retraso: <strong className="text-amber-400 font-mono">{item.daysLateAverage} días</strong>
+                        <p className="text-xs text-slate-700 dark:text-zinc-300">
+                          Vehículo: <strong className="text-zinc-900 dark:text-zinc-100">{item.vehicleModel}</strong> • Promedio de Retraso: <strong className="text-amber-700 dark:text-amber-400 font-mono">{item.daysLateAverage} días</strong>
                         </p>
 
                         <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans">
                           ⚠️ <strong>Motivo de Alerta:</strong> {item.triggerReason}
                         </p>
 
-                        <p className="text-xs text-indigo-400 font-sans">
+                        <p className="text-xs text-indigo-700 dark:text-indigo-400 font-sans">
                           💡 <strong>Acción Recomendada:</strong> {item.suggestedAction}
                         </p>
                       </div>

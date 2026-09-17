@@ -132,13 +132,13 @@ export default function BulkDataModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-500/10 text-blue-400 rounded-2xl border border-blue-500/20">
+            <div className="p-2 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-2xl border border-blue-500/20">
               <UploadCloud className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Centro de Migración, Importación & Respaldo Masivo</span>
-                <span className="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-blue-500/20 text-blue-700 dark:text-blue-400 px-2 py-0.2 rounded-full font-mono">
                   CSV / EXCEL / JSON
                 </span>
               </h3>
@@ -171,8 +171,8 @@ export default function BulkDataModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 " + (
                   isActive 
-                    ? "border-blue-500 text-blue-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-blue-500 text-blue-700 dark:text-blue-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -187,8 +187,8 @@ export default function BulkDataModal({
           
           {/* Mensaje de Éxito */}
           {successMessage && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successMessage}</span>
             </div>
           )}
@@ -213,7 +213,7 @@ export default function BulkDataModal({
                     onClick={() => handleDownloadTemplate("CLIENTS", "EXCEL_SEMICOLON")}
                     className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5 text-blue-400" />
+                    <Download className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" />
                     <span>Descargar Plantilla CSV</span>
                   </button>
 
@@ -260,9 +260,9 @@ export default function BulkDataModal({
                     </span>
 
                     <div className="flex items-center space-x-3 text-xs font-mono">
-                      <span className="text-emerald-400 font-bold">{"✓ " + previewResult.validCount + " Válidas"}</span>
-                      <span className="text-amber-400 font-bold">{"⚠️ " + previewResult.warningCount + " Advertencias"}</span>
-                      <span className="text-rose-400 font-bold">{"❌ " + previewResult.errorCount + " Errores"}</span>
+                      <span className="text-emerald-700 dark:text-emerald-400 font-bold">{"✓ " + previewResult.validCount + " Válidas"}</span>
+                      <span className="text-amber-700 dark:text-amber-400 font-bold">{"⚠️ " + previewResult.warningCount + " Advertencias"}</span>
+                      <span className="text-rose-700 dark:text-rose-400 font-bold">{"❌ " + previewResult.errorCount + " Errores"}</span>
                     </div>
                   </div>
 
@@ -273,10 +273,10 @@ export default function BulkDataModal({
                         <div 
                           key={idx}
                           className={"p-2 rounded-lg text-[11px] flex items-center space-x-2 " + (
-                            issue.type === "ERROR" ? "bg-rose-500/10 text-rose-300 border border-rose-500/20" : "bg-amber-500/10 text-amber-300 border border-amber-500/20"
+                            issue.type === "ERROR" ? "bg-rose-500/10 text-rose-800 dark:text-rose-300 border border-rose-500/20" : "bg-amber-500/10 text-amber-800 dark:text-amber-300 border border-amber-500/20"
                           )}
                         >
-                          {issue.type === "ERROR" ? <AlertCircle className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" /> : <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />}
+                          {issue.type === "ERROR" ? <AlertCircle className="w-3.5 h-3.5 text-rose-700 dark:text-rose-400 flex-shrink-0" /> : <AlertTriangle className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 flex-shrink-0" />}
                           <span><strong>{"Fila " + issue.row + " (" + issue.field + "):"}</strong> {issue.message}</span>
                         </div>
                       ))}
@@ -301,12 +301,12 @@ export default function BulkDataModal({
                         {previewResult.parsedRecords.map((r, idx) => (
                           <tr key={idx} className="hover:bg-white dark:bg-zinc-900/40">
                             <td className="p-2.5 font-sans font-semibold text-zinc-900 dark:text-zinc-100">{r.clientName}</td>
-                            <td className="p-2.5 text-zinc-300">{r.clientDocId}</td>
+                            <td className="p-2.5 text-slate-800 dark:text-zinc-200 font-mono">{r.clientDocId}</td>
                             <td className="p-2.5 text-zinc-600 dark:text-zinc-400">{r.clientPhone}</td>
-                            <td className="p-2.5 text-emerald-400">{(r.vehicle?.brand || "") + " " + (r.vehicle?.model || "")}</td>
-                            <td className="p-2.5 text-zinc-200">{"$" + r.companyPriceUSD}</td>
-                            <td className="p-2.5 text-zinc-200">{"$" + r.initialDownPaymentUSD}</td>
-                            <td className="p-2.5 text-zinc-200">{r.totalQuotas + " Meses"}</td>
+                            <td className="p-2.5 text-emerald-700 dark:text-emerald-400">{(r.vehicle?.brand || "") + " " + (r.vehicle?.model || "")}</td>
+                            <td className="p-2.5 text-slate-900 dark:text-zinc-100 font-bold">{"$" + r.companyPriceUSD}</td>
+                            <td className="p-2.5 text-slate-900 dark:text-zinc-100 font-bold">{"$" + r.initialDownPaymentUSD}</td>
+                            <td className="p-2.5 text-slate-800 dark:text-zinc-200">{r.totalQuotas + " Meses"}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -351,14 +351,14 @@ export default function BulkDataModal({
                   onClick={() => handleDownloadTemplate("VEHICLES", "EXCEL_SEMICOLON")}
                   className="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5 text-blue-400" />
+                  <Download className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" />
                   <span>Descargar Plantilla Vehículos CSV</span>
                 </button>
               </div>
 
               <div className="p-8 border border-dashed border-zinc-200 dark:border-zinc-800 rounded-3xl bg-zinc-50 dark:bg-zinc-950/40 text-center space-y-2">
                 <FileSpreadsheet className="w-8 h-8 text-zinc-600 dark:text-zinc-400 mx-auto" />
-                <p className="text-xs font-semibold text-zinc-300">Arrastra tu archivo CSV de unidades aquí</p>
+                <p className="text-xs font-semibold text-slate-800 dark:text-zinc-200">Arrastra tu archivo CSV de unidades aquí</p>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Valida seriales VIN de 17 dígitos, serial de motor y precios de concesionario.</p>
               </div>
             </div>
@@ -373,12 +373,12 @@ export default function BulkDataModal({
               <div className="p-5 rounded-3xl border border-emerald-500/30 bg-emerald-950/10 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                    <ShieldCheck className="w-5 h-5 text-emerald-700 dark:text-emerald-400" />
                     <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Respaldo Integral del Sistema (Full Snapshot JSON)</h4>
                   </div>
-                  <span className="text-[10px] text-emerald-400 font-mono">Firma SHA-256</span>
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-mono">Firma SHA-256</span>
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed">
+                <p className="text-xs text-slate-700 dark:text-zinc-300 leading-relaxed">
                   Genera una copia de seguridad descargable con el 100% de los expedientes de clientes, fiadores, cronogramas de pago, inventario de vehículos y tasas activas.
                 </p>
 

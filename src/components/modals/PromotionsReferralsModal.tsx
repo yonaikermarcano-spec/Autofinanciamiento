@@ -114,7 +114,7 @@ export default function PromotionsReferralsModal({
             className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
               activeTab === "COUPONS" 
                 ? "border-pink-500 text-pink-400" 
-                : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
             )}
           >
             <Ticket className="w-3.5 h-3.5" />
@@ -129,7 +129,7 @@ export default function PromotionsReferralsModal({
             className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
               activeTab === "REFERRALS" 
                 ? "border-pink-500 text-pink-400" 
-                : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
             )}
           >
             <Users className="w-3.5 h-3.5" />
@@ -145,8 +145,8 @@ export default function PromotionsReferralsModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -164,17 +164,17 @@ export default function PromotionsReferralsModal({
                       <span className="text-base font-black text-pink-400 font-mono tracking-wider bg-pink-500/10 px-2.5 py-1 rounded-lg border border-pink-500/20">
                         {cp.code}
                       </span>
-                      <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold font-mono">
+                      <span className="text-[10px] bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded font-bold font-mono">
                         ● ACTIVO
                       </span>
                     </div>
 
-                    <p className="text-xs text-zinc-300 font-sans">{cp.description}</p>
+                    <p className="text-xs text-slate-700 dark:text-zinc-300 font-sans">{cp.description}</p>
 
                     <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs font-mono">
                       <div>
                         <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">Descuento:</span>
-                        <strong className="text-emerald-400 text-sm">{"$" + cp.discountUSD} USD</strong>
+                        <strong className="text-emerald-700 dark:text-emerald-400 text-sm">{"$" + cp.discountUSD} USD</strong>
                       </div>
 
                       <div className="text-right">
@@ -270,15 +270,15 @@ export default function PromotionsReferralsModal({
                           <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">({ref.referredPhone})</span>
                           <span className={"text-[9px] px-1.5 py-0.2 rounded font-mono font-bold " + (
                             ref.status === "DELIVERED_REWARD_CREDITED"
-                              ? "bg-emerald-500/20 text-emerald-400"
-                              : "bg-amber-500/20 text-amber-300"
+                              ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-400"
+                              : "bg-amber-500/20 text-amber-800 dark:text-amber-300"
                           )}>
                             ● {ref.status === "DELIVERED_REWARD_CREDITED" ? "BONO ABONADO" : "EN ESPERA DE ENTREGA"}
                           </span>
                         </div>
 
-                        <p className="text-zinc-300 font-sans text-xs">
-                          Referido por: <strong className="text-zinc-900 dark:text-zinc-100">{ref.referrerClientName}</strong> (#{ref.referrerContractNumber}) • Bono: <strong className="text-emerald-400">{"$" + ref.rewardAmountUSD} USD</strong>
+                        <p className="text-slate-700 dark:text-zinc-300 font-sans text-xs">
+                          Referido por: <strong className="text-zinc-900 dark:text-zinc-100">{ref.referrerClientName}</strong> (#{ref.referrerContractNumber}) • Bono: <strong className="text-emerald-700 dark:text-emerald-400">{"$" + ref.rewardAmountUSD} USD</strong>
                         </p>
 
                         <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono block">

@@ -124,13 +124,13 @@ export default function LegalDocsAndAlliedModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-blue-500/10 text-blue-400 rounded-2xl border border-blue-500/20">
+            <div className="p-2 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-2xl border border-blue-500/20">
               <FolderLock className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Trazabilidad Documental en 3 Fases & Servicios Aliados (RCV / Médico)</span>
-                <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-blue-500/20 text-blue-800 dark:text-blue-300 px-2 py-0.2 rounded-full font-mono">
                   RESERVA DE DOMINIO & INTT
                 </span>
               </h3>
@@ -163,8 +163,8 @@ export default function LegalDocsAndAlliedModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-blue-500 text-blue-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-blue-500 text-blue-700 dark:text-blue-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -184,8 +184,8 @@ export default function LegalDocsAndAlliedModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -216,9 +216,9 @@ export default function LegalDocsAndAlliedModal({
                 <div className="text-right">
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">FASE DOCUMENTAL ACTUAL</span>
                   <span className={"text-xs font-black px-3 py-1 rounded-full border inline-block mt-0.5 " + (
-                    currentClientPhase.currentPhase === 3 ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" :
-                    currentClientPhase.currentPhase === 2 ? "bg-blue-500/10 text-blue-400 border-blue-500/30" :
-                    "bg-purple-500/10 text-purple-400 border-purple-500/30"
+                    currentClientPhase.currentPhase === 3 ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30" :
+                    currentClientPhase.currentPhase === 2 ? "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30" :
+                    "bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/30"
                   )}>
                     ● FASE {currentClientPhase.currentPhase}: {currentClientPhase.currentPhase === 1 ? "Entrega con Reserva de Dominio" : currentClientPhase.currentPhase === 2 ? "Certificado Circulación en Proceso" : "Finiquito & Liberación Total"}
                   </span>
@@ -236,11 +236,11 @@ export default function LegalDocsAndAlliedModal({
                 )}>
                   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-purple-400 font-bold uppercase">FASE 1</span>
+                      <span className="text-[10px] text-purple-700 dark:text-purple-400 font-bold uppercase">FASE 1</span>
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Entrega Inicial del Vehículo</h4>
                       <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Cliente amortizando cuotas</p>
                     </div>
-                    {currentClientPhase.phase1.isCompleted && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
+                    {currentClientPhase.phase1.isCompleted && <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400" />}
                   </div>
 
                   <div className="space-y-2 text-xs">
@@ -248,7 +248,7 @@ export default function LegalDocsAndAlliedModal({
                     <div className="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-zinc-900 dark:text-zinc-100">1. Licencia de Conducir (INTT)</span>
-                        <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.2 rounded font-mono">
+                        <span className="text-[9px] bg-blue-500/20 text-blue-800 dark:text-blue-300 px-1.5 py-0.2 rounded font-mono">
                           {currentClientPhase.phase1.driverLicense.status}
                         </span>
                       </div>
@@ -317,15 +317,15 @@ export default function LegalDocsAndAlliedModal({
                 )}>
                   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-blue-400 font-bold uppercase">FASE 2</span>
+                      <span className="text-[10px] text-blue-700 dark:text-blue-400 font-bold uppercase">FASE 2</span>
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Certificado de Circulación INTT</h4>
                       <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Título emitido con reserva</p>
                     </div>
-                    {currentClientPhase.phase2.isCompleted && <CheckCircle2 className="w-5 h-5 text-blue-400" />}
+                    {currentClientPhase.phase2.isCompleted && <CheckCircle2 className="w-5 h-5 text-blue-700 dark:text-blue-400" />}
                   </div>
 
                   <div className="space-y-3 text-xs">
-                    <p className="text-[11px] text-zinc-300">
+                    <p className="text-[11px] text-slate-700 dark:text-zinc-300">
                       Cuando el INTT emite el Certificado de Registro, se entrega una copia al cliente para que circule y el original queda en custodia:
                     </p>
 
@@ -346,7 +346,7 @@ export default function LegalDocsAndAlliedModal({
                         onChange={e => handleToggleDoc('phase2', 'circulationCertificateOriginalInVault', e.target.checked)}
                         className="rounded text-blue-500"
                       />
-                      <span className="font-semibold text-amber-400">2. Original Custodiado en Bóveda Financiadora</span>
+                      <span className="font-semibold text-amber-700 dark:text-amber-400">2. Original Custodiado en Bóveda Financiadora</span>
                     </label>
 
                     <div className="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
@@ -363,15 +363,15 @@ export default function LegalDocsAndAlliedModal({
                 )}>
                   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-emerald-400 font-bold uppercase">FASE 3</span>
+                      <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold uppercase">FASE 3</span>
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Finiquito & Liberación Total</h4>
                       <p className="text-[10px] text-zinc-600 dark:text-zinc-400">100% cuotas pagadas</p>
                     </div>
-                    {currentClientPhase.phase3.isCompleted && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
+                    {currentClientPhase.phase3.isCompleted && <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400" />}
                   </div>
 
                   <div className="space-y-3 text-xs">
-                    <p className="text-[11px] text-zinc-300">
+                    <p className="text-[11px] text-slate-700 dark:text-zinc-300">
                       Al culminar el pago total, se entrega la titularidad definitiva al cliente:
                     </p>
 
@@ -382,7 +382,7 @@ export default function LegalDocsAndAlliedModal({
                         onChange={e => handleToggleDoc('phase3', 'circulationCertificateOriginalDelivered', e.target.checked)}
                         className="rounded text-emerald-500"
                       />
-                      <span className="font-bold text-emerald-400">1. Original del Certificado de Circulación Entregado</span>
+                      <span className="font-bold text-emerald-700 dark:text-emerald-400">1. Original del Certificado de Circulación Entregado</span>
                     </label>
 
                     <label className="flex items-center space-x-2 cursor-pointer">
@@ -418,9 +418,9 @@ export default function LegalDocsAndAlliedModal({
           {activeTab === "ALLIED_ORDERS" && (
             <div className="space-y-4">
               
-              <div className="p-4 bg-blue-950/20 border border-blue-500/30 rounded-2xl text-blue-300 text-xs">
+              <div className="p-4 bg-blue-950/20 border border-blue-500/30 rounded-2xl text-blue-800 dark:text-blue-300 text-xs">
                 <p className="font-bold flex items-center space-x-1.5">
-                  <ShieldCheck className="w-4 h-4 text-blue-400" />
+                  <ShieldCheck className="w-4 h-4 text-blue-700 dark:text-blue-400" />
                   <span>Flujo de Pedido al Aliado B2B de RCV y Certificados Médicos</span>
                 </p>
                 <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
@@ -442,19 +442,19 @@ export default function LegalDocsAndAlliedModal({
                           <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{ord.serviceName}</span>
                           <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{ord.id}</span>
                           <span className={"text-[9px] px-2 py-0.2 rounded font-bold " + (
-                            ord.status === "ENTREGADO_A_CLIENTE" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
-                            ord.status === "LISTO_PARA_RETIRO" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" :
-                            ord.status === "PEDIDO_ENVIADO_ALIADO_WA" ? "bg-purple-500/10 text-purple-400 border border-purple-500/20" :
-                            "bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse"
+                            ord.status === "ENTREGADO_A_CLIENTE" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20" :
+                            ord.status === "LISTO_PARA_RETIRO" ? "bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20" :
+                            ord.status === "PEDIDO_ENVIADO_ALIADO_WA" ? "bg-purple-500/10 text-purple-700 dark:text-purple-400 border border-purple-500/20" :
+                            "bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 animate-pulse"
                           )}>
                             ● {ord.status.replace(/_/g, ' ')}
                           </span>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-3 font-mono text-zinc-300">
+                        <div className="flex flex-wrap items-center gap-3 font-mono text-slate-700 dark:text-zinc-300">
                           <p>Cliente: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{ord.clientName}</strong> ({ord.clientDocId})</p>
-                          <p>Precio: <strong className="text-emerald-400">{"$" + ord.priceUSD} USD</strong></p>
-                          <p>Ganancia Financiadora (10%): <strong className="text-amber-400">+{"$" + ord.financierProfitUSD} USD</strong></p>
+                          <p>Precio: <strong className="text-emerald-700 dark:text-emerald-400">{"$" + ord.priceUSD} USD</strong></p>
+                          <p>Ganancia Financiadora (10%): <strong className="text-amber-700 dark:text-amber-400">+{"$" + ord.financierProfitUSD} USD</strong></p>
                         </div>
 
                         <p className="text-zinc-600 dark:text-zinc-400 text-[11px] font-sans">
@@ -537,32 +537,32 @@ export default function LegalDocsAndAlliedModal({
               
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-5 rounded-2xl border border-amber-500/30 bg-amber-950/20 space-y-1">
-                  <span className="text-[10px] text-amber-400 font-bold uppercase">GANANCIA ACUMULADA FINANCIADORA (10%)</span>
-                  <p className="text-3xl font-black font-mono text-amber-400">{"$" + commissionsSummary.totalAccumulatedProfitUSD.toFixed(2)} USD</p>
+                  <span className="text-[10px] text-amber-700 dark:text-amber-400 font-bold uppercase">GANANCIA ACUMULADA FINANCIADORA (10%)</span>
+                  <p className="text-3xl font-black font-mono text-amber-700 dark:text-amber-400">{"$" + commissionsSummary.totalAccumulatedProfitUSD.toFixed(2)} USD</p>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Descuento a favor en factura de software</span>
                 </div>
 
                 <div className="p-5 rounded-2xl border border-blue-500/30 bg-blue-950/20 space-y-1">
-                  <span className="text-[10px] text-blue-400 font-bold uppercase">TOTAL SERVICIOS VENDIDOS</span>
+                  <span className="text-[10px] text-blue-700 dark:text-blue-400 font-bold uppercase">TOTAL SERVICIOS VENDIDOS</span>
                   <p className="text-3xl font-black font-mono text-zinc-900 dark:text-zinc-100">{commissionsSummary.totalSalesCount}</p>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400">RCV & Certificados Médicos</span>
                 </div>
 
                 <div className="p-5 rounded-2xl border border-purple-500/30 bg-purple-950/20 space-y-1">
-                  <span className="text-[10px] text-purple-400 font-bold uppercase">GANANCIA PLATAFORMA (10%)</span>
-                  <p className="text-3xl font-black font-mono text-purple-400">{"$" + commissionsSummary.totalPlatformProfitUSD.toFixed(2)} USD</p>
+                  <span className="text-[10px] text-purple-700 dark:text-purple-400 font-bold uppercase">GANANCIA PLATAFORMA (10%)</span>
+                  <p className="text-3xl font-black font-mono text-purple-700 dark:text-purple-400">{"$" + commissionsSummary.totalPlatformProfitUSD.toFixed(2)} USD</p>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Modelo Aliado B2B</span>
                 </div>
               </div>
 
-              <div className="p-5 bg-zinc-50 dark:bg-zinc-950 rounded-3xl border border-zinc-200 dark:border-zinc-800 space-y-2 text-xs text-zinc-300">
+              <div className="p-5 bg-slate-50 dark:bg-zinc-950 rounded-3xl border border-zinc-200 dark:border-zinc-800 space-y-2 text-xs text-slate-800 dark:text-zinc-200">
                 <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
-                  <Award className="w-4 h-4 text-amber-400" />
+                  <Award className="w-4 h-4 text-amber-700 dark:text-amber-400" />
                   <span>¿Cómo funciona la liquidación y descuento mensual?</span>
                 </h4>
                 <p className="leading-relaxed">
                   Por cada RCV o Certificado Médico vendido a través del sistema, el Aliado otorga un <strong>20% de ganancia</strong>. La financiadora recibe un <strong>10% neto</strong>.
-                  La financiadora le transfiere el monto al Aliado y el 10% acumulado (actualmente: <strong className="text-amber-400">{"$" + commissionsSummary.totalAccumulatedProfitUSD + " USD"}</strong>) se le descuenta automáticamente a la financiadora en su fecha de cobro mensual de la plataforma.
+                  La financiadora le transfiere el monto al Aliado y el 10% acumulado (actualmente: <strong className="text-amber-700 dark:text-amber-400">{"$" + commissionsSummary.totalAccumulatedProfitUSD + " USD"}</strong>) se le descuenta automáticamente a la financiadora en su fecha de cobro mensual de la plataforma.
                 </p>
               </div>
 
@@ -575,7 +575,7 @@ export default function LegalDocsAndAlliedModal({
         {payingOrder && (
           <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs backdrop-blur-md animate-in fade-in">
             <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl w-full max-w-5xl h-[86vh] max-h-[820px] min-h-[620px] p-6 space-y-4 shadow-2xl text-zinc-900 dark:text-zinc-100 font-sans text-xs">
-              <div className="flex items-center space-x-3 text-purple-400">
+              <div className="flex items-center space-x-3 text-purple-700 dark:text-purple-400">
                 <div className="p-2.5 bg-purple-500/20 rounded-2xl">
                   <Send className="w-6 h-6" />
                 </div>
@@ -585,9 +585,9 @@ export default function LegalDocsAndAlliedModal({
                 </div>
               </div>
 
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1 font-mono text-zinc-300">
-                <p>Monto Total a Pagar al Aliado: <strong className="text-emerald-400 font-bold">{"$" + payingOrder.priceUSD} USD</strong></p>
-                <p>Ganancia Financiadora: <strong className="text-amber-400">+{"$" + payingOrder.financierProfitUSD} USD</strong></p>
+              <div className="p-4 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1 font-mono text-slate-800 dark:text-zinc-200">
+                <p>Monto Total a Pagar al Aliado: <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{"$" + payingOrder.priceUSD} USD</strong></p>
+                <p>Ganancia Financiadora: <strong className="text-amber-700 dark:text-amber-400">+{"$" + payingOrder.financierProfitUSD} USD</strong></p>
               </div>
 
               <div>

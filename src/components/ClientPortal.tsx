@@ -345,13 +345,13 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
             {/* DROPDOWN DE LAS 3 TASAS */}
             {isRateMenuOpen && (
               <div className={"absolute right-0 top-11 w-72 rounded-xl p-2.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
-                isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-800"
+                isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-900"
               )}>
                 <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
-                  <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
+                  <span className="font-bold text-[11px] uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                     Seleccionar Tasa Activa
                   </span>
-                  <span className="text-[10px] text-emerald-500 font-semibold">● En Vivo</span>
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-bold">● En Vivo</span>
                 </div>
 
                 {/* 1. DÓLAR BCV */}
@@ -359,27 +359,27 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                   onClick={() => { setActiveBenchmark("USD_BCV"); setIsRateMenuOpen(false); }}
                   className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
                     activeBenchmark === "USD_BCV"
-                      ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
-                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
+                      ? "bg-emerald-50 border-emerald-300 text-emerald-950 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-200 shadow-xs"
+                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
                   )}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-xs flex items-center space-x-1.5">
-                      <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
+                      <DollarSign className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       <span>1. Dólar BCV Oficial ($)</span>
                     </span>
-                    {activeBenchmark === "USD_BCV" && <Check className="w-4 h-4 text-emerald-500" />}
+                    {activeBenchmark === "USD_BCV" && <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
                   </div>
                   <div className="flex items-center justify-between font-mono">
                     <span className="text-sm font-black">Bs. {usdRate.toFixed(2)}</span>
                     <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
                       <button 
                         onClick={() => setUsdRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
+                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
                       >-</button>
                       <button 
                         onClick={() => setUsdRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
+                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
                       >+</button>
                     </div>
                   </div>
@@ -390,27 +390,27 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                   onClick={() => { setActiveBenchmark("EUR_BCV"); setIsRateMenuOpen(false); }}
                   className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
                     activeBenchmark === "EUR_BCV"
-                      ? "bg-blue-500/10 border-blue-500/40 text-blue-400"
-                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
+                      ? "bg-blue-50 border-blue-300 text-blue-950 dark:bg-blue-950/40 dark:border-blue-600 dark:text-blue-200 shadow-xs"
+                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
                   )}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-xs flex items-center space-x-1.5">
-                      <Coins className="w-3.5 h-3.5 text-blue-500" />
+                      <Coins className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                       <span>2. Euro BCV Oficial (€)</span>
                     </span>
-                    {activeBenchmark === "EUR_BCV" && <Check className="w-4 h-4 text-blue-500" />}
+                    {activeBenchmark === "EUR_BCV" && <Check className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
                   </div>
                   <div className="flex items-center justify-between font-mono">
                     <span className="text-sm font-black">Bs. {eurRate.toFixed(2)}</span>
                     <div className="flex items-center space-x-1" onClick={e => e.stopPropagation()}>
                       <button 
                         onClick={() => setEurRate(r => Number((r - 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
+                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
                       >-</button>
                       <button 
                         onClick={() => setEurRate(r => Number((r + 0.10).toFixed(2)))} 
-                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 hover:text-white"
+                        className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-100 hover:text-white"
                       >+</button>
                     </div>
                   </div>
@@ -421,16 +421,16 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                   onClick={() => { setActiveBenchmark("USDT_BINANCE"); setIsRateMenuOpen(false); }}
                   className={"p-2.5 rounded-lg border transition cursor-pointer space-y-1.5 " + (
                     activeBenchmark === "USDT_BINANCE"
-                      ? "bg-amber-500/10 border-amber-500/40 text-amber-400"
-                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100"
+                      ? "bg-amber-50 border-amber-300 text-amber-950 dark:bg-amber-950/40 dark:border-amber-600 dark:text-amber-200 shadow-xs"
+                      : isDark ? "bg-zinc-950 border-zinc-850 hover:bg-zinc-850 text-zinc-300" : "bg-zinc-50 border-zinc-200 hover:bg-zinc-100 text-zinc-800"
                   )}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-xs flex items-center space-x-1.5">
-                      <Wallet className="w-3.5 h-3.5 text-amber-500" />
+                      <Wallet className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                       <span>3. Binance USDT (P2P)</span>
                     </span>
-                    {activeBenchmark === "USDT_BINANCE" && <Check className="w-4 h-4 text-amber-500" />}
+                    {activeBenchmark === "USDT_BINANCE" && <Check className="w-4 h-4 text-amber-600 dark:text-amber-400" />}
                   </div>
                   <div className="flex items-center justify-between font-mono">
                     <span className="text-sm font-black">Bs. {usdtRate.toFixed(2)}</span>
@@ -747,7 +747,7 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                           isDark ? "border-zinc-800 hover:bg-zinc-850 text-zinc-200" : "border-zinc-200 hover:bg-zinc-100 text-zinc-800"
                         )}
                       >
-                        <Printer className="w-3.5 h-3.5 text-emerald-400" />
+                        <Printer className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
                         <span>Imprimir Cronograma (PDF)</span>
                       </button>
 
@@ -789,7 +789,7 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                             <td className="p-3.5 text-zinc-600 dark:text-zinc-400 font-mono">
                               {q.dueDate}
                             </td>
-                            <td className="p-3.5 font-mono text-zinc-300">
+                            <td className="p-3.5 font-mono text-slate-800 dark:text-zinc-200">
                               {"$" + q.capitalUSD + " USD"}
                             </td>
                             <td className="p-3.5 font-mono text-zinc-600 dark:text-zinc-400">
@@ -864,7 +864,7 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
 
                     {paymentSuccessMessage && (
                       <div className="bg-emerald-950/30 border border-emerald-500/40 p-4 rounded-xl space-y-2 text-xs">
-                        <div className="flex items-center space-x-2 text-emerald-400 font-bold">
+                        <div className="flex items-center space-x-2 text-emerald-700 dark:text-emerald-400 font-bold">
                           <CheckCircle2 className="w-4 h-4" />
                           <span>{paymentSuccessMessage}</span>
                         </div>
@@ -886,7 +886,7 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                             href={"https://wa.me/584120000000?text=" + encodeURIComponent("Hola, acabo de reportar mi pago de $" + payAmountUSD + " USD para el Contrato #" + activeContract.contractNumber + ". Referencia: " + payReference)}
                             target="_blank"
                             rel="noreferrer"
-                            className="bg-slate-800 hover:bg-slate-750 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center space-x-1"
+                            className="bg-slate-800 hover:bg-slate-750 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-lg font-bold text-xs transition flex items-center space-x-1"
                           >
                             <PhoneCall className="w-3.5 h-3.5" />
                             <span>Notificar WhatsApp</span>
@@ -905,11 +905,11 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                           value={payAmountUSD}
                           onChange={e => setPayAmountUSD(Number(e.target.value))}
                           className={"w-full p-2.5 font-mono font-bold text-base rounded-lg border focus:outline-none " + (
-                            isDark ? "bg-zinc-950 border-zinc-800 text-emerald-400" : "bg-zinc-50 border-zinc-200 text-emerald-600"
+                            isDark ? "bg-zinc-950 border-zinc-800 text-emerald-700 dark:text-emerald-400" : "bg-zinc-50 border-zinc-200 text-emerald-600"
                           )}
                         />
-                        <span className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1 block font-mono">
-                          Monto en Bolívares: <strong className="text-zinc-200">{BcvEngine.formatVes(BcvEngine.convertUsdToVes(payAmountUSD, activeRateValue))}</strong>
+                        <span className="text-[11px] text-slate-600 dark:text-zinc-400 mt-1 block font-mono">
+                          Monto en Bolívares: <strong className="text-slate-900 dark:text-zinc-100 font-bold">{BcvEngine.formatVes(BcvEngine.convertUsdToVes(payAmountUSD, activeRateValue))}</strong>
                         </span>
                       </div>
 
@@ -944,9 +944,9 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                     </div>
 
                     {payMethod === "CASH_USD" && (
-                      <div className="bg-amber-950/20 border border-amber-500/30 p-3 rounded-lg text-amber-300 text-xs flex justify-between items-center">
+                      <div className="bg-amber-950/20 border border-amber-500/30 p-3 rounded-lg text-amber-800 dark:text-amber-300 text-xs flex justify-between items-center">
                         <span>Aplica 3% de IGTF (Ley de Grandes Transacciones en Divisas):</span>
-                        <strong className="font-mono text-amber-400">{"+$" + (payAmountUSD * 0.03).toFixed(2) + " USD"}</strong>
+                        <strong className="font-mono text-amber-700 dark:text-amber-400">{"+$" + (payAmountUSD * 0.03).toFixed(2) + " USD"}</strong>
                       </div>
                     )}
 
@@ -968,22 +968,22 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                     <div className={"p-3.5 rounded-lg border space-y-1.5 text-xs font-mono " + (
                       isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
                     )}>
-                      <div className="flex items-center justify-between font-bold text-zinc-200">
+                      <div className="flex items-center justify-between font-bold text-slate-900 dark:text-zinc-100">
                         <span>PAGO MÓVIL BANESCO</span>
-                        <span className="text-emerald-400">● ACTIVO</span>
+                        <span className="text-emerald-600 dark:text-emerald-400">● ACTIVO</span>
                       </div>
                       <p>Banco: <strong>0134 - Banesco</strong></p>
                       <p>RIF: <strong>{tenantProfile.rif}</strong></p>
                       <p>Teléfono: <strong>0412-887-1122</strong></p>
-                      <p className="text-emerald-400 pt-1">Tasa activa: Bs. {activeRateValue.toFixed(2)}</p>
+                      <p className="text-emerald-600 dark:text-emerald-400 pt-1 font-bold">Tasa activa: Bs. {activeRateValue.toFixed(2)}</p>
                     </div>
 
                     <div className={"p-3.5 rounded-lg border space-y-1.5 text-xs font-mono " + (
                       isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200"
                     )}>
-                      <div className="flex items-center justify-between font-bold text-zinc-200">
+                      <div className="flex items-center justify-between font-bold text-slate-900 dark:text-zinc-100">
                         <span>BINANCE PAY (USDT)</span>
-                        <span className="text-amber-400">● 0% COMISIÓN</span>
+                        <span className="text-amber-600 dark:text-amber-400">● 0% COMISIÓN</span>
                       </div>
                       <p>Pay ID: <strong>89102934</strong></p>
                       <p>Email: <strong>{"pagos@" + tenantProfile.commercialName.toLowerCase().replace(/[^a-z]/g, '') + ".ve"}</strong></p>
@@ -1056,15 +1056,15 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
               {activePortalTab === "NOTIFS" && (
                 <div className="space-y-4">
                   <div className={"p-5 rounded-2xl border flex items-center justify-between " + (
-                    isDark ? "bg-emerald-950/20 border-emerald-500/30 text-emerald-300" : "bg-emerald-50 border-emerald-200 text-emerald-800"
+                    isDark ? "bg-emerald-950/20 border-emerald-500/30 text-emerald-800 dark:text-emerald-300" : "bg-emerald-50 border-emerald-200 text-emerald-800"
                   )}>
                     <div className="flex items-center space-x-3">
                       <div className="p-2.5 bg-emerald-500/20 rounded-xl">
-                        <Bell className="w-5 h-5 text-emerald-400" />
+                        <Bell className="w-5 h-5 text-emerald-700 dark:text-emerald-400" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm text-white">Centro de Notificaciones & Recordatorios In-App</h4>
-                        <p className="text-xs text-zinc-300 mt-0.5">
+                        <h4 className="font-bold text-sm text-slate-900 dark:text-white">Centro de Notificaciones & Recordatorios In-App</h4>
+                        <p className="text-xs text-slate-700 dark:text-zinc-300 mt-0.5">
                           Avisos directos en tu app sin spam: recordatorios de cuotas, revisiones de taller y estado de pagos.
                         </p>
                       </div>
@@ -1080,13 +1080,13 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                         )}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-white flex items-center space-x-1.5">
-                            <span className="text-emerald-400">●</span>
+                          <span className="font-bold text-slate-900 dark:text-white flex items-center space-x-1.5">
+                            <span className="text-emerald-600 dark:text-emerald-400">●</span>
                             <span>{n.title}</span>
                           </span>
-                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">{n.createdAt}</span>
+                          <span className="text-[10px] font-mono text-slate-600 dark:text-zinc-400">{n.createdAt}</span>
                         </div>
-                        <p className="text-zinc-300 font-sans">{n.message}</p>
+                        <p className="text-slate-700 dark:text-zinc-300 font-sans">{n.message}</p>
                       </div>
                     ))}
                   </div>
@@ -1101,21 +1101,21 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                   <div className={"p-6 rounded-2xl border space-y-4 " + (
                     isDark ? "bg-purple-950/20 border-purple-500/30" : "bg-purple-50 border-purple-200"
                   )}>
-                    <div className="flex items-center space-x-3 text-purple-400">
+                    <div className="flex items-center space-x-3 text-purple-700 dark:text-purple-400">
                       <div className="p-2.5 bg-purple-500/20 rounded-xl">
                         <Bike className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-extrabold text-sm text-white">🛵 Agendar Cita en Taller Oficial (Garantía de Fábrica)</h4>
-                        <p className="text-xs text-zinc-300 mt-0.5">
+                        <h4 className="font-extrabold text-sm text-slate-900 dark:text-white">🛵 Agendar Cita en Taller Oficial (Garantía de Fábrica)</h4>
+                        <p className="text-xs text-slate-700 dark:text-zinc-300 mt-0.5">
                           Mantén vigente la garantía de tu moto realizando tus servicios obligatorios (500 km, 1.500 km, 3.000 km).
                         </p>
                       </div>
                     </div>
 
                     {clientAppointmentSuccess && (
-                      <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs font-semibold flex items-center space-x-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
                         <span>{clientAppointmentSuccess}</span>
                       </div>
                     )}
@@ -1128,7 +1128,7 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                           required
                           value={clientOdometerInput}
                           onChange={e => setClientOdometerInput(parseInt(e.target.value, 10) || 0)}
-                          className="w-full p-2.5 rounded-xl border border-zinc-800 bg-zinc-900 text-purple-400 font-bold font-mono text-xs"
+                          className="w-full p-2.5 rounded-xl border border-zinc-800 bg-zinc-900 text-purple-700 dark:text-purple-400 font-bold font-mono text-xs"
                         />
                       </div>
 
@@ -1240,15 +1240,15 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
                   )}>
                     <div className="border-b border-zinc-200 dark:border-zinc-850 pb-3">
                       <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 flex items-center space-x-2">
-                        <HelpCircle className="w-5 h-5 text-purple-400" />
+                        <HelpCircle className="w-5 h-5 text-purple-700 dark:text-purple-400" />
                         <span>Abrir Ticket de Soporte o Atención al Cliente</span>
                       </h3>
                       <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">Envía tus consultas sobre placas, citas de inspección o certificados de solvencia</p>
                     </div>
 
                     {ticketCreatedSuccess && (
-                      <div className="bg-purple-950/30 border border-purple-500/40 p-3.5 rounded-xl text-purple-300 text-xs flex items-center space-x-2">
-                        <CheckCircle2 className="w-4 h-4 text-purple-400" />
+                      <div className="bg-purple-950/30 border border-purple-500/40 p-3.5 rounded-xl text-purple-800 dark:text-purple-300 text-xs flex items-center space-x-2">
+                        <CheckCircle2 className="w-4 h-4 text-purple-700 dark:text-purple-400" />
                         <span>{ticketCreatedSuccess}</span>
                       </div>
                     )}
@@ -1310,9 +1310,9 @@ export default function ClientPortal({ onSwitchToAdmin }: { onSwitchToAdmin: () 
           <div className={"p-16 rounded-2xl border text-center space-y-3 " + (
             isDark ? "bg-zinc-900/40 border-zinc-850 text-zinc-400" : "bg-white border-zinc-200 text-zinc-600"
           )}>
-            <Lock className="w-8 h-8 text-zinc-600 dark:text-zinc-400 mx-auto" />
-            <h3 className="font-bold text-base text-zinc-200">No se ha seleccionado ningún contrato activo</h3>
-            <p className="text-xs">Ingresa tu número de Cédula arriba para acceder a tu estado de cuenta.</p>
+            <Lock className="w-8 h-8 text-slate-500 dark:text-zinc-400 mx-auto" />
+            <h3 className="font-bold text-base text-slate-900 dark:text-zinc-100">No se ha seleccionado ningún contrato activo</h3>
+            <p className="text-xs text-slate-600 dark:text-zinc-400">Ingresa tu número de Cédula arriba para acceder a tu estado de cuenta.</p>
           </div>
         )}
 

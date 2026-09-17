@@ -185,8 +185,8 @@ export default function FieldAppPwa({
       {/* SUB-HEADER CON SELECTOR DE CLIENTE RÁPIDO */}
       <div className="px-4 py-2 border-b border-zinc-850 bg-zinc-900/50 flex items-center justify-between text-xs">
         <div className="flex items-center space-x-1.5 truncate">
-          <span className="text-zinc-600 dark:text-zinc-400">Cliente:</span>
-          <strong className="text-zinc-200 font-semibold truncate max-w-[170px]">{currentContract?.clientName}</strong>
+          <span className="text-zinc-400">Cliente:</span>
+          <strong className="text-white font-semibold truncate max-w-[170px]">{currentContract?.clientName}</strong>
         </div>
         <span className={"text-[10px] font-bold px-2 py-0.5 rounded-full " + (
           currentContract?.deliveryStatus === "POR_RECUPERAR" ? "bg-rose-500/20 text-rose-400 border border-rose-500/30" :
@@ -206,11 +206,11 @@ export default function FieldAppPwa({
         {activeTab === "ROUTE" && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-zinc-200 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
+              <span className="font-bold text-white uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
                 <Navigation className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Ruta Asignada del Día</span>
               </span>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">{routeClients.length + " Puntos"}</span>
+              <span className="text-[10px] text-zinc-400 font-mono">{routeClients.length + " Puntos"}</span>
             </div>
 
             {/* Buscador */}
@@ -300,11 +300,11 @@ export default function FieldAppPwa({
         {activeTab === "INSPECTION" && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-zinc-200 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
+              <span className="font-bold text-zinc-100 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
                 <FileCheck className="w-3.5 h-3.5 text-purple-400" />
                 <span>Checklist de Inspección en Sitio</span>
               </span>
-              <span className="text-[10px] text-emerald-400 font-mono">● Geoverificación</span>
+              <span className="text-[10px] text-emerald-300 font-mono">● Geoverificación</span>
             </div>
 
             {inspectionSuccessMsg && (
@@ -362,7 +362,7 @@ export default function FieldAppPwa({
                     onChange={e => setGuarantorVerified(e.target.checked)}
                     className="rounded border-zinc-700 text-purple-600 focus:ring-0"
                   />
-                  <span className="text-zinc-300">Fiador Solidario presente y con CI validada</span>
+                  <span className="text-zinc-100 font-medium">Fiador Solidario presente y con CI validada</span>
                 </label>
 
                 <label className="flex items-center space-x-2 cursor-pointer">
@@ -372,7 +372,7 @@ export default function FieldAppPwa({
                     onChange={e => setIncomeVerified(e.target.checked)}
                     className="rounded border-zinc-700 text-purple-600 focus:ring-0"
                   />
-                  <span className="text-zinc-300">Actividad económica / ingresos comprobados</span>
+                  <span className="text-zinc-100 font-medium">Actividad económica / ingresos comprobados</span>
                 </label>
               </div>
 
@@ -416,11 +416,11 @@ export default function FieldAppPwa({
         {activeTab === "COLLECTION" && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-zinc-200 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
+              <span className="font-bold text-zinc-100 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
                 <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Terminal Móvil de Recaudación</span>
               </span>
-              <span className="text-[10px] text-emerald-400 font-mono">● Cobro Inmediato</span>
+              <span className="text-[10px] text-emerald-300 font-mono">● Cobro Inmediato</span>
             </div>
 
             {collectionSuccessMsg && (
@@ -497,11 +497,11 @@ export default function FieldAppPwa({
         {activeTab === "REPOSSESSION" && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-zinc-200 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
+              <span className="font-bold text-zinc-100 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
                 <ShieldAlert className="w-3.5 h-3.5 text-rose-500" />
                 <span>Acta de Retención Física en Campo</span>
               </span>
-              <span className="text-[10px] text-rose-400 font-mono">● Orden Legal</span>
+              <span className="text-[10px] text-rose-300 font-mono">● Orden Legal</span>
             </div>
 
             {repossessSuccessMsg && (
@@ -533,7 +533,7 @@ export default function FieldAppPwa({
                   onChange={e => setKeysRecovered(e.target.checked)}
                   className="rounded border-zinc-700 text-rose-600 focus:ring-0"
                 />
-                <span className="text-zinc-300 font-semibold">Llaves originales entregadas al oficial</span>
+                <span className="text-zinc-100 font-semibold">Llaves originales entregadas al oficial</span>
               </label>
 
               <div>

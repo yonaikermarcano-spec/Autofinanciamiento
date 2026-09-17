@@ -146,7 +146,7 @@ export default function NewClientModal({
             <Users className="w-5 h-5 text-google-green-600 dark:text-google-green-400" />
             <span>Registrar Nuevo Cliente & Fiador</span>
           </h3>
-          <button onClick={onClose} className="p-1.5 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition cursor-pointer">
+          <button onClick={onClose} className="p-1.5 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-800 transition cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>

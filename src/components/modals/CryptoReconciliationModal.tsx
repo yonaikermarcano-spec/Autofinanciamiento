@@ -85,13 +85,13 @@ export default function CryptoReconciliationModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-amber-500/10 text-amber-400 rounded-2xl border border-amber-500/20">
+            <div className="p-2 bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-2xl border border-amber-500/20">
               <Coins className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Conciliador Cripto USDT (Binance Pay / Red TRC-20)</span>
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-amber-500/20 text-amber-800 dark:text-amber-300 px-2 py-0.2 rounded-full font-mono">
                   BLOCKCHAIN AUDITOR
                 </span>
               </h3>
@@ -114,8 +114,8 @@ export default function CryptoReconciliationModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -123,7 +123,7 @@ export default function CryptoReconciliationModal({
           {/* Bóvedas Corporativas */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
             <div className="p-4 rounded-2xl border border-amber-500/30 bg-amber-950/20 space-y-1">
-              <span className="text-[10px] text-amber-400 font-bold uppercase block font-sans">🟡 BINANCE PAY ID CORPORATIVO:</span>
+              <span className="text-[10px] text-amber-700 dark:text-amber-400 font-bold uppercase block font-sans">🟡 BINANCE PAY ID CORPORATIVO:</span>
               <p className="text-zinc-900 dark:text-zinc-100 text-sm font-bold">{CryptoReconciliationEngine.CORPORATE_WALLETS.binancePayId}</p>
               <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">Abono directo sin comisiones de red</span>
             </div>
@@ -174,7 +174,7 @@ export default function CryptoReconciliationModal({
                   required
                   value={amountUSDT}
                   onChange={e => setAmountUSDT(parseFloat(e.target.value) || 0)}
-                  className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-400 font-bold font-mono text-xs"
+                  className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-emerald-700 dark:text-emerald-400 font-bold font-mono text-xs"
                 />
               </div>
 
@@ -214,14 +214,14 @@ export default function CryptoReconciliationModal({
                     <div className="flex items-center space-x-2">
                       <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{dep.clientName}</span>
                       <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{dep.contractNumber}</span>
-                      <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-mono font-bold">
+                      <span className="text-[9px] bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 px-1.5 py-0.2 rounded font-mono font-bold">
                         ● {dep.status}
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 font-mono text-zinc-300">
-                      <p>Monto: <strong className="text-emerald-400">{dep.amountUSDT} USDT</strong></p>
-                      <p>Red: <strong className="text-amber-400">{dep.provider}</strong></p>
+                    <div className="flex flex-wrap items-center gap-3 font-mono text-slate-700 dark:text-zinc-300">
+                      <p>Monto: <strong className="text-emerald-700 dark:text-emerald-400">{dep.amountUSDT} USDT</strong></p>
+                      <p>Red: <strong className="text-amber-700 dark:text-amber-400">{dep.provider}</strong></p>
                       <p>Confirmaciones: <strong className="text-zinc-900 dark:text-zinc-100">{dep.networkConfirmations}</strong></p>
                     </div>
 

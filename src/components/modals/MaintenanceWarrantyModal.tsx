@@ -117,13 +117,13 @@ export default function MaintenanceWarrantyModal({
         {/* Encabezado Modal */}
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-purple-500/10 text-purple-400 rounded-2xl border border-purple-500/20">
+            <div className="p-2 bg-purple-500/10 text-purple-700 dark:text-purple-400 rounded-2xl border border-purple-500/20">
               <Wrench className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 tracking-tight flex items-center space-x-2">
                 <span>Taller Mecánico, Mantenimientos & Garantías Post-Venta</span>
-                <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.2 rounded-full font-mono">
+                <span className="text-[10px] bg-purple-500/20 text-purple-800 dark:text-purple-300 px-2 py-0.2 rounded-full font-mono">
                   500 KM / 1.500 KM / 3.000 KM
                 </span>
               </h3>
@@ -156,8 +156,8 @@ export default function MaintenanceWarrantyModal({
                 onClick={() => setActiveTab(t.id as any)}
                 className={"px-4 py-2 font-semibold transition flex items-center space-x-2 border-b-2 cursor-pointer " + (
                   isActive 
-                    ? "border-purple-500 text-purple-400" 
-                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-200"
+                    ? "border-purple-500 text-purple-700 dark:text-purple-400" 
+                    : "border-transparent text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
                 )}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -172,8 +172,8 @@ export default function MaintenanceWarrantyModal({
           
           {/* Banner de Éxito */}
           {successBanner && (
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl text-emerald-800 dark:text-emerald-300 text-xs font-semibold flex items-center space-x-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>{successBanner}</span>
             </div>
           )}
@@ -216,10 +216,10 @@ export default function MaintenanceWarrantyModal({
                           </span>
                         </div>
 
-                        <div className="flex items-center space-x-3 text-xs text-zinc-300 font-mono">
+                        <div className="flex items-center space-x-3 text-xs text-slate-700 dark:text-zinc-300 font-mono">
                           <p>Vehículo: <strong className="text-zinc-900 dark:text-zinc-100">{app.vehicleModel}</strong> (Placa: {app.plateOrVin})</p>
-                          <p>Hito: <strong className="text-purple-400">{app.serviceMilestoneKm} km</strong></p>
-                          <p>Odómetro Actual: <span className="text-zinc-200">{app.currentOdometerKm} km</span></p>
+                          <p>Hito: <strong className="text-purple-700 dark:text-purple-400">{app.serviceMilestoneKm} km</strong></p>
+                          <p>Odómetro Actual: <strong className="text-slate-900 dark:text-zinc-100 font-bold">{app.currentOdometerKm} km</strong></p>
                         </div>
 
                         <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans">
@@ -227,7 +227,7 @@ export default function MaintenanceWarrantyModal({
                         </p>
 
                         {app.certificateSha256 && (
-                          <span className="text-[10px] text-emerald-400 font-mono block">
+                          <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-mono block">
                             ✓ Certificado Digital: {app.certificateSha256}
                           </span>
                         )}
@@ -258,7 +258,7 @@ export default function MaintenanceWarrantyModal({
                             <span>Completar Inspección</span>
                           </button>
                         ) : (
-                          <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-bold">
+                          <span className="text-[10px] bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-bold">
                             ✓ SERVICIO COMPLETADO
                           </span>
                         )}
@@ -339,7 +339,7 @@ export default function MaintenanceWarrantyModal({
                       required
                       value={currentOdometerKm}
                       onChange={e => setCurrentOdometerKm(parseInt(e.target.value, 10) || 0)}
-                      className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-purple-400 font-bold font-mono text-xs"
+                      className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-purple-700 dark:text-purple-400 font-bold font-mono text-xs"
                     />
                   </div>
                 </div>
@@ -400,16 +400,16 @@ export default function MaintenanceWarrantyModal({
                 <div key={m.serviceNumber} className="p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-3">
                   <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
                     <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">{m.description}</h4>
-                    <span className="text-xs font-mono font-black text-purple-400">
+                    <span className="text-xs font-mono font-black text-purple-700 dark:text-purple-400">
                       {"$" + m.recommendedCostUSD} USD
                     </span>
                   </div>
 
-                  <div className="space-y-1.5 text-xs text-zinc-300">
+                  <div className="space-y-1.5 text-xs text-slate-700 dark:text-zinc-300">
                     <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">TAREAS OBLIGATORIAS:</span>
                     {m.mandatoryTasks.map((t, idx) => (
                       <p key={idx} className="flex items-center space-x-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
                         <span>{t}</span>
                       </p>
                     ))}
@@ -426,7 +426,7 @@ export default function MaintenanceWarrantyModal({
           <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs backdrop-blur-md animate-in fade-in">
             <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl w-full max-w-5xl h-[86vh] max-h-[820px] min-h-[620px] p-6 space-y-4 shadow-2xl text-zinc-900 dark:text-zinc-100 font-sans">
               
-              <div className="flex items-center space-x-3 text-purple-400">
+              <div className="flex items-center space-x-3 text-purple-700 dark:text-purple-400">
                 <div className="p-2.5 bg-purple-500/20 rounded-2xl border border-purple-500/30">
                   <Wrench className="w-6 h-6" />
                 </div>
