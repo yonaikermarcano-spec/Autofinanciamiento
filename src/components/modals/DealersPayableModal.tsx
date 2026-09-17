@@ -99,7 +99,7 @@ export default function DealersPayableModal({
                   PROVEEDORES B2B
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Radar de seguimiento a tiendas, presión por WhatsApp a vendedores y liquidaciones de flota
               </p>
             </div>
@@ -107,7 +107,7 @@ export default function DealersPayableModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -135,7 +135,7 @@ export default function DealersPayableModal({
                 <Icon className="w-3.5 h-3.5" />
                 <span>{t.label}</span>
                 {t.count !== undefined && (
-                  <span className="text-[10px] font-mono bg-zinc-800 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded-full">
+                  <span className="text-[10px] font-mono bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded-full">
                     {t.count}
                   </span>
                 )}
@@ -192,7 +192,7 @@ export default function DealersPayableModal({
                           </div>
 
                           <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 pt-1.5">{ord.vehicleModel}</h4>
-                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">
+                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
                             {"Color: " + ord.vehicleColor + " • Costo Mayorista: $" + ord.dealerPriceUSD + " USD"}
                           </p>
                         </div>
@@ -255,21 +255,21 @@ export default function DealersPayableModal({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-2xl border border-amber-500/30 bg-amber-950/10 space-y-1">
                   <span className="text-[10px] text-amber-400 font-bold uppercase">TOTAL CUENTAS POR PAGAR (DEUDA A CONCESIONARIOS)</span>
-                  <p className="text-2xl font-black font-mono text-amber-400">{"$" + totalPayableAllUSD.toLocaleString() + " USD"}</p>
-                  <p className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Pendiente por transferir por unidades en proceso o retiradas</p>
+                  <p className="text-2xl font-black font-mono text-amber-400">{"$" + totalPayableAllUSD.toLocaleString("es-VE") + " USD"}</p>
+                  <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Pendiente por transferir por unidades en proceso o retiradas</p>
                 </div>
 
                 <div className="p-4 rounded-2xl border border-emerald-500/30 bg-emerald-950/10 space-y-1">
                   <span className="text-[10px] text-emerald-400 font-bold uppercase">TOTAL HISTÓRICO LIQUIDADO A CONCESIONARIOS</span>
-                  <p className="text-2xl font-black font-mono text-emerald-400">{"$" + totalPaidAllUSD.toLocaleString() + " USD"}</p>
-                  <p className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Pagos completados satisfactoriamente</p>
+                  <p className="text-2xl font-black font-mono text-emerald-400">{"$" + totalPaidAllUSD.toLocaleString("es-VE") + " USD"}</p>
+                  <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Pagos completados satisfactoriamente</p>
                 </div>
               </div>
 
               {/* Tabla de Órdenes y Liquidaciones */}
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 overflow-hidden text-xs">
                 <table className="w-full text-left">
-                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
+                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
                     <tr>
                       <th className="p-3">Orden / Contrato</th>
                       <th className="p-3">Concesionario</th>
@@ -291,7 +291,7 @@ export default function DealersPayableModal({
                         </td>
                         <td className="p-3 font-sans">
                           <p className="font-semibold text-zinc-900 dark:text-zinc-100">{ord.vehicleModel}</p>
-                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">{ord.clientName}</span>
+                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">{ord.clientName}</span>
                         </td>
                         <td className="p-3 font-bold text-emerald-400">
                           {"$" + ord.dealerPriceUSD.toFixed(2) + " USD"}
@@ -343,7 +343,7 @@ export default function DealersPayableModal({
                     <div className="space-y-1 text-xs font-mono text-zinc-300">
                       <p>Contacto: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{d.contactName}</strong> ({d.contactRole})</p>
                       <p>Teléfono: <span className="text-blue-400">{d.contactPhone}</span></p>
-                      <p>Condición: <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{d.paymentTerms}</span></p>
+                      <p>Condición: <span className="text-zinc-600 dark:text-zinc-400">{d.paymentTerms}</span></p>
                       <p className="pt-1">Unidades Entregadas: <strong className="text-emerald-400">{d.totalUnitsDeliveredCount}</strong></p>
                       <p>Saldo Pendiente: <strong className="text-amber-400">{"$" + d.totalPayableUSD} USD</strong></p>
                     </div>
@@ -366,7 +366,7 @@ export default function DealersPayableModal({
                 </div>
                 <div>
                   <h4 className="font-bold text-base text-zinc-900 dark:text-zinc-100">Registrar Liquidación de Unidad</h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Pago a favor del concesionario aliado</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">Pago a favor del concesionario aliado</p>
                 </div>
               </div>
 
@@ -378,7 +378,7 @@ export default function DealersPayableModal({
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Método de Pago</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Método de Pago</label>
                   <select
                     value={paymentMethodInput}
                     onChange={e => setPaymentMethodInput(e.target.value)}
@@ -392,7 +392,7 @@ export default function DealersPayableModal({
                 </div>
 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Número de Referencia / Comprobante</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Número de Referencia / Comprobante</label>
                   <input
                     type="text"
                     placeholder="Ej: TRF-9948201 / REC-0824"

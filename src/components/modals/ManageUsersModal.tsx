@@ -14,7 +14,8 @@ import {
   Minus,
   Search,
   Eye,
-  EyeOff
+  EyeOff,
+  AlertTriangle
 } from "lucide-react";
 import { 
   AuthSecurityModule, 
@@ -24,6 +25,7 @@ import {
   ROLE_PERMISSIONS, 
   AuditLogEntry 
 } from "../../modules/auth-security";
+import { toast } from "../common/GoogleSnackbar";
 
 export default function ManageUsersModal({
   isOpen,
@@ -41,32 +43,52 @@ export default function ManageUsersModal({
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>(AuthSecurityModule.getAuditLogs());
   const [rolePermissions, setRolePermissions] = useState<Record<UserRole, PermissionKey[]>>(() => AuthSecurityModule.getRolePermissions());
   const [permissionSuccessMsg, setPermissionSuccessMsg] = useState<string | null>(null);
+  const [confirmAction, setConfirmAction] = useState<{
+    title: string;
+    message: string;
+    onConfirm: () => void;
+  } | null>(null);
 
-  const handleTogglePermission = (role: UserRole, permission: PermissionKey) => {
-    // Protection: don't let admin lock out user management
-    if (role === "GERENTE_GENERAL" && permission === "MANAGE_USERS_SETTINGS" && (rolePermissions[role] || []).includes(permission)) {
-      if (!confirm("¿Seguro que deseas revocar la gestión de usuarios para el rol de Gerente General? Podrías bloquear el acceso a este panel.")) {
-        return;
-      }
-    }
-
+  const applyTogglePermission = (role: UserRole, permission: PermissionKey) => {
     const updated = AuthSecurityModule.toggleRolePermission(role, permission);
     setRolePermissions({ ...updated });
     setAuditLogs(AuthSecurityModule.getAuditLogs());
     
     const isGranted = (updated[role] || []).includes(permission);
-    setPermissionSuccessMsg(`Permiso ${isGranted ? "concedido" : "revocado"} para el rol ${role.replace("_", " ")}`);
+    const msg = `Permiso ${isGranted ? "concedido" : "revocado"} para el rol ${role.replace("_", " ")}`;
+    setPermissionSuccessMsg(msg);
+    toast.info(msg);
     setTimeout(() => setPermissionSuccessMsg(null), 3000);
   };
 
-  const handleResetPermissions = () => {
-    if (confirm("¿Deseas restaurar la matriz de permisos RBAC a los valores por defecto del sistema?")) {
-      const defaults = AuthSecurityModule.resetRolePermissionsToDefaults();
-      setRolePermissions({ ...defaults });
-      setAuditLogs(AuthSecurityModule.getAuditLogs());
-      setPermissionSuccessMsg("Matriz de permisos restaurada a los valores de fábrica.");
-      setTimeout(() => setPermissionSuccessMsg(null), 3000);
+  const handleTogglePermission = (role: UserRole, permission: PermissionKey) => {
+    // Protection: don't let admin lock out user management
+    if (role === "GERENTE_GENERAL" && permission === "MANAGE_USERS_SETTINGS" && (rolePermissions[role] || []).includes(permission)) {
+      setConfirmAction({
+        title: "Atención de Seguridad",
+        message: "¿Seguro que deseas revocar la gestión de usuarios para el rol de Gerente General? Podrías bloquear el acceso a este panel.",
+        onConfirm: () => {
+          applyTogglePermission(role, permission);
+          setConfirmAction(null);
+        }
+      });
+      return;
     }
+    applyTogglePermission(role, permission);
+  };
+
+  const handleResetPermissions = () => {
+    setConfirmAction({
+      title: "Restaurar Permisos de Fábrica",
+      message: "¿Deseas restaurar la matriz de permisos RBAC a los valores por defecto del sistema?",
+      onConfirm: () => {
+        const defaults = AuthSecurityModule.resetRolePermissionsToDefaults();
+        setRolePermissions({ ...defaults });
+        setAuditLogs(AuthSecurityModule.getAuditLogs());
+        toast.info("Matriz de permisos restaurada a los valores de fábrica.");
+        setConfirmAction(null);
+      }
+    });
   };
   const [isCreatingUser, setIsCreatingUser] = useState(false);
   const [auditSearch, setAuditSearch] = useState("");
@@ -96,7 +118,7 @@ export default function ManageUsersModal({
   const handleCreateUser = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newUserName.trim() || !newUserEmail.trim() || newUserPin.length !== 4) {
-      alert("Por favor completa todos los campos requeridos y asegúrate de que el PIN tenga 4 dígitos.");
+      toast.error("Por favor completa todos los campos requeridos y asegúrate de que el PIN tenga 4 dígitos.");
       return;
     }
 
@@ -114,6 +136,7 @@ export default function ManageUsersModal({
     setNewUserName("");
     setNewUserEmail("");
     setNewUserPin("");
+    toast.success("Operador creado exitosamente con credenciales y hash criptográfico.");
   };
 
   const handleToggleStatus = (userId: string) => {
@@ -177,7 +200,7 @@ export default function ManageUsersModal({
             </div>
             <div>
               <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Seguridad & Control de Accesos (RBAC)</h2>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Administración de operadores, matriz de permisos y bitácora criptográfica inmutable</p>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">Administración de operadores, matriz de permisos y bitácora criptográfica inmutable</p>
             </div>
           </div>
 
@@ -262,7 +285,7 @@ export default function ManageUsersModal({
                     <button
                       type="button"
                       onClick={() => setIsCreatingUser(false)}
-                      className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 cursor-pointer"
+                      className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 cursor-pointer"
                     >
                       Cancelar
                     </button>
@@ -270,7 +293,7 @@ export default function ManageUsersModal({
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                     <div>
-                      <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Nombre Completo del Operador</label>
+                      <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Nombre Completo del Operador</label>
                       <input 
                         type="text"
                         required
@@ -282,7 +305,7 @@ export default function ManageUsersModal({
                     </div>
 
                     <div>
-                      <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Correo Corporativo / Usuario</label>
+                      <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Correo Corporativo / Usuario</label>
                       <input 
                         type="email"
                         required
@@ -294,7 +317,7 @@ export default function ManageUsersModal({
                     </div>
 
                     <div>
-                      <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Rol & Nivel de Permisos</label>
+                      <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Rol & Nivel de Permisos</label>
                       <select
                         value={newUserRole}
                         onChange={e => setNewUserRole(e.target.value as UserRole)}
@@ -309,7 +332,7 @@ export default function ManageUsersModal({
                     </div>
 
                     <div>
-                      <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">PIN de Seguridad (4 Dígitos)</label>
+                      <label className="text-zinc-700 dark:text-zinc-400 block mb-1">PIN de Seguridad (4 Dígitos)</label>
                       <div className="relative">
                         <input 
                           type={showPin ? "text" : "password"}
@@ -362,7 +385,7 @@ export default function ManageUsersModal({
                               {u.role.replace("_", " ")}
                             </span>
                           </div>
-                          <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono text-[11px] mt-0.5">
+                          <p className="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] mt-0.5">
                             {u.email} • {u.department} • Último login: {u.lastLogin}
                           </p>
                         </div>
@@ -417,7 +440,7 @@ export default function ManageUsersModal({
                     <KeyRound className="w-4 h-4 text-purple-500" />
                     <span>Control Granular de Permisos por Nivel Jerárquico</span>
                   </h3>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
                     Haz clic en cualquier casilla de la matriz para conceder o revocar permisos en tiempo real a cualquier rol.
                   </p>
                 </div>
@@ -444,7 +467,7 @@ export default function ManageUsersModal({
               <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/80 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-bold uppercase text-[10px]">
+                    <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/80 text-zinc-600 dark:text-zinc-400 font-bold uppercase text-[10px]">
                       <th className="p-3.5 pl-4">Módulo / Permiso</th>
                       {allRoles.map(r => (
                         <th key={r} className="p-3.5 text-center">{r.replace("_", " ")}</th>
@@ -456,7 +479,7 @@ export default function ManageUsersModal({
                       <tr key={perm} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-950/30 transition">
                         <td className="p-3.5 pl-4">
                           <strong className="text-zinc-900 dark:text-zinc-100 block font-semibold">{PERMISSION_LABELS[perm].label}</strong>
-                          <span className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{PERMISSION_LABELS[perm].desc}</span>
+                          <span className="text-[11px] text-zinc-600 dark:text-zinc-400">{PERMISSION_LABELS[perm].desc}</span>
                         </td>
                         {allRoles.map(r => {
                           const allowed = (rolePermissions[r] || []).includes(perm);
@@ -515,11 +538,11 @@ export default function ManageUsersModal({
                     key={log.id} 
                     className="bg-zinc-50 dark:bg-zinc-950 p-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1.5 text-xs font-mono"
                   >
-                    <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 text-[11px]">
+                    <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400 text-[11px]">
                       <div className="flex items-center space-x-2">
                         <span className="text-emerald-500 font-bold font-mono">[{log.id}]</span>
                         <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{log.userName}</strong>
-                        <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 bg-zinc-200/60 dark:bg-zinc-800 px-1.5 py-0.2 rounded font-sans font-semibold">
+                        <span className="text-[10px] text-zinc-600 dark:text-zinc-400 bg-zinc-200/60 dark:bg-zinc-800 px-1.5 py-0.2 rounded font-sans font-semibold">
                           {log.userRole}
                         </span>
                       </div>
@@ -529,8 +552,8 @@ export default function ManageUsersModal({
                     <p className="text-zinc-800 dark:text-zinc-200 font-sans text-xs">{log.details}</p>
 
                     <div className="flex items-center justify-between text-[10px] text-zinc-600 dark:text-zinc-400 pt-1 border-t border-zinc-200 dark:border-zinc-800/60">
-                      <span>Módulo: <strong className="text-zinc-600 dark:text-zinc-600 dark:text-zinc-400">{log.module}</strong> • IP: {log.ipAddress}</span>
-                      <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">{log.sha256Hash}</span>
+                      <span>Módulo: <strong className="text-zinc-700 dark:text-zinc-300">{log.module}</strong> • IP: {log.ipAddress}</span>
+                      <span className="text-zinc-600 dark:text-zinc-400 font-mono">{log.sha256Hash}</span>
                     </div>
                   </div>
                 ))}
@@ -539,6 +562,36 @@ export default function ManageUsersModal({
           )}
 
         </div>
+
+        {confirmAction && (
+          <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
+            <div className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl text-zinc-900 dark:text-zinc-100 font-sans animate-in zoom-in-95">
+              <div className="flex items-center space-x-3">
+                <div className="p-2.5 bg-amber-500/10 rounded-full">
+                  <AlertTriangle className="w-5 h-5 text-amber-500" />
+                </div>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-white">{confirmAction.title}</h4>
+              </div>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                {confirmAction.message}
+              </p>
+              <div className="flex items-center justify-end space-x-2 pt-2">
+                <button
+                  onClick={() => setConfirmAction(null)}
+                  className="px-4 py-2 rounded-full text-xs font-medium text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-zinc-800 transition cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={confirmAction.onConfirm}
+                  className="px-4 py-2 rounded-full text-xs font-semibold bg-google-blue-600 hover:bg-google-blue-700 text-white transition cursor-pointer shadow-xs active:scale-95"
+                >
+                  Confirmar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

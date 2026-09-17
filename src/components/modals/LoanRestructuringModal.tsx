@@ -90,7 +90,7 @@ export default function LoanRestructuringModal({
                   ADDENDUM & NUEVO PAGARÉ
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Alivio financiero por contingencias, condonación de moras y recálculo de cuotas
               </p>
             </div>
@@ -98,7 +98,7 @@ export default function LoanRestructuringModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -121,7 +121,7 @@ export default function LoanRestructuringModal({
             {/* Columna Izquierda: Parámetros del Refinanciamiento (Col 5) */}
             <div className="lg:col-span-5 p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-4 text-xs">
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Seleccionar Contrato del Cliente:</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Seleccionar Contrato del Cliente:</label>
                 <select
                   value={selectedContractNumber}
                   onChange={e => setSelectedContractNumber(e.target.value)}
@@ -136,7 +136,7 @@ export default function LoanRestructuringModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Motivo del Refinanciamiento:</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Motivo del Refinanciamiento:</label>
                 <select
                   value={reason}
                   onChange={e => setReason(e.target.value as any)}
@@ -150,7 +150,7 @@ export default function LoanRestructuringModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Justificación / Dictamen Comité:</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Justificación / Dictamen Comité:</label>
                 <textarea
                   rows={2}
                   value={customNotes}
@@ -169,14 +169,14 @@ export default function LoanRestructuringModal({
                   />
                   <span className="font-semibold text-zinc-900 dark:text-zinc-100">Condonar 100% de Moras Acumuladas</span>
                 </label>
-                <span className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block pl-5">
+                <span className="text-[11px] text-zinc-600 dark:text-zinc-400 block pl-5">
                   Monto a exonerar: <strong className="text-emerald-400">${currentContract.lateFeesPendingUSD || 0} USD</strong>
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Nuevo Plazo ({newTermWeeks} sem)</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Nuevo Plazo ({newTermWeeks} sem)</label>
                   <select
                     value={newTermWeeks}
                     onChange={e => setNewTermWeeks(parseInt(e.target.value, 10))}
@@ -190,7 +190,7 @@ export default function LoanRestructuringModal({
                 </div>
 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Tasa Anual ({interestRateAnnual}%)</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Tasa Anual ({interestRateAnnual}%)</label>
                   <input
                     type="number"
                     value={interestRateAnnual}
@@ -207,19 +207,19 @@ export default function LoanRestructuringModal({
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs font-mono">
                 <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans block">Deuda Anterior:</span>
-                  <strong className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 line-through">{"$" + proposal.previousOutstandingUSD} USD</strong>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Deuda Anterior:</span>
+                  <strong className="text-zinc-600 dark:text-zinc-400 line-through">{"$" + proposal.previousOutstandingUSD} USD</strong>
                 </div>
 
                 <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans block">Nueva Deuda Refinanciada:</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Nueva Deuda Refinanciada:</span>
                   <strong className="text-zinc-900 dark:text-zinc-100 text-base">{"$" + proposal.newRestructuredDebtUSD} USD</strong>
                 </div>
 
                 <div className="p-3.5 bg-emerald-950/20 rounded-2xl border border-emerald-500/30">
                   <span className="text-[10px] text-emerald-400 font-sans block">Nueva Cuota Semanal:</span>
                   <strong className="text-emerald-400 text-base">{"$" + proposal.newWeeklyQuotaUSD} USD</strong>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block">≈ Bs. {(proposal.newWeeklyQuotaUSD * bcvRate).toFixed(2)} BCV</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">≈ Bs. {(proposal.newWeeklyQuotaUSD * bcvRate).toFixed(2)} BCV</span>
                 </div>
               </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Bike,
   Car,
@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { PublicSimulatorEngine, SimulatorVehicleOption, SimulationResult, LeadApplicationData, PreApprovalScoreResult } from "../modules/public-simulator";
 import { BcvEngine } from "../modules/bcv-engine";
+import { toast } from "./common/GoogleSnackbar";
 
 interface PublicLoanSimulatorProps {
   onBackToDashboard?: () => void;
@@ -36,10 +37,41 @@ export default function PublicLoanSimulator({
   onBackToDashboard,
   bcvRate = 46.85
 }: PublicLoanSimulatorProps) {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [selectedVehicle, setSelectedVehicle] = useState<SimulatorVehicleOption>(PublicSimulatorEngine.AVAILABLE_VEHICLES[0]);
   const [downPercent, setDownPercent] = useState<number>(30);
   const [termMonths, setTermMonths] = useState<number>(12);
   const [frequency, setFrequency] = useState<"WEEKLY" | "BIWEEKLY" | "MONTHLY">("WEEKLY");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("autolending_theme");
+    if (saved === "light" || saved === "dark") {
+      setTheme(saved);
+      if (saved === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+    }
+    const handleSync = (e: any) => {
+      if (e.detail && (e.detail === "light" || e.detail === "dark")) {
+        setTheme(e.detail);
+      }
+    };
+    window.addEventListener("autolending_theme_sync", handleSync);
+    return () => window.removeEventListener("autolending_theme_sync", handleSync);
+  }, []);
+
+  const handleSetTheme = (newTheme: "dark" | "light") => {
+    setTheme(newTheme);
+    localStorage.setItem("autolending_theme", newTheme);
+    if (newTheme === "light") {
+      document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
+    }
+    window.dispatchEvent(new CustomEvent("autolending_theme_sync", { detail: newTheme }));
+  };
 
   // Formulario de Solicitud Pre-Aprobada
   const [step, setStep] = useState<"SIMULATOR" | "APPLY_FORM" | "PRE_APPROVED_RESULT">("SIMULATOR");
@@ -65,7 +97,10 @@ export default function PublicLoanSimulator({
 
   const handleEvaluateApplication = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!clientName || !clientPhone) return;
+    if (!clientName || !clientPhone) {
+      toast.error("Por favor completa los campos obligatorios para calcular tu pre-aprobación.");
+      return;
+    }
 
     const application: LeadApplicationData = {
       clientName,
@@ -83,21 +118,26 @@ export default function PublicLoanSimulator({
     const res = PublicSimulatorEngine.evaluatePreApproval(application, "584143329011");
     setPreApprovalResult(res);
     setStep("PRE_APPROVED_RESULT");
+    toast.success("¡Análisis de Pre-Aprobación generado con éxito!");
   };
 
+  const isDark = theme === "dark";
+
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-emerald-500 selection:text-black">
+    <div className={(isDark ? "dark bg-zinc-950 text-zinc-100" : "bg-slate-50 text-slate-900") + " min-h-screen font-sans antialiased selection:bg-google-green-500 selection:text-white transition-colors"}>
       
       {/* HEADER PÚBLICO */}
-      <header className="h-16 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-30 px-6 flex items-center justify-between max-w-7xl mx-auto">
+      <header className={"h-16 border-b sticky top-0 z-30 px-4 sm:px-6 flex items-center justify-between backdrop-blur-md " + (
+        isDark ? "border-zinc-800/80 bg-zinc-950/80" : "border-slate-200/90 bg-white/80"
+      )}>
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-xl bg-emerald-500 text-zinc-950 font-black flex items-center justify-center text-sm shadow-lg shadow-emerald-500/20">
+          <div className="w-8 h-8 rounded-xl bg-google-green-600 text-white font-black flex items-center justify-center text-sm shadow-sm">
             A
           </div>
           <div>
-            <h1 className="font-extrabold text-sm text-white tracking-tight flex items-center space-x-1.5">
+            <h1 className="font-extrabold text-sm text-slate-900 dark:text-white tracking-tight flex items-center space-x-1.5">
               <span>AutoLending</span>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.2 rounded-full font-mono">
+              <span className="text-[10px] bg-google-green-500/20 text-google-green-600 dark:text-google-green-400 px-2 py-0.2 rounded-full font-mono">
                 VE FINTECH
               </span>
             </h1>
@@ -105,14 +145,32 @@ export default function PublicLoanSimulator({
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Toggle Light / Dark */}
+          <div className="flex items-center bg-slate-100 dark:bg-zinc-850 p-0.5 rounded-full border border-slate-200 dark:border-zinc-750">
+            <button
+              onClick={() => handleSetTheme("light")}
+              className={"p-1.5 rounded-full transition-all " + (!isDark ? "bg-white text-google-blue-600 shadow-xs" : "text-zinc-400 hover:text-white")}
+              title="Modo Claro"
+            >
+              <Sun className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => handleSetTheme("dark")}
+              className={"p-1.5 rounded-full transition-all " + (isDark ? "bg-zinc-900 text-google-blue-400 shadow-xs" : "text-zinc-600 hover:text-zinc-900")}
+              title="Modo Oscuro"
+            >
+              <Moon className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
           {onBackToDashboard && (
             <button
               onClick={onBackToDashboard}
-              className="px-3.5 py-1.5 rounded-xl border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-semibold flex items-center space-x-1.5 transition cursor-pointer"
+              className="px-3 py-1.5 rounded-full border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center space-x-1.5 transition cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Volver al Dashboard ERP</span>
+              <span className="hidden sm:inline">Volver a ERP</span>
             </button>
           )}
 
@@ -120,10 +178,10 @@ export default function PublicLoanSimulator({
             href="https://wa.me/584143329011?text=Hola%20AutoLending%2C%20deseo%20informaci%C3%B3n%20sobre%20el%20financiamiento%20de%20motos"
             target="_blank"
             rel="noreferrer"
-            className="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-lg shadow-emerald-950/50 cursor-pointer"
+            className="px-3.5 py-1.5 rounded-full bg-google-green-600 hover:bg-google-green-700 text-white font-medium text-xs transition flex items-center space-x-1.5 shadow-sm active:scale-95 cursor-pointer"
           >
             <PhoneCall className="w-3.5 h-3.5" />
-            <span>Hablar con un Asesor</span>
+            <span>Asesor WhatsApp</span>
           </a>
         </div>
       </header>
@@ -342,7 +400,7 @@ export default function PublicLoanSimulator({
                     <span className="text-emerald-400">{"$" + simulation.totalInitialRequiredUSD + " USD"}</span>
                   </div>
                   <div className="text-right text-[11px] text-zinc-600 dark:text-zinc-400">
-                    (Equivalente en Bs. BCV: Bs. {simulation.totalInitialRequiredVES.toLocaleString()})
+                    (Equivalente en Bs. BCV: Bs. {simulation.totalInitialRequiredVES.toLocaleString("es-VE")})
                   </div>
                 </div>
 
@@ -512,7 +570,7 @@ export default function PublicLoanSimulator({
             {/* Resumen Final */}
             <div className="p-4 bg-zinc-950/80 rounded-xl border border-zinc-800 text-left text-xs font-mono space-y-1.5">
               <p>Vehículo: <strong className="text-white font-sans">{simulation.vehicle.brand} {simulation.vehicle.model}</strong></p>
-              <p>Inicial Requerida: <strong className="text-emerald-400 font-bold">{"$" + simulation.totalInitialRequiredUSD + " USD"}</strong> (Bs. {simulation.totalInitialRequiredVES.toLocaleString()})</p>
+              <p>Inicial Requerida: <strong className="text-emerald-400 font-bold">{"$" + simulation.totalInitialRequiredUSD + " USD"}</strong> (Bs. {simulation.totalInitialRequiredVES.toLocaleString("es-VE")})</p>
               <p>Cuota {simulation.frequency === "WEEKLY" ? "Semanal" : simulation.frequency === "BIWEEKLY" ? "Quincenal" : "Mensual"}: <strong className="text-white">{"$" + simulation.quotaAmountUSD + " USD"}</strong></p>
               <p>Fiador Registrado: <span className="text-zinc-600 dark:text-zinc-400">{guarantorName || "Por verificar"}</span></p>
             </div>

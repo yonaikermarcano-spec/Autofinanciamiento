@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Wallet, X, Check, AlertCircle, ShieldCheck, DollarSign, Coins } from "lucide-react";
+import { toast } from "../common/GoogleSnackbar";
 
 export default function CashierShiftModal({
   isOpen,
@@ -48,7 +49,11 @@ export default function CashierShiftModal({
 
     onAuditCompleted(result);
     onClose();
-    alert(result.statusMessage);
+    if (isBalanced) {
+      toast.success(result.statusMessage);
+    } else {
+      toast.warning(result.statusMessage);
+    }
   };
 
   return (
@@ -68,7 +73,7 @@ export default function CashierShiftModal({
               <h3 className="font-bold text-base tracking-tight text-zinc-900 dark:text-zinc-100">
                 Arqueo Ciego & Cierre de Turno
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Declaración física de efectivo y conciliación de gaveta
               </p>
             </div>
@@ -82,7 +87,7 @@ export default function CashierShiftModal({
         </div>
 
         {/* Guía Explicativa */}
-        <div className="p-3.5 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 flex items-start space-x-2.5 text-xs text-zinc-600 dark:text-zinc-600 dark:text-zinc-400">
+        <div className="p-3.5 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 flex items-start space-x-2.5 text-xs text-zinc-600 dark:text-zinc-400">
           <ShieldCheck className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
           <p className="leading-relaxed">
             <strong className="text-zinc-800 dark:text-zinc-200">Protocolo de Arqueo Ciego:</strong> El cajero declara el monto físico exacto contado en gaveta para que el sistema valide posibles faltantes o sobrantes sin exponer el saldo teórico previo.

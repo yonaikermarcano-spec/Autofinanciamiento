@@ -120,7 +120,7 @@ export default function WhatsappBroadcastModal({
                   VE V2.0
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Disparo de recordatorios de cuotas, alertas de mora y confirmaciones de pago
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function WhatsappBroadcastModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -173,7 +173,7 @@ export default function WhatsappBroadcastModal({
               <div className="lg:col-span-5 space-y-4 text-xs">
                 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold block mb-1.5">
+                  <label className="text-zinc-700 dark:text-zinc-400 font-semibold block mb-1.5">
                     1. Seleccionar Cliente / Contrato
                   </label>
                   <select
@@ -192,14 +192,14 @@ export default function WhatsappBroadcastModal({
                 {currentContract && (
                   <div className="p-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-1.5 text-xs font-mono">
                     <p className="text-zinc-300 font-bold">{currentContract.clientName}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 text-[11px]">{"Tlf: " + currentContract.clientPhone + " • CI: " + currentContract.clientDocId}</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 text-[11px]">{"Tlf: " + currentContract.clientPhone + " • CI: " + currentContract.clientDocId}</p>
                     <p className="text-emerald-400 text-[11px]">{"Vehículo: " + (currentContract.vehicle?.brand || "") + " " + (currentContract.vehicle?.model || "")}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 text-[11px]">{"Deuda: $" + currentContract.totalOutstandingUSD + " USD • Estatus: " + currentContract.deliveryStatus}</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 text-[11px]">{"Deuda: $" + currentContract.totalOutstandingUSD + " USD • Estatus: " + currentContract.deliveryStatus}</p>
                   </div>
                 )}
 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold block mb-1.5">
+                  <label className="text-zinc-700 dark:text-zinc-400 font-semibold block mb-1.5">
                     2. Seleccionar Plantilla de Mensaje
                   </label>
                   <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
@@ -230,14 +230,14 @@ export default function WhatsappBroadcastModal({
               <div className="lg:col-span-7 space-y-4">
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 uppercase tracking-wider flex items-center space-x-1.5">
+                  <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider flex items-center space-x-1.5">
                     <Smartphone className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Vista Previa del Mensaje en Vivo</span>
                   </span>
 
                   <button
                     onClick={handleCopyMessage}
-                    className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 flex items-center space-x-1 transition cursor-pointer"
+                    className="text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 flex items-center space-x-1 transition cursor-pointer"
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copied ? "¡Copiado!" : "Copiar Texto"}</span>
@@ -282,7 +282,7 @@ export default function WhatsappBroadcastModal({
           {/* ========================================================================= */}
           {activeTab === "TEMPLATES" && (
             <div className="space-y-4">
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Estas plantillas se disparan automáticamente según el ciclo de vida del financiamiento o de forma manual por el operador:
               </p>
 
@@ -303,7 +303,7 @@ export default function WhatsappBroadcastModal({
                         {t.category}
                       </span>
                     </div>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{t.description}</p>
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{t.description}</p>
                     <div className="bg-white dark:bg-zinc-900 p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-300 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">
                       {t.body}
                     </div>
@@ -319,13 +319,13 @@ export default function WhatsappBroadcastModal({
           {activeTab === "LOGS" && (
             <div className="space-y-4">
               <div className="flex justify-between items-center text-xs">
-                <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Total Mensajes Registrados: {logs.length}</span>
+                <span className="text-zinc-600 dark:text-zinc-400">Total Mensajes Registrados: {logs.length}</span>
                 <span className="text-[11px] text-emerald-400 font-mono">● Registro Criptográfico SHA-256</span>
               </div>
 
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 overflow-hidden text-xs">
                 <table className="w-full text-left">
-                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 uppercase font-semibold">
+                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 text-[11px] text-zinc-600 dark:text-zinc-400 uppercase font-semibold">
                     <tr>
                       <th className="p-3">ID / Fecha</th>
                       <th className="p-3">Contrato & Cliente</th>
@@ -353,7 +353,7 @@ export default function WhatsappBroadcastModal({
                             ● {log.status}
                           </span>
                         </td>
-                        <td className="p-3 text-right font-mono text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                        <td className="p-3 text-right font-mono text-[10px] text-zinc-600 dark:text-zinc-400">
                           {log.sha256Seal}
                         </td>
                       </tr>

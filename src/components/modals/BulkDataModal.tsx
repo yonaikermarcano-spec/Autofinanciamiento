@@ -142,7 +142,7 @@ export default function BulkDataModal({
                   CSV / EXCEL / JSON
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Carga masiva de carteras, validación sintáctica de cédulas VE y copias de seguridad con SHA-256
               </p>
             </div>
@@ -150,7 +150,7 @@ export default function BulkDataModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -203,7 +203,7 @@ export default function BulkDataModal({
               <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
                 <div>
                   <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">¿Primera vez importando?</h4>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
                     Descarga la plantilla oficial con el formato exacto de columnas y encabezados.
                   </p>
                 </div>
@@ -229,7 +229,7 @@ export default function BulkDataModal({
 
               {/* Zona de Drop & Pegado de Texto */}
               <div className="space-y-2 text-xs">
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold block">
+                <label className="text-zinc-700 dark:text-zinc-400 font-semibold block">
                   Pegar contenido CSV o Seleccionar archivo desde tu equipo:
                 </label>
 
@@ -238,7 +238,7 @@ export default function BulkDataModal({
                     type="file"
                     accept=".csv,.txt"
                     onChange={handleFileUpload}
-                    className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-800 file:text-zinc-900 dark:text-zinc-100 hover:file:bg-zinc-700 cursor-pointer"
+                    className="text-xs text-zinc-600 dark:text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-800 file:text-zinc-900 dark:text-zinc-100 hover:file:bg-zinc-700 cursor-pointer"
                   />
                 </div>
 
@@ -286,7 +286,7 @@ export default function BulkDataModal({
                   {/* Tabla Preview */}
                   <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 overflow-hidden text-xs max-h-48 overflow-y-auto">
                     <table className="w-full text-left">
-                      <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
+                      <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
                         <tr>
                           <th className="p-2.5">Cliente</th>
                           <th className="p-2.5">Cédula / RIF</th>
@@ -302,7 +302,7 @@ export default function BulkDataModal({
                           <tr key={idx} className="hover:bg-white dark:bg-zinc-900/40">
                             <td className="p-2.5 font-sans font-semibold text-zinc-900 dark:text-zinc-100">{r.clientName}</td>
                             <td className="p-2.5 text-zinc-300">{r.clientDocId}</td>
-                            <td className="p-2.5 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{r.clientPhone}</td>
+                            <td className="p-2.5 text-zinc-600 dark:text-zinc-400">{r.clientPhone}</td>
                             <td className="p-2.5 text-emerald-400">{(r.vehicle?.brand || "") + " " + (r.vehicle?.model || "")}</td>
                             <td className="p-2.5 text-zinc-200">{"$" + r.companyPriceUSD}</td>
                             <td className="p-2.5 text-zinc-200">{"$" + r.initialDownPaymentUSD}</td>
@@ -342,7 +342,7 @@ export default function BulkDataModal({
               <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
                 <div>
                   <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Importación de Flota e Inventario</h4>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
                     Carga lotes de motos y carros ingresados desde ensambladoras o concesionarios.
                   </p>
                 </div>

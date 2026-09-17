@@ -124,7 +124,7 @@ export default function BankPushReconciliationModal({
                   BDV / BANESCO / MERCANTIL
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Escucha automática de notificaciones push del teléfono corporativo y bandeja de revisión humana
               </p>
             </div>
@@ -132,7 +132,7 @@ export default function BankPushReconciliationModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -211,7 +211,7 @@ export default function BankPushReconciliationModal({
                       1
                     </div>
                     <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Descargar App de Reenvío en el Celular</h4>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       Instala gratis en el teléfono Android corporativo la app oficial <strong>MacroDroid</strong> o <strong>Notification Forwarder</strong> desde Google Play Store.
                     </p>
                   </div>
@@ -221,7 +221,7 @@ export default function BankPushReconciliationModal({
                       href="https://play.google.com/store/apps/details?id=com.arlosoft.macrodroid"
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full p-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-zinc-900 dark:text-zinc-100 font-bold text-[11px] transition flex items-center justify-center space-x-1.5 shadow-sm block text-center"
+                      className="w-full p-2.5 rounded-lg bg-google-blue-600 hover:bg-google-blue-700 text-white font-bold text-[11px] transition flex items-center justify-center space-x-1.5 shadow-sm block text-center"
                     >
                       <ExternalLink className="w-3.5 h-3.5 inline" />
                       <span>Descargar MacroDroid (Play Store)</span>
@@ -236,13 +236,13 @@ export default function BankPushReconciliationModal({
                       2
                     </div>
                     <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Copiar la URL Webhook de tu Sistema</h4>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       Esta es la dirección privada y segura donde tu teléfono enviará el texto de las notificaciones push en segundo plano.
                     </p>
                   </div>
 
                   <div className="space-y-2 pt-2">
-                    <div className="p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 truncate">
+                    <div className="p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[10px] font-mono text-zinc-600 dark:text-zinc-400 truncate">
                       {webhookUrl}
                     </div>
                     <button
@@ -262,7 +262,7 @@ export default function BankPushReconciliationModal({
                       3
                     </div>
                     <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Crear la Regla de Reenvío en 1 Minuto</h4>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                       En MacroDroid crea una regla con:
                       <br />• <strong>Disparador:</strong> Notificación de BDV / Banesco / Mercantil.
                       <br />• <strong>Acción:</strong> HTTP Request (POST) a la URL copiada.
@@ -275,7 +275,7 @@ export default function BankPushReconciliationModal({
                       disabled={isTestingConnection}
                       className={"w-full p-2.5 rounded-lg font-bold text-[11px] transition flex items-center justify-center space-x-1.5 cursor-pointer " + (
                         connectionTestSuccess
-                          ? "bg-emerald-600 text-zinc-900 dark:text-zinc-100"
+                          ? "bg-google-green-600 text-white"
                           : "bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30"
                       )}
                     >
@@ -286,7 +286,7 @@ export default function BankPushReconciliationModal({
                         </>
                       ) : connectionTestSuccess ? (
                         <>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-zinc-900 dark:text-zinc-100" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                           <span>¡Conexión Exitosa (Push de Prueba Recibido)!</span>
                         </>
                       ) : (
@@ -306,7 +306,7 @@ export default function BankPushReconciliationModal({
                 <ShieldCheck className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <h5 className="font-bold text-zinc-900 dark:text-zinc-100">100% Seguro y No Invasivo</h5>
-                  <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 text-[11px]">
+                  <p className="text-zinc-600 dark:text-zinc-400 text-[11px]">
                     La app de reenvío no tiene acceso a tus cuentas bancarias, contraseñas ni dinero. Solo lee el texto emergente que el banco muestra en la barra superior de notificaciones cuando entra un pago y se lo envía a tu ERP para que tus clientes disfruten de validación instantánea estilo Cashea.
                   </p>
                 </div>
@@ -326,12 +326,12 @@ export default function BankPushReconciliationModal({
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Receptor Push / Inyector de Alertas SMS</h4>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Pega el texto copiado de la app bancaria o simula una alerta push entrante en vivo.</p>
+                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Pega el texto copiado de la app bancaria o simula una alerta push entrante en vivo.</p>
                   </div>
 
                   <button
                     onClick={handleSimulateIncomingPush}
-                    className="p-2 px-3.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-zinc-900 dark:text-zinc-100 font-bold text-xs transition flex items-center space-x-1.5 cursor-pointer shadow-md"
+                    className="p-2 px-3.5 rounded-full bg-google-green-600 hover:bg-google-green-700 text-white font-semibold text-xs transition flex items-center space-x-1.5 cursor-pointer shadow-sm active:scale-95"
                   >
                     <Zap className="w-3.5 h-3.5" />
                     <span>+ Recibir Push en Vivo</span>
@@ -367,9 +367,9 @@ export default function BankPushReconciliationModal({
                             {notif.provider.replace(/_/g, ' ')}
                           </span>
                           <span className="text-xs font-mono font-black text-emerald-400">
-                            Bs. {notif.amountVES.toLocaleString()}
+                            Bs. {notif.amountVES.toLocaleString("es-VE")}
                           </span>
-                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
                             Ref: <strong className="text-zinc-900 dark:text-zinc-100">{notif.referenceNumber}</strong>
                           </span>
                         </div>
@@ -414,14 +414,14 @@ export default function BankPushReconciliationModal({
                   <AlertTriangle className="w-4 h-4 text-amber-400" />
                   <span>Pagos Reportados por Clientes en Espera de Confirmación Humana</span>
                 </p>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-1">
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
                   Estos pagos fueron reportados desde la App del Cliente pero la red bancaria presentó retraso en la notificación push. Revisa tu cuenta y aprueba con 1 clic para dar tranquilidad al cliente.
                 </p>
               </div>
 
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 overflow-hidden text-xs">
                 <table className="w-full text-left">
-                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
+                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
                     <tr>
                       <th className="p-3">Ticket / Cliente</th>
                       <th className="p-3">Banco & Teléfono</th>
@@ -436,7 +436,7 @@ export default function BankPushReconciliationModal({
                       <tr key={att.id} className="hover:bg-white dark:bg-zinc-900/40">
                         <td className="p-3">
                           <p className="font-bold text-zinc-900 dark:text-zinc-100">{att.id}</p>
-                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">{att.clientName} (#{att.contractNumber})</span>
+                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">{att.clientName} (#{att.contractNumber})</span>
                         </td>
                         <td className="p-3 font-sans text-zinc-200">
                           <p>{att.originBank}</p>
@@ -446,7 +446,7 @@ export default function BankPushReconciliationModal({
                           {att.referenceNumber}
                         </td>
                         <td className="p-3 font-bold text-emerald-400">
-                          Bs. {att.reportedAmountVES.toLocaleString()}
+                          Bs. {att.reportedAmountVES.toLocaleString("es-VE")}
                         </td>
                         <td className="p-3">
                           <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold " + (
@@ -461,7 +461,7 @@ export default function BankPushReconciliationModal({
                           {att.status === "PENDING_HUMAN_REVIEW" ? (
                             <button
                               onClick={() => setSelectedReviewAttempt(att)}
-                              className="p-1.5 px-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-zinc-950 font-bold text-xs transition cursor-pointer"
+                              className="p-1.5 px-3 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition cursor-pointer shadow-xs"
                             >
                               Revisar & Aprobar
                             </button>
@@ -497,8 +497,8 @@ export default function BankPushReconciliationModal({
                   <div className="space-y-1 text-xs font-mono text-zinc-300">
                     <p>Teléfono Pago Móvil: <strong className="text-emerald-400">{acc.phone}</strong></p>
                     <p>RIF: <span className="text-zinc-200">{acc.rif}</span></p>
-                    <p>Código Banco: <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{acc.bankCode}</span></p>
-                    <p>Titular: <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">{acc.beneficiaryName}</span></p>
+                    <p>Código Banco: <span className="text-zinc-600 dark:text-zinc-400">{acc.bankCode}</span></p>
+                    <p>Titular: <span className="text-zinc-600 dark:text-zinc-400 font-sans">{acc.beneficiaryName}</span></p>
                   </div>
                 </div>
               ))}
@@ -509,49 +509,49 @@ export default function BankPushReconciliationModal({
 
         {/* MODAL DE APROBACIÓN MANUAL */}
         {selectedReviewAttempt && (
-          <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs backdrop-blur-md animate-in fade-in">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl w-full max-w-5xl h-[86vh] max-h-[820px] min-h-[620px] p-6 space-y-4 shadow-2xl text-zinc-900 dark:text-zinc-100 font-sans">
+          <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
+            <div className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-3xl w-full max-w-md p-6 space-y-4 shadow-2xl text-zinc-900 dark:text-zinc-100 font-sans animate-in zoom-in-95 duration-150">
               
-              <div className="flex items-center space-x-3 text-amber-400">
+              <div className="flex items-center space-x-3 text-amber-500">
                 <div className="p-2.5 bg-amber-500/20 rounded-2xl border border-amber-500/30">
                   <UserCheck className="w-6 h-6" />
                 </div>
                 <div>
                   <h4 className="font-bold text-base text-zinc-900 dark:text-zinc-100">Aprobación Manual de Pago</h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Ticket: #{selectedReviewAttempt.id}</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">Ticket: #{selectedReviewAttempt.id}</p>
                 </div>
               </div>
 
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1.5 text-xs font-mono">
+              <div className="p-4 bg-slate-50 dark:bg-zinc-950 rounded-2xl border border-slate-200/80 dark:border-zinc-800 space-y-1.5 text-xs font-mono">
                 <p>Cliente: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{selectedReviewAttempt.clientName}</strong></p>
-                <p>Contrato: <span className="text-zinc-300">#{selectedReviewAttempt.contractNumber}</span></p>
-                <p>Referencia Bancaria: <strong className="text-amber-400 font-bold">{selectedReviewAttempt.referenceNumber}</strong></p>
-                <p>Monto en Bolívares: <strong className="text-emerald-400">Bs. {selectedReviewAttempt.reportedAmountVES.toLocaleString()}</strong></p>
+                <p>Contrato: <span className="text-zinc-600 dark:text-zinc-300">#{selectedReviewAttempt.contractNumber}</span></p>
+                <p>Referencia Bancaria: <strong className="text-amber-500 font-bold">{selectedReviewAttempt.referenceNumber}</strong></p>
+                <p>Monto en Bolívares: <strong className="text-google-green-600 dark:text-google-green-400">Bs. {selectedReviewAttempt.reportedAmountVES.toLocaleString("es-VE")}</strong></p>
               </div>
 
               <div className="space-y-1 text-xs">
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block">Nota del Cajero / Verificador:</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block font-medium">Nota del Cajero / Verificador:</label>
                 <input
                   type="text"
                   value={reviewerNotes}
                   onChange={e => setReviewerNotes(e.target.value)}
-                  className="w-full p-2.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 text-xs font-sans"
+                  className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 text-xs font-sans focus:outline-none focus:ring-2 focus:ring-google-blue-500/30"
                 />
               </div>
 
               <div className="flex items-center space-x-2 pt-2">
                 <button
                   onClick={() => setSelectedReviewAttempt(null)}
-                  className="flex-1 p-2.5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold text-xs transition cursor-pointer"
+                  className="flex-1 p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-semibold text-xs transition cursor-pointer"
                 >
                   Cancelar
                 </button>
 
                 <button
                   onClick={() => handleApproveReview(selectedReviewAttempt.id)}
-                  className="flex-1 p-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-zinc-900 dark:text-zinc-100 font-bold text-xs transition flex items-center justify-center space-x-1.5 cursor-pointer shadow-lg shadow-emerald-950/50"
+                  className="flex-1 p-2.5 rounded-full bg-google-green-600 hover:bg-google-green-700 text-white font-bold text-xs transition flex items-center justify-center space-x-1.5 cursor-pointer shadow-md active:scale-95"
                 >
-                  <CheckCircle2 className="w-4 h-4" />
+                  <CheckCircle2 className="w-4 h-4 text-white" />
                   <span>Aprobar Pago y Notificar</span>
                 </button>
               </div>

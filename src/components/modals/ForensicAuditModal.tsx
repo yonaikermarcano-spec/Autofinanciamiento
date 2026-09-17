@@ -110,7 +110,7 @@ export default function ForensicAuditModal({
                   SHA-256 CHAIN
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Registro inmutable encadenado de operaciones de caja, créditos, campo y telemetría
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function ForensicAuditModal({
 
             <button 
               onClick={onClose}
-              className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+              className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -141,7 +141,7 @@ export default function ForensicAuditModal({
               <h4 className="font-bold text-xs text-zinc-300 uppercase tracking-wider">
                 Estado de la Cadena Forense (Merkle & Hashes Consecutivos)
               </h4>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
                 Garantiza que ningún registro ha sido borrado, modificado o insertado retroactivamente.
               </p>
             </div>
@@ -191,7 +191,7 @@ export default function ForensicAuditModal({
           <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
             <div className="flex flex-1 items-center space-x-2 min-w-[280px]">
               <div className="relative flex-1">
-                <Search className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={searchTerm}
@@ -235,7 +235,7 @@ export default function ForensicAuditModal({
         <div className="flex-1 p-6 overflow-y-auto">
           <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 overflow-hidden text-xs">
             <table className="w-full text-left">
-              <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
+              <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
                 <tr>
                   <th className="p-3">Seq / ID</th>
                   <th className="p-3">Fecha & Hora</th>
@@ -259,7 +259,7 @@ export default function ForensicAuditModal({
                         <td className="p-3 font-bold text-zinc-900 dark:text-zinc-100">
                           #{evt.sequenceNumber} <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-normal">({evt.id})</span>
                         </td>
-                        <td className="p-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
+                        <td className="p-3 text-zinc-600 dark:text-zinc-400 whitespace-nowrap">
                           {evt.timestamp}
                         </td>
                         <td className="p-3 font-sans">
@@ -273,7 +273,7 @@ export default function ForensicAuditModal({
                         </td>
                         <td className="p-3 font-sans">
                           <p className="font-bold text-zinc-900 dark:text-zinc-100">{evt.action}</p>
-                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 truncate max-w-xs">{evt.details}</p>
+                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 truncate max-w-xs">{evt.details}</p>
                         </td>
                         <td className="p-3">
                           <span className={"text-[10px] px-2 py-0.5 rounded-full font-bold " + (
@@ -285,7 +285,7 @@ export default function ForensicAuditModal({
                             {evt.severity}
                           </span>
                         </td>
-                        <td className="p-3 text-right text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">
+                        <td className="p-3 text-right text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">
                           {evt.currentHash.slice(0, 18)}...
                         </td>
                       </tr>
@@ -308,7 +308,7 @@ export default function ForensicAuditModal({
                                   <span className="text-emerald-400 break-all font-bold">{evt.currentHash}</span>
                                 </div>
                               </div>
-                              <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans text-xs pt-1">
+                              <p className="text-zinc-600 dark:text-zinc-400 font-sans text-xs pt-1">
                                 <strong>Detalle Completo:</strong> {evt.details} (IP Origen: {evt.ipAddress})
                               </p>
                             </div>

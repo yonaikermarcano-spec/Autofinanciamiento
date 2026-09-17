@@ -63,7 +63,7 @@ export default function InvestorPortalModal({
                   EQUITY & DIVIDENDS
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Monitoreo de capital aportado, motos asignadas en garantía y dividendos mensuales liquidados
               </p>
             </div>
@@ -71,7 +71,7 @@ export default function InvestorPortalModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -83,7 +83,7 @@ export default function InvestorPortalModal({
           {/* Selector de Socio Inversionista */}
           <div className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
             <div>
-              <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Seleccionar Socio Inversionista:</label>
+              <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Seleccionar Socio Inversionista:</label>
               <select
                 value={selectedInvestorId}
                 onChange={e => setSelectedInvestorId(e.target.value)}
@@ -112,26 +112,26 @@ export default function InvestorPortalModal({
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs font-mono">
             <div className="p-5 rounded-3xl border border-purple-500/30 bg-purple-950/20 space-y-1">
               <span className="text-[10px] text-purple-400 font-bold uppercase block font-sans">CAPITAL APORTADO</span>
-              <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">{"$" + currentInvestor.totalCapitalInvestedUSD.toLocaleString()} USD</p>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">{currentInvestor.activeFinancedUnitsCount} motos financiadas</span>
+              <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">{"$" + currentInvestor.totalCapitalInvestedUSD.toLocaleString("es-VE") } USD</p>
+              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">{currentInvestor.activeFinancedUnitsCount} motos financiadas</span>
             </div>
 
             <div className="p-5 rounded-3xl border border-emerald-500/30 bg-emerald-950/20 space-y-1">
               <span className="text-[10px] text-emerald-400 font-bold uppercase block font-sans">RENTABILIDAD ANUAL (APY)</span>
               <p className="text-2xl font-black text-emerald-400">{currentInvestor.annualizedRoiPercent}%</p>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">Rendimiento sobre capital</span>
+              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">Rendimiento sobre capital</span>
             </div>
 
             <div className="p-5 rounded-3xl border border-blue-500/30 bg-blue-950/20 space-y-1">
               <span className="text-[10px] text-blue-400 font-bold uppercase block font-sans">DIVIDENDOS PAGADOS</span>
-              <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">{"$" + currentInvestor.monthlyDividendsPaidUSD.toLocaleString()} USD</p>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">Acumulado año en curso</span>
+              <p className="text-2xl font-black text-zinc-900 dark:text-zinc-100">{"$" + currentInvestor.monthlyDividendsPaidUSD.toLocaleString("es-VE") } USD</p>
+              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">Acumulado año en curso</span>
             </div>
 
             <div className="p-5 rounded-3xl border border-amber-500/30 bg-amber-950/20 space-y-1">
               <span className="text-[10px] text-amber-400 font-bold uppercase block font-sans">DIVIDENDO ESTE MES</span>
-              <p className="text-2xl font-black text-amber-400">{"$" + currentInvestor.pendingDividendsThisMonthUSD.toLocaleString()} USD</p>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">Liquidación al cierre</span>
+              <p className="text-2xl font-black text-amber-400">{"$" + currentInvestor.pendingDividendsThisMonthUSD.toLocaleString("es-VE") } USD</p>
+              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">Liquidación al cierre</span>
             </div>
           </div>
 
@@ -151,7 +151,7 @@ export default function InvestorPortalModal({
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
                       <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{veh.model}</span>
-                      <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">#{veh.contractNumber}</span>
+                      <span className="text-[10px] text-zinc-600 dark:text-zinc-400">#{veh.contractNumber}</span>
                       <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-mono font-bold">
                         ● {veh.healthStatus}
                       </span>

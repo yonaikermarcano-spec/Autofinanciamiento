@@ -134,7 +134,7 @@ export default function LegalDocsAndAlliedModal({
                   RESERVA DE DOMINIO & INTT
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Custodia de títulos, entregas por fase, pedidos B2B al aliado y comisiones acumuladas del 10%
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function LegalDocsAndAlliedModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -199,7 +199,7 @@ export default function LegalDocsAndAlliedModal({
               {/* Selector de Contrato / Cliente */}
               <div className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Seleccionar Expediente de Cliente:</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Seleccionar Expediente de Cliente:</label>
                   <select
                     value={selectedContractNumber}
                     onChange={e => setSelectedContractNumber(e.target.value)}
@@ -214,7 +214,7 @@ export default function LegalDocsAndAlliedModal({
                 </div>
 
                 <div className="text-right">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 uppercase font-bold block">FASE DOCUMENTAL ACTUAL</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">FASE DOCUMENTAL ACTUAL</span>
                   <span className={"text-xs font-black px-3 py-1 rounded-full border inline-block mt-0.5 " + (
                     currentClientPhase.currentPhase === 3 ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30" :
                     currentClientPhase.currentPhase === 2 ? "bg-blue-500/10 text-blue-400 border-blue-500/30" :
@@ -238,7 +238,7 @@ export default function LegalDocsAndAlliedModal({
                     <div>
                       <span className="text-[10px] text-purple-400 font-bold uppercase">FASE 1</span>
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Entrega Inicial del Vehículo</h4>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Cliente amortizando cuotas</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Cliente amortizando cuotas</p>
                     </div>
                     {currentClientPhase.phase1.isCompleted && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
                   </div>
@@ -252,7 +252,7 @@ export default function LegalDocsAndAlliedModal({
                           {currentClientPhase.phase1.driverLicense.status}
                         </span>
                       </div>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400">
                         {currentClientPhase.phase1.driverLicense.notes} (Responsabilidad del cliente).
                       </p>
                     </div>
@@ -319,7 +319,7 @@ export default function LegalDocsAndAlliedModal({
                     <div>
                       <span className="text-[10px] text-blue-400 font-bold uppercase">FASE 2</span>
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Certificado de Circulación INTT</h4>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Título emitido con reserva</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Título emitido con reserva</p>
                     </div>
                     {currentClientPhase.phase2.isCompleted && <CheckCircle2 className="w-5 h-5 text-blue-400" />}
                   </div>
@@ -349,7 +349,7 @@ export default function LegalDocsAndAlliedModal({
                       <span className="font-semibold text-amber-400">2. Original Custodiado en Bóveda Financiadora</span>
                     </label>
 
-                    <div className="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                    <div className="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
                       Nro Registro INTT: <strong className="text-zinc-900 dark:text-zinc-100">{currentClientPhase.phase2.circulationRegistrationNumber || "En trámite"}</strong>
                     </div>
                   </div>
@@ -365,7 +365,7 @@ export default function LegalDocsAndAlliedModal({
                     <div>
                       <span className="text-[10px] text-emerald-400 font-bold uppercase">FASE 3</span>
                       <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Finiquito & Liberación Total</h4>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">100% cuotas pagadas</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400">100% cuotas pagadas</p>
                     </div>
                     {currentClientPhase.phase3.isCompleted && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
                   </div>
@@ -423,7 +423,7 @@ export default function LegalDocsAndAlliedModal({
                   <ShieldCheck className="w-4 h-4 text-blue-400" />
                   <span>Flujo de Pedido al Aliado B2B de RCV y Certificados Médicos</span>
                 </p>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-1">
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
                   1. El cliente solicita y paga en oficina. • 2. La financiadora comprueba el pago y solicita el pedido al Aliado por WhatsApp. • 3. El Aliado emite y la financiadora entrega en oficina acumulando su 10% de ganancia.
                 </p>
               </div>
@@ -440,7 +440,7 @@ export default function LegalDocsAndAlliedModal({
                       <div className="space-y-1.5">
                         <div className="flex items-center space-x-2">
                           <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{ord.serviceName}</span>
-                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">#{ord.id}</span>
+                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{ord.id}</span>
                           <span className={"text-[9px] px-2 py-0.2 rounded font-bold " + (
                             ord.status === "ENTREGADO_A_CLIENTE" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
                             ord.status === "LISTO_PARA_RETIRO" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" :
@@ -457,7 +457,7 @@ export default function LegalDocsAndAlliedModal({
                           <p>Ganancia Financiadora (10%): <strong className="text-amber-400">+{"$" + ord.financierProfitUSD} USD</strong></p>
                         </div>
 
-                        <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 text-[11px] font-sans">
+                        <p className="text-zinc-600 dark:text-zinc-400 text-[11px] font-sans">
                           📅 Fecha de Retiro en Oficina Agendada: <strong className="text-zinc-900 dark:text-zinc-100">{ord.pickupDateScheduled}</strong>
                         </p>
 
@@ -539,19 +539,19 @@ export default function LegalDocsAndAlliedModal({
                 <div className="p-5 rounded-2xl border border-amber-500/30 bg-amber-950/20 space-y-1">
                   <span className="text-[10px] text-amber-400 font-bold uppercase">GANANCIA ACUMULADA FINANCIADORA (10%)</span>
                   <p className="text-3xl font-black font-mono text-amber-400">{"$" + commissionsSummary.totalAccumulatedProfitUSD.toFixed(2)} USD</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Descuento a favor en factura de software</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Descuento a favor en factura de software</span>
                 </div>
 
                 <div className="p-5 rounded-2xl border border-blue-500/30 bg-blue-950/20 space-y-1">
                   <span className="text-[10px] text-blue-400 font-bold uppercase">TOTAL SERVICIOS VENDIDOS</span>
                   <p className="text-3xl font-black font-mono text-zinc-900 dark:text-zinc-100">{commissionsSummary.totalSalesCount}</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">RCV & Certificados Médicos</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">RCV & Certificados Médicos</span>
                 </div>
 
                 <div className="p-5 rounded-2xl border border-purple-500/30 bg-purple-950/20 space-y-1">
                   <span className="text-[10px] text-purple-400 font-bold uppercase">GANANCIA PLATAFORMA (10%)</span>
                   <p className="text-3xl font-black font-mono text-purple-400">{"$" + commissionsSummary.totalPlatformProfitUSD.toFixed(2)} USD</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Modelo Aliado B2B</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Modelo Aliado B2B</span>
                 </div>
               </div>
 
@@ -581,7 +581,7 @@ export default function LegalDocsAndAlliedModal({
                 </div>
                 <div>
                   <h4 className="font-bold text-base text-zinc-900 dark:text-zinc-100">Registrar Pago al Aliado B2B</h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{payingOrder.serviceName} (#{payingOrder.id})</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">{payingOrder.serviceName} (#{payingOrder.id})</p>
                 </div>
               </div>
 
@@ -591,7 +591,7 @@ export default function LegalDocsAndAlliedModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Número de Referencia de Pago Bancario al Aliado:</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Número de Referencia de Pago Bancario al Aliado:</label>
                 <input
                   type="text"
                   required

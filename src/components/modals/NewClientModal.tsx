@@ -5,6 +5,7 @@ import { Users, X } from "lucide-react";
 import { LocalDB } from "../../modules/local-db";
 import { FinancialCore } from "../../modules/financial-core";
 import { LoanContract } from "../../types";
+import { toast } from "../common/GoogleSnackbar";
 
 export default function NewClientModal({
   isOpen,
@@ -41,7 +42,7 @@ export default function NewClientModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !docId) {
-      alert("Ingresa nombre y cédula del cliente.");
+      toast.error("Por favor ingresa nombre y cédula del cliente.");
       return;
     }
 
@@ -131,21 +132,21 @@ export default function NewClientModal({
     LocalDB.addContract(newContract);
     onClientCreated(newContract);
     onClose();
-    alert(`✅ Cliente ${name} registrado y activado en CRM.`);
+    toast.success(`Cliente ${name} registrado y activado en CRM.`);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/30 backdrop-blur-xs animate-in fade-in duration-150" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-xs animate-in fade-in duration-150" onClick={onClose}>
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 rounded-3xl w-full max-w-2xl max-h-[88vh] flex flex-col shadow-2xl shadow-zinc-900/15 overflow-hidden text-zinc-900 dark:text-zinc-100 font-sans"
+        className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-3xl w-full max-w-2xl max-h-[88vh] flex flex-col shadow-2xl overflow-hidden text-zinc-900 dark:text-zinc-100 font-sans"
       >
         <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between flex-shrink-0 bg-zinc-50/50 dark:bg-zinc-950/50">
           <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-base flex items-center space-x-2">
-            <Users className="w-5 h-5 text-emerald-400" />
+            <Users className="w-5 h-5 text-google-green-600 dark:text-google-green-400" />
             <span>Registrar Nuevo Cliente & Fiador</span>
           </h3>
-          <button onClick={onClose} className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100">
+          <button onClick={onClose} className="p-1.5 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -154,83 +155,83 @@ export default function NewClientModal({
         <form onSubmit={handleSubmit} className="space-y-3 text-xs">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Nombre y Apellido del Cliente</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300">Nombre y Apellido del Cliente</label>
               <input 
                 type="text" 
                 required 
                 placeholder="Ej. Juan Pérez" 
                 value={name} 
                 onChange={e => setName(e.target.value)}
-                className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1" 
+                className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 focus:outline-none focus:ring-2 focus:ring-google-blue-500/30" 
               />
             </div>
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Cédula de Identidad (CI)</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300">Cédula de Identidad (CI)</label>
               <input 
                 type="text" 
                 required 
                 placeholder="Ej. V-20.123.456" 
                 value={docId} 
                 onChange={e => setDocId(e.target.value)}
-                className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-mono uppercase" 
+                className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-google-blue-500/30" 
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Teléfono (WhatsApp)</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300">Teléfono (WhatsApp)</label>
               <input 
                 type="text" 
                 placeholder="+58 412-000-0000" 
                 value={phone} 
                 onChange={e => setPhone(e.target.value)}
-                className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1" 
+                className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 focus:outline-none focus:ring-2 focus:ring-google-blue-500/30" 
               />
             </div>
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Dirección Domiciliaria</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300">Dirección Domiciliaria</label>
               <input 
                 type="text" 
                 placeholder="Sector, Calle, Casa" 
                 value={address} 
                 onChange={e => setAddress(e.target.value)}
-                className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1" 
+                className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 focus:outline-none focus:ring-2 focus:ring-google-blue-500/30" 
               />
             </div>
           </div>
 
-          <div className="border-t border-zinc-200 dark:border-zinc-200 dark:border-zinc-800 pt-3">
-            <span className="font-bold text-slate-300 block mb-2">Datos del Fiador / Aval Solidario:</span>
+          <div className="border-t border-slate-200 dark:border-zinc-800 pt-3">
+            <span className="font-bold text-slate-700 dark:text-slate-300 block mb-2">Datos del Fiador / Aval Solidario:</span>
             <div className="grid grid-cols-3 gap-2">
               <div>
-                <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Nombre Fiador</label>
+                <label className="font-semibold text-zinc-700 dark:text-zinc-300">Nombre Fiador</label>
                 <input 
                   type="text" 
                   placeholder="Ej. Pedro Pérez" 
                   value={guarantorName} 
                   onChange={e => setGuarantorName(e.target.value)}
-                  className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2 text-zinc-900 dark:text-zinc-100 mt-1" 
+                  className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2 text-zinc-900 dark:text-zinc-100 mt-1 focus:outline-none" 
                 />
               </div>
               <div>
-                <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">CI Fiador</label>
+                <label className="font-semibold text-zinc-700 dark:text-zinc-300">CI Fiador</label>
                 <input 
                   type="text" 
                   placeholder="V-19.882.100" 
                   value={guarantorDocId} 
                   onChange={e => setGuarantorDocId(e.target.value)}
-                  className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2 text-zinc-900 dark:text-zinc-100 mt-1 font-mono uppercase" 
+                  className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2 text-zinc-900 dark:text-zinc-100 mt-1 font-mono uppercase focus:outline-none" 
                 />
               </div>
               <div>
-                <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Teléfono Fiador</label>
+                <label className="font-semibold text-zinc-700 dark:text-zinc-300">Teléfono Fiador</label>
                 <input 
                   type="text" 
                   placeholder="+58 414-000-0000" 
                   value={guarantorPhone} 
                   onChange={e => setGuarantorPhone(e.target.value)}
-                  className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2 text-zinc-900 dark:text-zinc-100 mt-1" 
+                  className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2 text-zinc-900 dark:text-zinc-100 mt-1 focus:outline-none" 
                 />
               </div>
             </div>
@@ -238,7 +239,7 @@ export default function NewClientModal({
 
           <button 
             type="submit" 
-            className="w-full bg-emerald-600 hover:bg-emerald-500 text-zinc-900 dark:text-zinc-100 font-bold py-3 rounded-2xl transition mt-2 shadow-lg shadow-emerald-900/30"
+            className="w-full bg-google-green-600 hover:bg-google-green-700 text-white font-semibold py-3 rounded-full transition mt-2 shadow-sm active:scale-95 cursor-pointer"
           >
             Guardar Cliente & Activar en CRM
           </button>

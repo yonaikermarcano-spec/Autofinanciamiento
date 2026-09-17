@@ -79,7 +79,7 @@ export default function SmartCommunicationsModal({
                   WHATSAPP 1-A-1 SEGURO
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Notificaciones automáticas en la app del cliente y bandeja de contacto manual 1 a 1 por asesor
               </p>
             </div>
@@ -87,7 +87,7 @@ export default function SmartCommunicationsModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -147,7 +147,7 @@ export default function SmartCommunicationsModal({
                     <Shield className="w-4 h-4 text-emerald-400" />
                     <span>Gestión Humana Individual (Protección contra Spam y Baneo)</span>
                   </p>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
                     El asesor presiona el botón para abrir la conversación en WhatsApp con el mensaje oficial ya redactado. Al enviar, marca la casilla para evitar duplicados.
                   </p>
                 </div>
@@ -166,7 +166,7 @@ export default function SmartCommunicationsModal({
                     <div className="space-y-1.5">
                       <div className="flex items-center space-x-2">
                         <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 font-sans">{item.clientName}</span>
-                        <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">#{item.contractNumber}</span>
+                        <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{item.contractNumber}</span>
                         <span className="text-[9px] bg-blue-500/20 text-blue-300 px-2 py-0.2 rounded font-mono font-bold">
                           {item.categoryLabel}
                         </span>
@@ -180,11 +180,11 @@ export default function SmartCommunicationsModal({
 
                       <div className="flex flex-wrap items-center gap-3 font-mono text-zinc-300">
                         <p>Vehículo: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{item.vehicleModel}</strong></p>
-                        <p>Cuota: <strong className="text-emerald-400">{"$" + item.dueAmountUSD} USD</strong> (Bs. {item.dueAmountVES.toLocaleString()} BCV)</p>
+                        <p>Cuota: <strong className="text-emerald-400">{"$" + item.dueAmountUSD} USD</strong> (Bs. {item.dueAmountVES.toLocaleString("es-VE")} BCV)</p>
                         <p>Vence: <strong className="text-amber-400">{item.dueDate}</strong></p>
                       </div>
 
-                      <div className="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] font-sans text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 italic">
+                      <div className="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] font-sans text-zinc-600 dark:text-zinc-400 italic">
                         "{item.customMessageWa.replace(/\n/g, ' ')}"
                       </div>
                     </div>
@@ -228,7 +228,7 @@ export default function SmartCommunicationsModal({
                   <Smartphone className="w-4 h-4 text-blue-400" />
                   <span>Notificaciones In-App en el Portal del Cliente (Seguras & Automáticas)</span>
                 </p>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-1">
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
                   Los avisos automáticos de cuotas por vencer, confirmaciones de pagos y revisiones de taller se entregan en el buzón dentro de la app móvil del cliente. No generan ningún riesgo de bloqueo en WhatsApp.
                 </p>
               </div>
@@ -260,7 +260,7 @@ export default function SmartCommunicationsModal({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                 <div className="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5">
                   <strong className="text-emerald-400 block">✅ Buenas Prácticas Implementadas:</strong>
-                  <ul className="list-disc pl-4 space-y-1 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                  <ul className="list-disc pl-4 space-y-1 text-zinc-600 dark:text-zinc-400">
                     <li>Envío 1 a 1 iniciado por clic manual del asesor.</li>
                     <li>Plantillas personalizadas con el nombre y datos exactos del cliente.</li>
                     <li>Uso de la app oficial del cliente para notificaciones recurrentes.</li>
@@ -270,7 +270,7 @@ export default function SmartCommunicationsModal({
 
                 <div className="p-4 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-1.5">
                   <strong className="text-red-400 block">❌ Lo que el Sistema Bloquea por Seguridad:</strong>
-                  <ul className="list-disc pl-4 space-y-1 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                  <ul className="list-disc pl-4 space-y-1 text-zinc-600 dark:text-zinc-400">
                     <li>Bots de difusión masiva automatizada no oficial (evita reportes como Spam).</li>
                     <li>Mensajes idénticos repetitivos sin datos variables.</li>
                     <li>Envío fuera de horarios comerciales recomendados.</li>

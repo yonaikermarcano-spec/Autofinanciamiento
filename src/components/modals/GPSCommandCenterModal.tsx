@@ -93,7 +93,7 @@ export default function GPSCommandCenterModal({
                   TELEMETRÍA EN VIVO
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Monitoreo satelital de flota, geocercas y corte remoto de motor con respaldo criptográfico
               </p>
             </div>
@@ -101,7 +101,7 @@ export default function GPSCommandCenterModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -162,7 +162,7 @@ export default function GPSCommandCenterModal({
               {/* Tarjetas de Resumen */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-1">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-bold uppercase">UNIDADES EN LÍNEA</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-bold uppercase">UNIDADES EN LÍNEA</span>
                   <p className="text-2xl font-black font-mono text-emerald-400">{devices.filter(d => !d.isEngineCut).length} / {devices.length}</p>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">Telemetría activa</span>
                 </div>
@@ -170,13 +170,13 @@ export default function GPSCommandCenterModal({
                 <div className="p-4 rounded-2xl border border-red-500/30 bg-red-950/10 space-y-1">
                   <span className="text-[10px] text-red-400 font-bold uppercase">MOTORES INMOVILIZADOS</span>
                   <p className="text-2xl font-black font-mono text-red-400">{immobilizedCount}</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Kill-Switch activado</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Kill-Switch activado</span>
                 </div>
 
                 <div className="p-4 rounded-2xl border border-amber-500/30 bg-amber-950/10 space-y-1">
                   <span className="text-[10px] text-amber-400 font-bold uppercase">ALERTAS DE GEOCERCA</span>
                   <p className="text-2xl font-black font-mono text-amber-400">{geofenceBreachedCount}</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Fuera de perímetro</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Fuera de perímetro</span>
                 </div>
               </div>
 
@@ -197,7 +197,7 @@ export default function GPSCommandCenterModal({
                       <div className="space-y-1.5">
                         <div className="flex items-center space-x-2">
                           <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 font-sans">{device.clientName}</span>
-                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">#{device.contractNumber}</span>
+                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{device.contractNumber}</span>
                           <span className={"text-[9px] px-2 py-0.2 rounded font-bold " + (
                             device.isEngineCut ? "bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse" :
                             device.status === "ONLINE_MOVING" ? "bg-emerald-500/20 text-emerald-400" :
@@ -216,7 +216,7 @@ export default function GPSCommandCenterModal({
                           </p>
                         </div>
 
-                        <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans flex items-center space-x-1">
+                        <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans flex items-center space-x-1">
                           <MapPin className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
                           <span>{device.locationAddress} • Zona: <strong className="text-zinc-200">{device.geofenceZone.replace(/_/g, ' ')}</strong></span>
                         </p>
@@ -281,7 +281,7 @@ export default function GPSCommandCenterModal({
                   <ShieldAlert className="w-4 h-4 text-amber-400" />
                   <span>Monitoreo de Geocercas y Perímetros Autorizados</span>
                 </p>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-1">
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
                   Si un vehículo sale de su zona metropolitana autorizada (ej: Gran Caracas hacia zonas fronterizas), el sistema genera una alerta inmediata para evaluación de inmovilización preventiva.
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function GPSCommandCenterModal({
                     <span className="font-bold text-amber-400">{log.action}</span>
                     <span className="text-zinc-600 dark:text-zinc-400 text-[10px]">{log.timestamp}</span>
                   </div>
-                  <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans text-[11px]">Operador: {log.operator}</p>
+                  <p className="text-zinc-600 dark:text-zinc-400 font-sans text-[11px]">Operador: {log.operator}</p>
                   <p className="text-[10px] text-zinc-600 truncate">Sello Criptográfico: {log.sha256Seal}</p>
                 </div>
               ))}
@@ -341,19 +341,19 @@ export default function GPSCommandCenterModal({
                   <h4 className="font-bold text-base text-zinc-900 dark:text-zinc-100">
                     {cutActionType === "CUT" ? "Inmovilización Remota de Motor" : "Restablecer Encendido de Motor"}
                   </h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{targetDeviceForCut.vehicleModel} (Placa: {targetDeviceForCut.plate})</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">{targetDeviceForCut.vehicleModel} (Placa: {targetDeviceForCut.plate})</p>
                 </div>
               </div>
 
               <div className="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1.5 text-xs font-mono">
                 <p>Cliente: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{targetDeviceForCut.clientName}</strong></p>
                 <p>Ubicación Actual: <span className="text-zinc-300 font-sans">{targetDeviceForCut.locationAddress}</span></p>
-                <p>IMEI GPS: <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{targetDeviceForCut.imei}</span></p>
+                <p>IMEI GPS: <span className="text-zinc-600 dark:text-zinc-400">{targetDeviceForCut.imei}</span></p>
               </div>
 
               {cutActionType === "CUT" && (
                 <div className="space-y-1 text-xs">
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block font-semibold">Motivo Legal / Operativo del Corte:</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block font-semibold">Motivo Legal / Operativo del Corte:</label>
                   <select
                     value={cutReason}
                     onChange={e => setCutReason(e.target.value)}

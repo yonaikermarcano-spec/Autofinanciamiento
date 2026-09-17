@@ -118,7 +118,7 @@ export default function PromissoryNoteModal({
                   CÓDIGO COMERCIO ART. 486
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Título ejecutivo mercantil autónomo, token OTP al teléfono del fiador y código QR notarial
               </p>
             </div>
@@ -126,7 +126,7 @@ export default function PromissoryNoteModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -172,7 +172,7 @@ export default function PromissoryNoteModal({
           {/* Selector de Pagaré */}
           <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
             <div className="flex items-center space-x-3">
-              <span className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold">Seleccionar Título Valor:</span>
+              <span className="text-xs text-zinc-600 dark:text-zinc-400 font-semibold">Seleccionar Título Valor:</span>
               <select
                 value={selectedNoteNumber}
                 onChange={e => setSelectedNoteNumber(e.target.value)}
@@ -210,7 +210,7 @@ export default function PromissoryNoteModal({
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Título Ejecutivo Mercantil Autónomo</h4>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
                     N° {currentNote.noteNumber} • Beneficiario: {currentNote.legalEntityBeneficiary} ({currentNote.beneficiaryRif})
                   </p>
                 </div>
@@ -257,7 +257,7 @@ export default function PromissoryNoteModal({
                   <div className="space-y-1 text-xs font-mono">
                     <p>Nombre: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{currentNote.clientSignature.name}</strong></p>
                     <p>C.I.: <span className="text-zinc-300">{currentNote.clientSignature.docId}</span></p>
-                    <p>Teléfono: <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{currentNote.clientSignature.phone}</span></p>
+                    <p>Teléfono: <span className="text-zinc-600 dark:text-zinc-400">{currentNote.clientSignature.phone}</span></p>
                     <p>Código OTP Generado: <strong className="text-amber-400 font-bold">{currentNote.clientSignature.otpCode}</strong></p>
                   </div>
 
@@ -304,7 +304,7 @@ export default function PromissoryNoteModal({
                   <div className="space-y-1 text-xs font-mono">
                     <p>Fiador: <strong className="text-zinc-900 dark:text-zinc-100 font-sans">{currentNote.guarantorSignature.name}</strong></p>
                     <p>C.I.: <span className="text-zinc-300">{currentNote.guarantorSignature.docId}</span></p>
-                    <p>Teléfono: <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{currentNote.guarantorSignature.phone}</span></p>
+                    <p>Teléfono: <span className="text-zinc-600 dark:text-zinc-400">{currentNote.guarantorSignature.phone}</span></p>
                     <p>Código OTP Generado: <strong className="text-amber-400 font-bold">{currentNote.guarantorSignature.otpCode}</strong></p>
                   </div>
 
@@ -350,7 +350,7 @@ export default function PromissoryNoteModal({
 
               <div>
                 <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Código QR de Autenticidad Digital del Título</h4>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono mt-1">{currentNote.qrVerificationUrl}</p>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 font-mono mt-1">{currentNote.qrVerificationUrl}</p>
               </div>
 
               <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-[11px] font-mono text-zinc-300 space-y-1 text-left">

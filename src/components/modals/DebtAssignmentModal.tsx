@@ -118,7 +118,7 @@ export default function DebtAssignmentModal({
                   ACUERDO TRIPARTITO
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Sustitución de titular, cesión de reserva de dominio, nuevo pagaré y finiquito al cedente
               </p>
             </div>
@@ -126,7 +126,7 @@ export default function DebtAssignmentModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -156,7 +156,7 @@ export default function DebtAssignmentModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Contrato a Traspasar (Cedente Actual):</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Contrato a Traspasar (Cedente Actual):</label>
                 <select
                   value={selectedContractNumber}
                   onChange={e => setSelectedContractNumber(e.target.value)}
@@ -172,7 +172,7 @@ export default function DebtAssignmentModal({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Nombre y Apellido</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Nombre y Apellido</label>
                   <input
                     type="text"
                     value={newName}
@@ -182,7 +182,7 @@ export default function DebtAssignmentModal({
                 </div>
 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Cédula de Identidad</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Cédula de Identidad</label>
                   <input
                     type="text"
                     value={newDocId}
@@ -194,7 +194,7 @@ export default function DebtAssignmentModal({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Teléfono</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Teléfono</label>
                   <input
                     type="text"
                     value={newPhone}
@@ -204,7 +204,7 @@ export default function DebtAssignmentModal({
                 </div>
 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Tasa Traspaso ($ USD)</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Tasa Traspaso ($ USD)</label>
                   <input
                     type="number"
                     value={transferFeeUSD}
@@ -215,7 +215,7 @@ export default function DebtAssignmentModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Dirección Domiciliaria</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Dirección Domiciliaria</label>
                 <input
                   type="text"
                   value={newAddress}
@@ -259,7 +259,7 @@ export default function DebtAssignmentModal({
 
               <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                 <div className="p-3.5 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans block">Titular Saliente (Cedente):</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Titular Saliente (Cedente):</span>
                   <strong className="text-zinc-300">{transferResult.outgoingClientName}</strong>
                   <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">CI: {transferResult.outgoingClientDocId}</span>
                 </div>
@@ -267,23 +267,23 @@ export default function DebtAssignmentModal({
                 <div className="p-3.5 bg-indigo-950/20 rounded-2xl border border-indigo-500/30">
                   <span className="text-[10px] text-indigo-400 font-sans block">Nuevo Titular (Cesionario):</span>
                   <strong className="text-zinc-900 dark:text-zinc-100">{transferResult.newClientName}</strong>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block">CI: {transferResult.newClientDocId}</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 block">CI: {transferResult.newClientDocId}</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-2 text-xs font-mono">
                 <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans block">Deuda Asumida:</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Deuda Asumida:</span>
                   <strong className="text-emerald-400">{"$" + transferResult.transferredOutstandingUSD} USD</strong>
                 </div>
 
                 <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans block">Cuotas Restantes:</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Cuotas Restantes:</span>
                   <strong className="text-zinc-900 dark:text-zinc-100">{transferResult.remainingQuotasCount} Cuotas</strong>
                 </div>
 
                 <div className="p-3 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans block">Tasa Administrativa:</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans block">Tasa Administrativa:</span>
                   <strong className="text-amber-400">{"$" + transferResult.transferFeeUSD} USD</strong>
                 </div>
               </div>

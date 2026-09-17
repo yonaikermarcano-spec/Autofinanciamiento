@@ -93,7 +93,7 @@ export default function PromotionsReferralsModal({
                   GROWTH ENGINE
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Gestión de cupones de descuento y recompensas automáticas por clientes referidos
               </p>
             </div>
@@ -101,7 +101,7 @@ export default function PromotionsReferralsModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -201,7 +201,7 @@ export default function PromotionsReferralsModal({
 
                 <form onSubmit={handleCreateReferral} className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Cliente Referidor</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Cliente Referidor</label>
                     <input
                       type="text"
                       value={referrerClientName}
@@ -211,7 +211,7 @@ export default function PromotionsReferralsModal({
                   </div>
 
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">N° Contrato Referidor</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">N° Contrato Referidor</label>
                     <input
                       type="text"
                       value={referrerContractNumber}
@@ -221,7 +221,7 @@ export default function PromotionsReferralsModal({
                   </div>
 
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Nombre del Amigo</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Nombre del Amigo</label>
                     <input
                       type="text"
                       required
@@ -233,7 +233,7 @@ export default function PromotionsReferralsModal({
                   </div>
 
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Teléfono del Amigo</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Teléfono del Amigo</label>
                     <div className="flex space-x-2">
                       <input
                         type="text"
@@ -267,7 +267,7 @@ export default function PromotionsReferralsModal({
                       <div className="space-y-1">
                         <div className="flex items-center space-x-2">
                           <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">Amigo: {ref.referredFriendName}</span>
-                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">({ref.referredPhone})</span>
+                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">({ref.referredPhone})</span>
                           <span className={"text-[9px] px-1.5 py-0.2 rounded font-mono font-bold " + (
                             ref.status === "DELIVERED_REWARD_CREDITED"
                               ? "bg-emerald-500/20 text-emerald-400"

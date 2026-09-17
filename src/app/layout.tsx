@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { ToastProvider } from '@/components/common/GoogleSnackbar';
 
 export const metadata: Metadata = {
   title: 'AutoLending OS - Sistema Integral de Financiamiento Vehicular',
@@ -13,8 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="g-app-shell bg-[var(--bg)] text-[var(--text)] antialiased selection:bg-[var(--primary)] selection:text-white">
-        {children}
+      <body className="bg-google-surface-light text-slate-900 antialiased selection:bg-google-blue-600 selection:text-white dark:bg-google-surface-dark dark:text-zinc-100">
+        <ToastProvider>
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );

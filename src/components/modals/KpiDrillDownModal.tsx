@@ -231,23 +231,23 @@ export default function KpiDrillDownModal({
   const IconComponent = icon;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/30 backdrop-blur-xs animate-in fade-in duration-150" onClick={onClose}>
-      <div className="bg-white dark:bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-5xl h-[86vh] max-h-[820px] min-h-[620px] w-full p-6 space-y-4 shadow-2xl my-8" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-150" onClick={onClose}>
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-5xl h-[86vh] max-h-[820px] min-h-[600px] w-full p-6 space-y-4 shadow-2xl my-8 flex flex-col overflow-hidden text-zinc-900 dark:text-zinc-100 font-sans" onClick={(e) => e.stopPropagation()}>
         
         {/* ENCABEZADO */}
-        <div className="flex justify-between items-start border-b border-zinc-200 dark:border-zinc-200 dark:border-zinc-800 pb-4">
+        <div className="flex justify-between items-start border-b border-zinc-200 dark:border-zinc-800 pb-4 flex-shrink-0">
           <div className="flex items-center space-x-3">
-            <div className="p-3 bg-zinc-100/80 dark:bg-zinc-800/80 rounded-2xl text-emerald-400 border border-slate-750">
+            <div className="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-2xl text-google-green-600 dark:text-google-green-400 border border-zinc-200 dark:border-zinc-700">
               <IconComponent className="w-6 h-6" />
             </div>
             <div>
               <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-lg">{title}</h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5 max-w-3xl leading-relaxed">{description}</p>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5 max-w-3xl leading-relaxed">{description}</p>
             </div>
           </div>
           <button 
             onClick={onClose} 
-            className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 p-1 rounded-lg bg-zinc-100/80 dark:bg-zinc-800/80 hover:bg-slate-800 transition"
+            className="p-1.5 rounded-full text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition cursor-pointer"
             title="Cerrar ventana"
           >
             <X className="w-5 h-5" />
@@ -255,22 +255,22 @@ export default function KpiDrillDownModal({
         </div>
 
         {/* BARRA DE BÚSQUEDA Y FILTROS INTEGRADA */}
-        <div className="bg-slate-950 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-200 dark:border-zinc-800 space-y-3">
+        <div className="bg-zinc-50 dark:bg-zinc-950/70 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-3 flex-shrink-0">
           
-          {/* Input de Búsqueda Universal */}
+          {/* Input de Búsqueda Universal - Estilo Google Search Pill */}
           <div className="relative">
-            <Search className="w-4 h-4 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input 
               type="text"
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               placeholder="Buscar por Nombre, C.I., N° Contrato, Teléfono, Fiador, Marca de Moto, Placa o VIN..."
-              className="w-full bg-white dark:bg-white dark:bg-zinc-900 border border-slate-750 rounded-2xl pl-10 pr-10 py-2.5 text-xs text-zinc-900 dark:text-zinc-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition"
+              className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-full pl-10 pr-10 py-2 text-xs text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-google-blue-500 transition shadow-xs"
             />
             {searchTerm && (
               <button 
                 onClick={() => setSearchTerm("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 p-1"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 p-1"
                 title="Borrar búsqueda"
               >
                 <X className="w-3.5 h-3.5" />
@@ -278,12 +278,12 @@ export default function KpiDrillDownModal({
             )}
           </div>
 
-          {/* Fila de Filtros y Ordenamiento */}
-          <div className="flex flex-wrap items-center justify-between gap-2.5 text-xs">
+          {/* Fila de Filtros y Ordenamiento - Google Filter Chips */}
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
             
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 text-[11px] font-semibold flex items-center space-x-1">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" />
+              <span className="text-zinc-600 dark:text-zinc-400 text-[11px] font-semibold flex items-center space-x-1">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-zinc-400" />
                 <span>Filtros:</span>
               </span>
 
@@ -291,7 +291,7 @@ export default function KpiDrillDownModal({
               <select
                 value={brandFilter}
                 onChange={e => setBrandFilter(e.target.value)}
-                className="bg-white dark:bg-white dark:bg-zinc-900 border border-slate-750 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 text-xs rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-google-blue-500 cursor-pointer shadow-xs"
               >
                 <option value="TODOS">Todas las Marcas</option>
                 {availableBrands.map(b => (
@@ -303,7 +303,7 @@ export default function KpiDrillDownModal({
               <select
                 value={statusFilter}
                 onChange={e => setStatusFilter(e.target.value)}
-                className="bg-white dark:bg-white dark:bg-zinc-900 border border-slate-750 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 text-xs rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-google-blue-500 cursor-pointer shadow-xs"
               >
                 <option value="TODOS">Todos los Estatus</option>
                 <option value="ENTREGADO">Entregado</option>
@@ -318,7 +318,7 @@ export default function KpiDrillDownModal({
               <select
                 value={overdueFilter}
                 onChange={e => setOverdueFilter(e.target.value)}
-                className="bg-white dark:bg-white dark:bg-zinc-900 border border-slate-750 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 text-xs rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-google-blue-500 cursor-pointer shadow-xs"
               >
                 <option value="TODOS">Estado de Mora: Todos</option>
                 <option value="SIN_MORA">Al Día (Sin Mora)</option>
@@ -330,26 +330,26 @@ export default function KpiDrillDownModal({
 
             {/* Ordenamiento y Limpiar */}
             <div className="flex items-center space-x-2">
-              <div className="flex items-center space-x-1 bg-white dark:bg-white dark:bg-zinc-900 border border-slate-750 rounded-lg px-2.5 py-1 text-xs">
-                <ArrowUpDown className="w-3 h-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400" />
+              <div className="flex items-center space-x-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl px-2.5 py-1 text-xs shadow-xs">
+                <ArrowUpDown className="w-3 h-3 text-zinc-400" />
                 <select
                   value={sortBy}
                   onChange={e => setSortBy(e.target.value)}
-                  className="bg-transparent text-slate-200 focus:outline-none cursor-pointer text-xs"
+                  className="bg-transparent text-zinc-800 dark:text-zinc-200 focus:outline-none cursor-pointer text-xs"
                 >
-                  <option value="DEFAULT" className="bg-white dark:bg-white dark:bg-zinc-900">Ordenar por: Defecto</option>
-                  <option value="OUTSTANDING_DESC" className="bg-white dark:bg-white dark:bg-zinc-900">Mayor Saldo Pendiente ($)</option>
-                  <option value="LATE_FEES_DESC" className="bg-white dark:bg-white dark:bg-zinc-900">Mayor Mora por Cobrar ($)</option>
-                  <option value="PROGRESS_DESC" className="bg-white dark:bg-white dark:bg-zinc-900">Mayor % de Progreso</option>
-                  <option value="NAME_ASC" className="bg-white dark:bg-white dark:bg-zinc-900">Nombre (A - Z)</option>
-                  <option value="NAME_DESC" className="bg-white dark:bg-white dark:bg-zinc-900">Nombre (Z - A)</option>
+                  <option value="DEFAULT">Ordenar por: Defecto</option>
+                  <option value="OUTSTANDING_DESC">Mayor Saldo Pendiente ($)</option>
+                  <option value="LATE_FEES_DESC">Mayor Mora por Cobrar ($)</option>
+                  <option value="PROGRESS_DESC">Mayor % de Progreso</option>
+                  <option value="NAME_ASC">Nombre (A - Z)</option>
+                  <option value="NAME_DESC">Nombre (Z - A)</option>
                 </select>
               </div>
 
               {isAnyFilterActive && (
                 <button
                   onClick={handleResetFilters}
-                  className="bg-zinc-100/80 dark:bg-zinc-800/80 hover:bg-slate-800 text-amber-400 border border-amber-500/30 px-2.5 py-1.5 rounded-lg text-xs font-medium flex items-center space-x-1 transition"
+                  className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-750 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2.5 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1 transition cursor-pointer"
                   title="Restablecer filtros de búsqueda"
                 >
                   <RotateCcw className="w-3 h-3" />
@@ -361,12 +361,12 @@ export default function KpiDrillDownModal({
           </div>
 
           {/* Resumen de Conteo de Resultados */}
-          <div className="flex justify-between items-center text-[11px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 border-t border-slate-900 pt-2">
+          <div className="flex justify-between items-center text-[11px] font-mono text-zinc-500 border-t border-zinc-200 dark:border-zinc-800 pt-2">
             <span>
-              Mostrando <strong className="text-zinc-900 dark:text-zinc-100 font-bold">{filteredAndSortedContracts.length}</strong> de <strong className="text-slate-300">{baseCategoryContracts.length}</strong> registros en esta categoría
+              Mostrando <strong className="text-zinc-900 dark:text-zinc-100 font-bold">{filteredAndSortedContracts.length}</strong> de <strong className="text-zinc-700 dark:text-zinc-300">{baseCategoryContracts.length}</strong> registros en esta categoría
             </span>
             {isAnyFilterActive && (
-              <span className="text-amber-400/90 font-sans">
+              <span className="text-amber-600 dark:text-amber-400 font-sans">
                 Filtros aplicados ({searchTerm ? `Búsqueda: "${searchTerm}"` : ""})
               </span>
             )}
@@ -375,14 +375,14 @@ export default function KpiDrillDownModal({
         </div>
 
         {/* LISTA DETALLADA DE CONTRATOS FILTRADOS */}
-        <div className="space-y-3 overflow-y-auto pr-1">
+        <div className="space-y-3 overflow-y-auto pr-1 flex-1">
           {filteredAndSortedContracts.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 text-xs bg-slate-950/60 rounded-2xl border border-slate-850 space-y-2">
-              <p className="font-semibold text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">No se encontraron clientes que coincidan con los criterios de búsqueda.</p>
+            <div className="text-center py-12 text-zinc-500 text-xs bg-zinc-50 dark:bg-zinc-950/60 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2">
+              <p className="font-semibold text-zinc-600 dark:text-zinc-400">No se encontraron clientes que coincidan con los criterios de búsqueda.</p>
               {isAnyFilterActive && (
                 <button
                   onClick={handleResetFilters}
-                  className="text-emerald-400 hover:underline font-medium text-xs inline-flex items-center space-x-1"
+                  className="text-google-green-600 dark:text-google-green-400 hover:underline font-medium text-xs inline-flex items-center space-x-1 cursor-pointer"
                 >
                   <RotateCcw className="w-3 h-3" />
                   <span>Restablecer filtros y ver todos los {baseCategoryContracts.length} registros</span>
@@ -393,86 +393,86 @@ export default function KpiDrillDownModal({
             filteredAndSortedContracts.map(c => (
               <div 
                 key={c.id} 
-                className="bg-slate-950 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-200 dark:border-zinc-800 hover:border-zinc-200 dark:border-zinc-700 transition space-y-3 text-xs shadow-md"
+                className="bg-white dark:bg-zinc-900 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-google-blue-400/50 dark:hover:border-google-blue-500/50 transition space-y-3 text-xs shadow-xs"
               >
                 {/* Cabecera del Cliente */}
-                <div className="flex flex-wrap items-start justify-between gap-2 border-b border-slate-850 pb-2.5">
+                <div className="flex flex-wrap items-start justify-between gap-2 border-b border-zinc-100 dark:border-zinc-800 pb-2.5">
                   <div>
                     <div className="flex items-center space-x-2">
-                      <span className="font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded text-[11px] border border-emerald-500/30">
+                      <span className="font-mono text-google-green-600 dark:text-google-green-400 font-bold bg-google-green-500/10 px-2 py-0.5 rounded text-[11px] border border-google-green-500/20">
                         #{c.contractNumber}
                       </span>
                       <strong className="text-zinc-900 dark:text-zinc-100 text-sm">{c.clientName}</strong>
-                      <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono text-[11px]">CI: {c.clientDocId}</span>
+                      <span className="text-zinc-500 font-mono text-[11px]">CI: {c.clientDocId}</span>
                     </div>
-                    <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-1">
-                      Tlf: <strong className="text-slate-300 font-mono">{c.clientPhone}</strong> • Dirección: <span className="text-slate-300">{c.clientAddress}</span>
+                    <p className="text-zinc-600 dark:text-zinc-400 mt-1">
+                      Tlf: <strong className="text-zinc-800 dark:text-zinc-200 font-mono">{c.clientPhone}</strong> • Dirección: <span className="text-zinc-700 dark:text-zinc-300">{c.clientAddress}</span>
                     </p>
                   </div>
 
                   <div className="text-right">
-                    <span className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block text-[10px]">VEHÍCULO FINANCIADO:</span>
-                    <strong className="text-slate-200">{c.vehicle?.brand} {c.vehicle?.model}</strong>
-                    <span className="text-[10px] text-slate-500 block font-mono">VIN: {c.vehicle?.vinChassis}</span>
+                    <span className="text-zinc-500 block text-[10px]">VEHÍCULO FINANCIADO:</span>
+                    <strong className="text-zinc-800 dark:text-zinc-200">{c.vehicle?.brand} {c.vehicle?.model}</strong>
+                    <span className="text-[10px] text-zinc-500 block font-mono">VIN: {c.vehicle?.vinChassis}</span>
                   </div>
                 </div>
 
                 {/* Fiador y Datos Específicos */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-white dark:bg-white dark:bg-zinc-900/60 p-3 rounded-lg border border-slate-850 text-[11px]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-zinc-50 dark:bg-zinc-950/60 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 text-[11px]">
                   <div>
-                    <span className="text-slate-500 block text-[10px] font-bold">FIADOR / AVAL SOLIDARIO:</span>
+                    <span className="text-zinc-500 block text-[10px] font-bold">FIADOR / AVAL SOLIDARIO:</span>
                     <p className="font-semibold text-zinc-900 dark:text-zinc-100">{c.guarantor?.name || "Sin fiador"}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">CI: {c.guarantor?.docId || "N/A"} • Tlf: {c.guarantor?.phone || "N/A"}</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 font-mono">CI: {c.guarantor?.docId || "N/A"} • Tlf: {c.guarantor?.phone || "N/A"}</p>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block text-[10px] font-bold">ESTADO DE CUENTA:</span>
-                    <p className="font-mono text-emerald-400 font-bold">
+                    <span className="text-zinc-500 block text-[10px] font-bold">ESTADO DE CUENTA:</span>
+                    <p className="font-mono text-google-green-600 dark:text-google-green-400 font-bold">
                       {c.quotasPaidCount}/{c.totalQuotas} Pagadas ({c.quotasPaidPercent}%)
                     </p>
-                    <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">Saldo: ${c.totalOutstandingUSD} USD • Mora: ${c.lateFeesPendingUSD || 0} USD</p>
+                    <p className="text-zinc-600 dark:text-zinc-400 font-mono">Saldo: ${c.totalOutstandingUSD} USD • Mora: ${c.lateFeesPendingUSD || 0} USD</p>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block text-[10px] font-bold">ESTATUS OPERATIVO:</span>
-                    <p className="font-mono text-amber-400 font-semibold">{c.deliveryStatus}</p>
-                    <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Progreso General: <strong className="text-zinc-900 dark:text-zinc-100">{c.overallProgressPercent}%</strong></p>
+                    <span className="text-zinc-500 block text-[10px] font-bold">ESTATUS OPERATIVO:</span>
+                    <p className="font-mono text-amber-600 dark:text-amber-400 font-semibold">{c.deliveryStatus}</p>
+                    <p className="text-zinc-600 dark:text-zinc-400">Progreso General: <strong className="text-zinc-900 dark:text-zinc-100">{c.overallProgressPercent}%</strong></p>
                   </div>
                 </div>
 
                 {/* Banner de Condición Especial para Casos Expirados / Reembolso / Recuperación */}
                 {c.isExpiredPermanently && (
-                  <div className="bg-red-950/30 border border-red-500/40 p-2.5 rounded-lg text-red-300 text-[11px] flex items-center justify-between">
+                  <div className="bg-red-500/10 border border-red-500/30 p-2.5 rounded-xl text-red-600 dark:text-red-300 text-[11px] flex items-center justify-between">
                     <span>⚠️ Contrato suspendido permanente (&gt;3 meses en mora sin moto). Fondos aportados retenidos.</span>
                     <strong className="font-mono">Capital Retenido: ${c.totalPaidUSD} USD</strong>
                   </div>
                 )}
 
                 {c.refundDetails && (
-                  <div className="bg-cyan-950/30 border border-cyan-500/40 p-2.5 rounded-lg text-cyan-300 text-[11px] flex flex-wrap items-center justify-between gap-2">
+                  <div className="bg-cyan-500/10 border border-cyan-500/30 p-2.5 rounded-xl text-cyan-700 dark:text-cyan-300 text-[11px] flex flex-wrap items-center justify-between gap-2">
                     <div>
                       <p className="font-bold">Liquidación 70% / 30% Aprobada por Gerencia:</p>
-                      <p className="text-[10px] text-cyan-200/80">{c.refundDetails.reason}</p>
+                      <p className="text-[10px] text-cyan-600 dark:text-cyan-200/80">{c.refundDetails.reason}</p>
                     </div>
                     <div className="font-mono text-right text-xs">
-                      <p className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Total Pagado: ${c.refundDetails.totalPaidUSD} USD</p>
-                      <p className="text-amber-400 font-semibold">Retención Empresa (30%): ${c.refundDetails.companyRetention30PercentUSD} USD</p>
-                      <p className="text-emerald-400 font-bold text-sm">Devolución Cliente (70%): ${c.refundDetails.clientRefund70PercentUSD} USD</p>
+                      <p className="text-zinc-600 dark:text-zinc-400">Total Pagado: ${c.refundDetails.totalPaidUSD} USD</p>
+                      <p className="text-amber-600 dark:text-amber-400 font-semibold">Retención Empresa (30%): ${c.refundDetails.companyRetention30PercentUSD} USD</p>
+                      <p className="text-google-green-600 dark:text-google-green-400 font-bold text-sm">Devolución Cliente (70%): ${c.refundDetails.clientRefund70PercentUSD} USD</p>
                     </div>
                   </div>
                 )}
 
                 {c.deliveryStatus === "POR_RECUPERAR" && (
-                  <div className="bg-rose-950/30 border border-rose-500/40 p-2.5 rounded-lg text-rose-300 text-[11px] flex items-center justify-between">
+                  <div className="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-xl text-rose-700 dark:text-rose-300 text-[11px] flex items-center justify-between">
                     <span>🚨 Orden de retención presencial activa. Acumula {c.overdueMonthsCount || 2} cuotas vencidas con moto entregada.</span>
-                    <span className="font-bold text-rose-400">Asignar a Oficial de Calle</span>
+                    <span className="font-bold text-rose-600 dark:text-rose-400">Asignar a Oficial de Calle</span>
                   </div>
                 )}
 
                 {c.deliveryStatus === "POR_VISITAR" && (
-                  <div className="bg-purple-950/30 border border-purple-500/40 p-2.5 rounded-lg text-purple-300 text-[11px] flex items-center justify-between">
+                  <div className="bg-purple-500/10 border border-purple-500/30 p-2.5 rounded-xl text-purple-700 dark:text-purple-300 text-[11px] flex items-center justify-between">
                     <span>📍 Listo para visita presencial domiciliaria para verificar vivienda e inspeccionar avales.</span>
-                    <span className="font-bold text-purple-400">Ruta de Campo Aprobada</span>
+                    <span className="font-bold text-purple-600 dark:text-purple-400">Ruta de Campo Aprobada</span>
                   </div>
                 )}
 
@@ -489,10 +489,10 @@ export default function KpiDrillDownModal({
                         : "CONTRACT";
                       onOpenPrintDoc?.(doc, c.id);
                     }}
-                    className="bg-zinc-100/80 dark:bg-zinc-800/80 hover:bg-slate-800 text-slate-200 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 font-semibold text-[11px] px-2.5 py-1.5 rounded-lg transition flex items-center space-x-1"
+                    className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-750 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700 font-semibold text-[11px] px-3 py-1.5 rounded-xl transition flex items-center space-x-1.5 cursor-pointer shadow-xs"
                     title="Generar Documento Notarial en PDF"
                   >
-                    <FileText className="w-3 h-3 text-emerald-400" />
+                    <FileText className="w-3.5 h-3.5 text-google-green-600 dark:text-google-green-400" />
                     <span>Documento PDF</span>
                   </button>
 
@@ -500,9 +500,9 @@ export default function KpiDrillDownModal({
                     href={`https://wa.me/${c.clientPhone?.replace(/[^0-9]/g, '')}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="bg-emerald-700 hover:bg-emerald-600 text-zinc-900 dark:text-zinc-100 font-semibold text-[11px] px-3 py-1.5 rounded-lg transition flex items-center space-x-1"
+                    className="bg-google-green-600 hover:bg-google-green-500 text-white font-semibold text-[11px] px-3 py-1.5 rounded-xl transition flex items-center space-x-1.5 cursor-pointer shadow-xs"
                   >
-                    <PhoneCall className="w-3 h-3" />
+                    <PhoneCall className="w-3.5 h-3.5" />
                     <span>WhatsApp</span>
                   </a>
 
@@ -512,7 +512,7 @@ export default function KpiDrillDownModal({
                       onNavigateToSection("loan_servicing");
                       onClose();
                     }}
-                    className="bg-slate-800 hover:bg-slate-700 text-zinc-900 dark:text-zinc-100 font-semibold text-[11px] px-3 py-1.5 rounded-lg transition"
+                    className="bg-google-blue-600 hover:bg-google-blue-500 text-white font-semibold text-[11px] px-3.5 py-1.5 rounded-xl transition cursor-pointer shadow-xs"
                   >
                     Ver Plan de Abono →
                   </button>

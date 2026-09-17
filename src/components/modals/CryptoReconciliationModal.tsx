@@ -95,7 +95,7 @@ export default function CryptoReconciliationModal({
                   BLOCKCHAIN AUDITOR
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Validación de transferencias USDT en la red Tron y Binance Pay ID con recibo SHA-256
               </p>
             </div>
@@ -103,7 +103,7 @@ export default function CryptoReconciliationModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -125,13 +125,13 @@ export default function CryptoReconciliationModal({
             <div className="p-4 rounded-2xl border border-amber-500/30 bg-amber-950/20 space-y-1">
               <span className="text-[10px] text-amber-400 font-bold uppercase block font-sans">🟡 BINANCE PAY ID CORPORATIVO:</span>
               <p className="text-zinc-900 dark:text-zinc-100 text-sm font-bold">{CryptoReconciliationEngine.CORPORATE_WALLETS.binancePayId}</p>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">Abono directo sin comisiones de red</span>
+              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">Abono directo sin comisiones de red</span>
             </div>
 
             <div className="p-4 rounded-2xl border border-red-500/30 bg-red-950/20 space-y-1">
               <span className="text-[10px] text-red-400 font-bold uppercase block font-sans">🔴 WALLET TRON TRC-20 (USDT):</span>
               <p className="text-zinc-900 dark:text-zinc-100 text-xs truncate font-bold">{CryptoReconciliationEngine.CORPORATE_WALLETS.tronTrc20Address}</p>
-              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">Confirmación en 19 bloques de red</span>
+              <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-sans">Confirmación en 19 bloques de red</span>
             </div>
           </div>
 
@@ -141,7 +141,7 @@ export default function CryptoReconciliationModal({
             
             <form onSubmit={handleVerifyTx} className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Cliente / Contrato</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Cliente / Contrato</label>
                 <select
                   value={selectedContractNumber}
                   onChange={e => setSelectedContractNumber(e.target.value)}
@@ -156,7 +156,7 @@ export default function CryptoReconciliationModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Método Cripto</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Método Cripto</label>
                 <select
                   value={provider}
                   onChange={e => setProvider(e.target.value as any)}
@@ -168,7 +168,7 @@ export default function CryptoReconciliationModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">Monto USDT ($)</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">Monto USDT ($)</label>
                 <input
                   type="number"
                   required
@@ -179,7 +179,7 @@ export default function CryptoReconciliationModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 font-semibold">TXID o Pay ID</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 font-semibold">TXID o Pay ID</label>
                 <div className="flex space-x-2">
                   <input
                     type="text"
@@ -213,7 +213,7 @@ export default function CryptoReconciliationModal({
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
                       <span className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{dep.clientName}</span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">#{dep.contractNumber}</span>
+                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{dep.contractNumber}</span>
                       <span className="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-mono font-bold">
                         ● {dep.status}
                       </span>
@@ -231,7 +231,7 @@ export default function CryptoReconciliationModal({
                   </div>
 
                   <div className="flex-shrink-0">
-                    <span className="text-[10px] bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded font-mono border border-zinc-200 dark:border-zinc-800">
+                    <span className="text-[10px] bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 px-2.5 py-1 rounded font-mono border border-zinc-200 dark:border-zinc-800">
                       {dep.timestamp}
                     </span>
                   </div>

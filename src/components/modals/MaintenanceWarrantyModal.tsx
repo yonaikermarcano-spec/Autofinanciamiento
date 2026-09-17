@@ -127,7 +127,7 @@ export default function MaintenanceWarrantyModal({
                   500 KM / 1.500 KM / 3.000 KM
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Control de servicios obligatorios para blindar la garantía de las motos y proteger el activo financiado
               </p>
             </div>
@@ -135,7 +135,7 @@ export default function MaintenanceWarrantyModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -210,7 +210,7 @@ export default function MaintenanceWarrantyModal({
                       <div className="space-y-1.5">
                         <div className="flex items-center space-x-2">
                           <span className="text-xs font-bold text-zinc-900 dark:text-zinc-100 font-sans">{app.clientName}</span>
-                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">#{app.contractNumber}</span>
+                          <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">#{app.contractNumber}</span>
                           <span className={"text-[9px] px-2 py-0.2 rounded font-bold border " + health.badgeColor}>
                             ● {health.label}
                           </span>
@@ -222,7 +222,7 @@ export default function MaintenanceWarrantyModal({
                           <p>Odómetro Actual: <span className="text-zinc-200">{app.currentOdometerKm} km</span></p>
                         </div>
 
-                        <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-sans">
+                        <p className="text-xs text-zinc-600 dark:text-zinc-400 font-sans">
                           📍 {app.workshopName} • Mecánico: <strong>{app.mechanicName}</strong> • Cita: {app.appointmentDate}
                         </p>
 
@@ -278,13 +278,13 @@ export default function MaintenanceWarrantyModal({
             <div className="p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-5 max-w-2xl mx-auto">
               <div>
                 <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Agendar Cita de Mantenimiento Preventivo</h4>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Registra una cita en el taller central o taller autorizado aliado.</p>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400">Registra una cita en el taller central o taller autorizado aliado.</p>
               </div>
 
               <form onSubmit={handleCreateAppointment} className="space-y-4 text-xs">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Nombre del Cliente</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Nombre del Cliente</label>
                     <input
                       type="text"
                       required
@@ -295,7 +295,7 @@ export default function MaintenanceWarrantyModal({
                   </div>
 
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Teléfono WhatsApp</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Teléfono WhatsApp</label>
                     <input
                       type="text"
                       required
@@ -308,7 +308,7 @@ export default function MaintenanceWarrantyModal({
 
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Modelo de Moto</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Modelo de Moto</label>
                     <input
                       type="text"
                       required
@@ -319,7 +319,7 @@ export default function MaintenanceWarrantyModal({
                   </div>
 
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Hito de Servicio</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Hito de Servicio</label>
                     <select
                       value={serviceMilestoneKm}
                       onChange={e => setServiceMilestoneKm(parseInt(e.target.value, 10))}
@@ -333,7 +333,7 @@ export default function MaintenanceWarrantyModal({
                   </div>
 
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Odómetro Actual (km)</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Odómetro Actual (km)</label>
                     <input
                       type="number"
                       required
@@ -346,7 +346,7 @@ export default function MaintenanceWarrantyModal({
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Taller Asignado</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Taller Asignado</label>
                     <input
                       type="text"
                       required
@@ -357,7 +357,7 @@ export default function MaintenanceWarrantyModal({
                   </div>
 
                   <div>
-                    <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Mecánico Responsable</label>
+                    <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Mecánico Responsable</label>
                     <input
                       type="text"
                       required
@@ -369,7 +369,7 @@ export default function MaintenanceWarrantyModal({
                 </div>
 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Fecha y Hora de la Cita</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Fecha y Hora de la Cita</label>
                   <input
                     type="text"
                     required
@@ -406,7 +406,7 @@ export default function MaintenanceWarrantyModal({
                   </div>
 
                   <div className="space-y-1.5 text-xs text-zinc-300">
-                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 uppercase font-bold block">TAREAS OBLIGATORIAS:</span>
+                    <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">TAREAS OBLIGATORIAS:</span>
                     {m.mandatoryTasks.map((t, idx) => (
                       <p key={idx} className="flex items-center space-x-1.5">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
@@ -432,13 +432,13 @@ export default function MaintenanceWarrantyModal({
                 </div>
                 <div>
                   <h4 className="font-bold text-base text-zinc-900 dark:text-zinc-100">Inspección de Taller & Garantía</h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{completingApp.clientName} ({completingApp.serviceMilestoneKm} km)</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">{completingApp.clientName} ({completingApp.serviceMilestoneKm} km)</p>
                 </div>
               </div>
 
               {/* Checklist Interactivo */}
               <div className="space-y-2.5 p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-xs">
-                <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-bold uppercase block mb-1">CHECKLIST OBLIGATORIO:</span>
+                <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-bold uppercase block mb-1">CHECKLIST OBLIGATORIO:</span>
 
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
@@ -492,7 +492,7 @@ export default function MaintenanceWarrantyModal({
               </div>
 
               <div>
-                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1 text-xs">Observaciones del Mecánico:</label>
+                <label className="text-zinc-700 dark:text-zinc-400 block mb-1 text-xs">Observaciones del Mecánico:</label>
                 <input
                   type="text"
                   value={mechanicNotes}

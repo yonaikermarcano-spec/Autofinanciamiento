@@ -1,5 +1,6 @@
 /** @type {import("tailwindcss").Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -20,6 +21,30 @@ module.exports = {
           700: "#0B57D0",
           800: "#174EA6",
           900: "#1F3A5F",
+          blue: {
+            50: "#e8f0fe",
+            100: "#d2e3fc",
+            200: "#aecbfa",
+            500: "#1a73e8",
+            600: "#1557d0",
+            700: "#0b57d0",
+            800: "#174ea6",
+          },
+          green: {
+            50: "#e6f4ea",
+            100: "#ceead6",
+            500: "#1e8e3e",
+            600: "#137333",
+            700: "#0d652d",
+            800: "#094d21",
+          },
+          surface: {
+            light: "#f8fafd",
+            lightContainer: "#f0f4f9",
+            dark: "#131314",
+            darkContainer: "#1e1f20",
+            darkElevated: "#28292a",
+          },
         },
         neutral: {
           50: "#F8F9FA",
@@ -42,11 +67,17 @@ module.exports = {
           800: "#174EA6",
           900: "#1F3A5F",
         },
+        zinc: {
+          750: "#202024",
+          850: "#18181b",
+          950: "#09090b",
+        },
         slate: {
+          750: "#243147",
           850: "#151e2e",
           900: "#0f172a",
-          950: "#020617"
-        }
+          950: "#020617",
+        },
       },
       boxShadow: {
         soft: "0 1px 2px rgba(60,64,67,0.15), 0 1px 3px 1px rgba(60,64,67,0.08)",
@@ -55,6 +86,9 @@ module.exports = {
       borderRadius: {
         xl: "18px",
         xxl: "24px",
+        "2.5xl": "1.25rem",
+        "3xl": "1.75rem",
+        "4xl": "2rem",
       },
     },
   },

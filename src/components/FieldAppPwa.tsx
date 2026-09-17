@@ -32,6 +32,7 @@ import { LoanContract } from "../types";
 import { FieldAppEngine, HomeInspectionRecord, InspectionResult } from "../modules/field-app";
 import { WhatsappNotificationEngine } from "../modules/whatsapp-notifications";
 import { BcvEngine } from "../modules/bcv-engine";
+import { toast } from "./common/GoogleSnackbar";
 
 interface FieldAppPwaProps {
   contracts: LoanContract[];
@@ -105,14 +106,18 @@ export default function FieldAppPwa({
     });
 
     setInspectionsList(FieldAppEngine.getInspections());
-    setInspectionSuccessMsg("¡Inspección registrada con éxito! Sello: " + newRecord.sha256Seal);
+    const msg = "¡Inspección registrada con éxito! Sello: " + newRecord.sha256Seal;
+    setInspectionSuccessMsg(msg);
+    toast.success(msg);
     setTimeout(() => setInspectionSuccessMsg(""), 4000);
   };
 
   const handleSaveCollection = () => {
     if (!currentContract) return;
 
-    setCollectionSuccessMsg("¡Cobro en calle registrado con éxito por $" + collectedAmountUSD + " USD!");
+    const msgText = "¡Cobro en calle registrado con éxito por $" + collectedAmountUSD + " USD!";
+    setCollectionSuccessMsg(msgText);
+    toast.success(msgText);
     
     // Disparar WhatsApp de confirmación
     const msg = WhatsappNotificationEngine.generateMessage("PAYMENT_CONFIRMATION", currentContract, {
@@ -145,7 +150,9 @@ export default function FieldAppPwa({
       status: "EJECUTADA_CONSIGNADA"
     });
 
-    setRepossessSuccessMsg("¡Acta de Retención registrada exitosamente! Sello: " + newRecord.sha256Seal);
+    const msg = "¡Acta de Retención registrada exitosamente! Sello: " + newRecord.sha256Seal;
+    setRepossessSuccessMsg(msg);
+    toast.success(msg);
     setTimeout(() => setRepossessSuccessMsg(""), 4000);
   };
 
@@ -552,8 +559,8 @@ export default function FieldAppPwa({
 
       </main>
 
-      {/* FOOTER BAR / NAVEGACIÓN TÁCTIL PWA */}
-      <nav className="border-t border-zinc-850 bg-zinc-900/90 backdrop-blur-md grid grid-cols-4 p-1.5 z-20">
+      {/* FOOTER BAR / NAVEGACIÓN TÁCTIL PWA GOOGLE M3 */}
+      <nav className="border-t border-zinc-800 bg-zinc-900/95 backdrop-blur-md grid grid-cols-4 p-2 z-20 pb-4">
         {[
           { id: "ROUTE", label: "Ruta GPS", icon: Navigation },
           { id: "INSPECTION", label: "Inspección", icon: FileCheck },
@@ -566,14 +573,18 @@ export default function FieldAppPwa({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={"flex flex-col items-center justify-center py-2 rounded-xl transition cursor-pointer " + (
+              className={"flex flex-col items-center justify-center min-h-[48px] py-1 px-1 rounded-2xl transition-all cursor-pointer " + (
                 isActive 
-                  ? "bg-zinc-800 text-white font-bold shadow-xs" 
+                  ? "text-white font-semibold" 
                   : "text-zinc-400 hover:text-zinc-200"
               )}
             >
-              <Icon className={"w-4 h-4 " + (isActive ? "text-emerald-400" : "text-zinc-400")} />
-              <span className="text-[10px] mt-1">{tab.label}</span>
+              <div className={"w-12 h-7 rounded-full flex items-center justify-center transition-all " + (
+                isActive ? "bg-google-blue-600/30 text-google-blue-400 shadow-xs" : "text-zinc-400"
+              )}>
+                <Icon className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] mt-1 tracking-tight">{tab.label}</span>
             </button>
           );
         })}

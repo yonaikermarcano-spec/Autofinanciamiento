@@ -84,8 +84,8 @@ export default function PrintDocumentModal({
                 <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-base">
                   Generador de Documentos Oficiales Notariales & Legales
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
-                  Expediente: <strong className="text-emerald-400 font-mono">#{contract.contractNumber}</strong> • Cliente: <strong className="text-slate-200">{contract.clientName}</strong> ({contract.clientDocId})
+                <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                  Expediente: <strong className="text-google-green-600 dark:text-google-green-400 font-mono">#{contract.contractNumber}</strong> • Cliente: <strong className="text-slate-800 dark:text-slate-200">{contract.clientName}</strong> ({contract.clientDocId})
                 </p>
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function PrintDocumentModal({
             <div className="flex items-center space-x-2">
               <button 
                 onClick={handlePrint}
-                className="bg-emerald-600 hover:bg-emerald-500 text-zinc-900 dark:text-zinc-100 font-bold text-xs px-4 py-2.5 rounded-2xl transition flex items-center space-x-1.5 shadow-lg shadow-emerald-900/40 cursor-pointer"
+                className="bg-google-green-600 hover:bg-google-green-700 text-white font-semibold text-xs px-4 py-2 rounded-full transition flex items-center space-x-1.5 shadow-sm cursor-pointer active:scale-95"
                 title="Imprime o guarda en formato PDF estándar"
               >
                 <Download className="w-4 h-4" />
@@ -101,7 +101,7 @@ export default function PrintDocumentModal({
               </button>
               <button 
                 onClick={onClose} 
-                className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 p-2 rounded-2xl bg-slate-800 hover:bg-slate-750 transition"
+                className="p-2 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition cursor-pointer"
                 title="Cerrar vista previa"
               >
                 <X className="w-5 h-5" />
@@ -110,7 +110,7 @@ export default function PrintDocumentModal({
           </div>
 
           {/* Selector de Pestañas de Documentos Disponibles */}
-          <div className="flex flex-wrap gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-zinc-200 dark:border-zinc-200 dark:border-zinc-800 text-xs">
+          <div className="flex flex-wrap gap-1 bg-slate-100 dark:bg-zinc-900 p-1.5 rounded-2xl sm:rounded-full border border-slate-200/90 dark:border-zinc-800 text-xs">
             {[
               { id: "CONTRACT", label: "Contrato & Pagaré", icon: FileText },
               { id: "RECEIPT", label: "Recibo de Caja", icon: Receipt },
@@ -127,10 +127,10 @@ export default function PrintDocumentModal({
                 <button
                   key={tab.id}
                   onClick={() => setActiveDocType(tab.id as DocType)}
-                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
+                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full font-medium transition cursor-pointer ${
                     isActive 
-                      ? "bg-emerald-600 text-zinc-900 dark:text-zinc-100 font-bold shadow" 
-                      : "text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-slate-200 hover:bg-zinc-100/80 dark:bg-zinc-800/80"
+                      ? "bg-google-blue-600 text-white font-semibold shadow-xs" 
+                      : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-zinc-800/60"
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export default function PrintDocumentModal({
               </div>
               <span className="text-[9px] font-mono text-slate-500 font-bold">N° Expediente: #{contract.contractNumber}</span>
               <span className="text-[9px] text-slate-600 font-sans">Caracas, {todayFormatted}</span>
-              <span className="text-[8px] font-mono text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">{sha256VerificationHash}</span>
+              <span className="text-[8px] font-mono text-slate-500 mt-0.5">{sha256VerificationHash}</span>
             </div>
           </div>
 
@@ -220,7 +220,7 @@ export default function PrintDocumentModal({
                   <p className="font-bold text-slate-900">{contract.clientName}</p>
                   <p className="font-mono">C.I.: {contract.clientDocId}</p>
                   <p className="text-slate-600 uppercase font-bold text-[9px]">EL DEUDOR / COMPRADOR</p>
-                  <div className="w-16 h-20 border-2 border-dashed border-slate-400 mx-auto mt-2 flex flex-col items-center justify-center text-[8px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 bg-slate-50">
+                  <div className="w-16 h-20 border-2 border-dashed border-slate-400 mx-auto mt-2 flex flex-col items-center justify-center text-[8px] text-slate-500 bg-slate-50">
                     <span>Pulgar Derecho</span>
                     <span className="text-[7px]">Huella Dactilar</span>
                   </div>
@@ -230,7 +230,7 @@ export default function PrintDocumentModal({
                   <p className="font-bold text-slate-900">{contract.guarantor?.name || "Elena Mendoza"}</p>
                   <p className="font-mono">C.I.: {contract.guarantor?.docId || "V-20.192.481"}</p>
                   <p className="text-slate-600 uppercase font-bold text-[9px]">EL FIADOR Y AVAL SOLIDARIO</p>
-                  <div className="w-16 h-20 border-2 border-dashed border-slate-400 mx-auto mt-2 flex flex-col items-center justify-center text-[8px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 bg-slate-50">
+                  <div className="w-16 h-20 border-2 border-dashed border-slate-400 mx-auto mt-2 flex flex-col items-center justify-center text-[8px] text-slate-500 bg-slate-50">
                     <span>Pulgar Derecho</span>
                     <span className="text-[7px]">Huella Dactilar</span>
                   </div>

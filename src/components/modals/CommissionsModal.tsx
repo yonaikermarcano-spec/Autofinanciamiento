@@ -121,7 +121,7 @@ export default function CommissionsModal({
                   100% CONFIGURABLE
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Ajusta los montos de comisión, bonos de meta y porcentajes de cobranza en cualquier momento
               </p>
             </div>
@@ -129,7 +129,7 @@ export default function CommissionsModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -180,28 +180,28 @@ export default function CommissionsModal({
               {/* Tarjetas KPI de Resumen */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 space-y-1">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-bold uppercase">TOTAL COMISIONES DEL MES</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-bold uppercase">TOTAL COMISIONES DEL MES</span>
                   <p className="text-2xl font-black font-mono text-zinc-900 dark:text-zinc-100">{"$" + totalCommissionsUSD.toFixed(2)} USD</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">≈ Bs. {(totalCommissionsUSD * bcvRate).toLocaleString()}</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">≈ Bs. {(totalCommissionsUSD * bcvRate).toLocaleString("es-VE")}</span>
                 </div>
 
                 <div className="p-4 rounded-2xl border border-amber-500/30 bg-amber-950/10 space-y-1">
                   <span className="text-[10px] text-amber-400 font-bold uppercase">PENDIENTE POR LIQUIDAR</span>
                   <p className="text-2xl font-black font-mono text-amber-400">{"$" + totalPendingUSD.toFixed(2)} USD</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">En espera de transferencia</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">En espera de transferencia</span>
                 </div>
 
                 <div className="p-4 rounded-2xl border border-emerald-500/30 bg-emerald-950/10 space-y-1">
                   <span className="text-[10px] text-emerald-400 font-bold uppercase">TOTAL PAGADO / LIQUIDADO</span>
                   <p className="text-2xl font-black font-mono text-emerald-400">{"$" + totalSettledUSD.toFixed(2)} USD</p>
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Comprobantes emitidos</span>
+                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Comprobantes emitidos</span>
                 </div>
               </div>
 
               {/* Tabla de Colaboradores */}
               <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 overflow-hidden text-xs">
                 <table className="w-full text-left">
-                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
+                  <thead className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[11px] text-zinc-600 dark:text-zinc-400 font-semibold uppercase">
                     <tr>
                       <th className="p-3">Colaborador / Rol</th>
                       <th className="p-3">Rendimiento Mes</th>
@@ -216,7 +216,7 @@ export default function CommissionsModal({
                       <tr key={s.staffId} className="hover:bg-white dark:bg-zinc-900/40">
                         <td className="p-3">
                           <p className="font-bold text-zinc-900 dark:text-zinc-100 font-sans">{s.name}</p>
-                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{s.docId} • {s.role.replace(/_/g, ' ')}</span>
+                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{s.docId} • {s.role.replace(/_/g, ' ')}</span>
                         </td>
                         <td className="p-3 font-sans">
                           {s.role === "ASESOR_VENTAS" ? (
@@ -241,7 +241,7 @@ export default function CommissionsModal({
                         </td>
                         <td className="p-3">
                           <p className="font-black text-emerald-400 font-mono text-xs">{"$" + s.totalCommissionToPayUSD.toFixed(2)} USD</p>
-                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">Bs. {s.totalCommissionToPayVES.toLocaleString()}</span>
+                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">Bs. {s.totalCommissionToPayVES.toLocaleString("es-VE")}</span>
                         </td>
                         <td className="p-3 text-right">
                           {s.isSettled ? (
@@ -282,7 +282,7 @@ export default function CommissionsModal({
                   <Settings className="w-4 h-4 text-amber-400" />
                   <span>Configuración de Parámetros Comerciales por la Financiadora</span>
                 </p>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-1">
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
                   Todos los montos, porcentajes y metas son 100% personalizables. Al cambiar un valor, el sistema recalcula automáticamente los totales de la nómina en tiempo real.
                 </p>
               </div>
@@ -296,7 +296,7 @@ export default function CommissionsModal({
                       <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
                         <div>
                           <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">{r.ruleName}</h4>
-                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{r.role.replace(/_/g, ' ')}</span>
+                          <span className="text-[10px] text-zinc-600 dark:text-zinc-400">{r.role.replace(/_/g, ' ')}</span>
                         </div>
 
                         {!isEditing ? (
@@ -339,7 +339,7 @@ export default function CommissionsModal({
                         <div className="space-y-3 pt-1 text-xs">
                           {r.type === "FIXED_PER_CONTRACT" && (
                             <div>
-                              <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Monto de Comisión por Moto ($ USD):</label>
+                              <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Monto de Comisión por Moto ($ USD):</label>
                               <input
                                 type="number"
                                 min="0"
@@ -353,7 +353,7 @@ export default function CommissionsModal({
 
                           {r.type === "PERCENTAGE_ON_COLLECTION" && (
                             <div>
-                              <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Porcentaje de Comisión sobre Cobro en Calle (%):</label>
+                              <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Porcentaje de Comisión sobre Cobro en Calle (%):</label>
                               <input
                                 type="number"
                                 min="0"
@@ -369,7 +369,7 @@ export default function CommissionsModal({
                           {r.type === "TIER_BONUS" && (
                             <div className="grid grid-cols-2 gap-3">
                               <div>
-                                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Meta Mínima ({r.role === "ASESOR_VENTAS" ? "Unidades" : "USD"}):</label>
+                                <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Meta Mínima ({r.role === "ASESOR_VENTAS" ? "Unidades" : "USD"}):</label>
                                 <input
                                   type="number"
                                   min="1"
@@ -379,7 +379,7 @@ export default function CommissionsModal({
                                 />
                               </div>
                               <div>
-                                <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Bono Extra ($ USD):</label>
+                                <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Bono Extra ($ USD):</label>
                                 <input
                                   type="number"
                                   min="0"
@@ -414,19 +414,19 @@ export default function CommissionsModal({
                 </div>
                 <div>
                   <h4 className="font-bold text-base text-zinc-900 dark:text-zinc-100">Liquidar Comisión a Colaborador</h4>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">{payingStaff.name} ({payingStaff.role.replace(/_/g, ' ')})</p>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400">{payingStaff.name} ({payingStaff.role.replace(/_/g, ' ')})</p>
                 </div>
               </div>
 
               <div className="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1.5 text-xs font-mono">
                 <p>Monto en Divisas: <strong className="text-emerald-400 font-bold text-sm">{"$" + payingStaff.totalCommissionToPayUSD.toFixed(2) + " USD"}</strong></p>
-                <p>Equivalente en Bolívares (BCV): <strong className="text-zinc-900 dark:text-zinc-100">Bs. {payingStaff.totalCommissionToPayVES.toLocaleString()}</strong></p>
+                <p>Equivalente en Bolívares (BCV): <strong className="text-zinc-900 dark:text-zinc-100">Bs. {payingStaff.totalCommissionToPayVES.toLocaleString("es-VE")}</strong></p>
                 <p>Teléfono / Pago Móvil: <span className="text-zinc-300">{payingStaff.phone}</span></p>
               </div>
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Método de Desembolso</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Método de Desembolso</label>
                   <select
                     value={paymentMethod}
                     onChange={e => setPaymentMethod(e.target.value)}
@@ -439,7 +439,7 @@ export default function CommissionsModal({
                 </div>
 
                 <div>
-                  <label className="text-zinc-700 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 block mb-1">Número de Referencia / Comprobante</label>
+                  <label className="text-zinc-700 dark:text-zinc-400 block mb-1">Número de Referencia / Comprobante</label>
                   <input
                     type="text"
                     required

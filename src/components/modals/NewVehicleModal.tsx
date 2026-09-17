@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Bike, X } from "lucide-react";
 import { LocalDB } from "../../modules/local-db";
 import { VehicleSpec } from "../../types";
+import { toast } from "../common/GoogleSnackbar";
 
 export default function NewVehicleModal({
   isOpen,
@@ -40,6 +41,7 @@ export default function NewVehicleModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     const newVeh: VehicleSpec = {
       id: `veh-${Date.now()}`,
       type,
@@ -61,7 +63,7 @@ export default function NewVehicleModal({
     LocalDB.addVehicle(newVeh);
     onVehicleCreated(newVeh);
     onClose();
-    alert(`✅ Unidad ${newVeh.brand} ${newVeh.model} registrada en inventario.`);
+    toast.success(`Unidad ${newVeh.brand} ${newVeh.model} registrada en inventario.`);
   };
 
   return (
@@ -75,7 +77,7 @@ export default function NewVehicleModal({
             <Bike className="w-5 h-5 text-emerald-400" />
             <span>Registrar Unidad al Inventario</span>
           </h3>
-          <button onClick={onClose} className="text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100">
+          <button onClick={onClose} className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -84,7 +86,7 @@ export default function NewVehicleModal({
         <form onSubmit={handleSubmit} className="space-y-3 text-xs">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Tipo de Vehículo</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-400">Tipo de Vehículo</label>
               <select 
                 value={type} 
                 onChange={e => setType(e.target.value as any)}
@@ -95,7 +97,7 @@ export default function NewVehicleModal({
               </select>
             </div>
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Marca</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-400">Marca</label>
               <input 
                 type="text" 
                 value={brand} 
@@ -107,7 +109,7 @@ export default function NewVehicleModal({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Modelo</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-400">Modelo</label>
               <input 
                 type="text" 
                 value={model} 
@@ -116,7 +118,7 @@ export default function NewVehicleModal({
               />
             </div>
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Color</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-400">Color</label>
               <input 
                 type="text" 
                 value={color} 
@@ -127,39 +129,39 @@ export default function NewVehicleModal({
           </div>
 
           <div>
-            <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Serial de Carrocería (VIN)</label>
+            <label className="font-semibold text-zinc-700 dark:text-zinc-300">Serial de Carrocería (VIN)</label>
             <input 
               type="text" 
               value={vin} 
               onChange={e => setVin(e.target.value)}
-              className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-mono uppercase" 
+              className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-mono uppercase focus:outline-none focus:ring-2 focus:ring-google-blue-500/30" 
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Costo Ensambladora ($)</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300">Costo Ensambladora ($)</label>
               <input 
                 type="number" 
                 value={dealerPrice} 
                 onChange={e => setDealerPrice(Number(e.target.value))}
-                className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-bold" 
+                className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-bold focus:outline-none focus:ring-2 focus:ring-google-blue-500/30" 
               />
             </div>
             <div>
-              <label className="font-semibold text-zinc-700 dark:text-zinc-300 dark:text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">Precio Venta Retail ($)</label>
+              <label className="font-semibold text-zinc-700 dark:text-zinc-300">Precio Venta Retail ($)</label>
               <input 
                 type="number" 
                 value={retailPrice} 
                 onChange={e => setRetailPrice(Number(e.target.value))}
-                className="w-full bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-bold text-emerald-400" 
+                className="w-full bg-slate-50 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700 rounded-2xl p-2.5 text-zinc-900 dark:text-zinc-100 mt-1 font-bold text-google-green-600 dark:text-google-green-400 focus:outline-none focus:ring-2 focus:ring-google-blue-500/30" 
               />
             </div>
           </div>
 
           <button 
             type="submit" 
-            className="w-full bg-emerald-600 hover:bg-emerald-500 text-zinc-900 dark:text-zinc-100 font-bold py-3 rounded-2xl transition mt-2 shadow-lg shadow-emerald-900/30"
+            className="w-full bg-google-green-600 hover:bg-google-green-700 text-white font-semibold py-3 rounded-full transition mt-2 shadow-sm active:scale-95 cursor-pointer"
           >
             Guardar en Inventario
           </button>

@@ -96,7 +96,7 @@ export default function JudicialCollectionModal({
                   CPC ART. 640
                 </span>
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
                 Procedimiento legal de intimación, cálculo de costas procesales 20% y medidas cautelares de secuestro
               </p>
             </div>
@@ -104,7 +104,7 @@ export default function JudicialCollectionModal({
 
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100 hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -132,7 +132,7 @@ export default function JudicialCollectionModal({
                 <Icon className="w-3.5 h-3.5" />
                 <span>{t.label}</span>
                 {t.count !== undefined && (
-                  <span className="text-[10px] font-mono bg-zinc-800 text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded-full">
+                  <span className="text-[10px] font-mono bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-1.5 py-0.2 rounded-full">
                     {t.count}
                   </span>
                 )}
@@ -153,7 +153,7 @@ export default function JudicialCollectionModal({
               <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-50 dark:bg-zinc-950/50">
                 <div>
                   <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Litigios y Cobranzas Judiciales Activas</h4>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
                     Deudores y fiadores bajo procedimiento de intimación o ejecución de garantía prendaria.
                   </p>
                 </div>
@@ -225,7 +225,7 @@ export default function JudicialCollectionModal({
                           </div>
 
                           <h4 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 pt-1">{c.clientName}</h4>
-                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">
+                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
                             {"CI: " + c.clientDocId + " • Fiador: " + c.guarantorName}
                           </p>
                         </div>
@@ -235,7 +235,7 @@ export default function JudicialCollectionModal({
                             {"$" + c.totalClaimUSD.toFixed(2) + " USD"}
                           </span>
                           <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">
-                            Bs. {c.totalClaimVES.toLocaleString()}
+                            Bs. {c.totalClaimVES.toLocaleString("es-VE")}
                           </span>
                         </div>
                       </div>
@@ -250,7 +250,7 @@ export default function JudicialCollectionModal({
                           <span>Intereses de Mora:</span>
                           <span>{"$" + c.lateFeesOwedUSD.toFixed(2)} USD</span>
                         </div>
-                        <div className="flex justify-between text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                        <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                           <span>Costas Judiciales ({c.courtFeesPercent}%):</span>
                           <span>{"$" + c.courtFeesUSD.toFixed(2)} USD</span>
                         </div>
@@ -260,7 +260,7 @@ export default function JudicialCollectionModal({
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 pt-1">
+                      <div className="flex items-center justify-between text-[11px] text-zinc-600 dark:text-zinc-400 pt-1">
                         <span className="truncate max-w-[200px]">{c.assignedLawyer}</span>
                         <button
                           onClick={(e) => { e.stopPropagation(); setSelectedCaseId(c.id); setActiveTab("INTIMATION_LETTER"); }}
@@ -286,7 +286,7 @@ export default function JudicialCollectionModal({
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Carta de Intimación Extrajudicial & Requerimiento Formal</h4>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
                     Caso: {currentCase.id} • Cliente: {currentCase.clientName} (#{currentCase.contractNumber})
                   </p>
                 </div>
@@ -317,7 +317,7 @@ export default function JudicialCollectionModal({
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-xs text-zinc-900 dark:text-zinc-100">Libelo de Demanda por Procedimiento de Intimación (CPC Art. 640)</h4>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 font-mono">
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 font-mono">
                     Tribunal Competente: {currentCase.courtName || "Tribunal de Municipio"}
                   </p>
                 </div>

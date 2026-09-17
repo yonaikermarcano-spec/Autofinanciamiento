@@ -37,6 +37,7 @@ import {
   ChevronDown,
   ChevronsUpDown,
   Bell,
+  Menu,
   Sun,
   Moon,
   MoreHorizontal,
@@ -71,6 +72,7 @@ import {
   UserCheck,
   X
 } from "lucide-react";
+import { toast } from "./common/GoogleSnackbar";
 import { BcvEngine, CurrencyBenchmark } from "../modules/bcv-engine";
 import { FinancialCore } from "../modules/financial-core";
 import { TreasuryGuard } from "../modules/treasury-guard";
@@ -188,6 +190,7 @@ export default function Dashboard() {
   const [theme, setTheme] = useState<"dark" | "light">("light");
   const [currentSection, setCurrentSection] = useState<string>("dashboard");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   // Tasas Multimoneda (3 Opciones: Dólar BCV, Euro BCV, Binance USDT)
   const [activeBenchmark, setActiveBenchmark] = useState<CurrencyBenchmark>("USD_BCV");
@@ -537,11 +540,12 @@ export default function Dashboard() {
 
       setLastPaymentResult(result);
       setContracts(LocalDB.getAllContracts());
+      toast.success("¡Abono registrado con éxito! Recibo: " + result.receiptCode);
 
       // Sugerir confirmación por WhatsApp
       openWhatsappModal(selectedContract.id, "PAYMENT_CONFIRMATION");
     } catch (err: any) {
-      alert("Error procesando pago: " + err.message);
+      toast.error("Error procesando pago: " + err.message);
     }
   };
 
@@ -568,12 +572,21 @@ export default function Dashboard() {
   }
 
   return (
-    <div className={"flex h-screen " + (isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900") + " font-sans antialiased overflow-hidden"}>
+    <div className={(isDark ? "dark bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900") + " flex min-h-screen md:h-screen font-sans antialiased"}>
+
+      {isMobileNavOpen && (
+        <button
+          type="button"
+          aria-label="Cerrar navegación"
+          onClick={() => setIsMobileNavOpen(false)}
+          className="fixed inset-0 z-30 bg-zinc-950/30 backdrop-blur-[2px] md:hidden"
+        />
+      )}
       
       {/* SIDEBAR MINIMALISTA */}
-      <aside className={"w-64 flex flex-col justify-between border-r " + (
+      <aside className={(isMobileNavOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0") + " fixed inset-y-0 left-0 z-40 w-72 md:static md:w-64 flex flex-col justify-between border-r transition-transform duration-200 " + (
         isDark ? "bg-zinc-950 border-zinc-850" : "bg-white border-zinc-200"
-      ) + " p-3.5 z-20 select-none"}>
+      ) + " p-3.5 select-none"}>
         
         <div className="space-y-4">
           
@@ -598,8 +611,8 @@ export default function Dashboard() {
           </div>
 
           {/* Menú de Navegación Principal */}
-          <nav className="space-y-0.5 text-xs">
-            <span className="text-[10px] font-semibold text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 uppercase tracking-wider px-2 block mb-1">
+          <nav className="space-y-1 text-xs">
+            <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider px-3.5 block mb-1.5">
               General
             </span>
 
@@ -622,24 +635,24 @@ export default function Dashboard() {
               return (
                 <button
                   key={item.id}
-                  onClick={() => setCurrentSection(item.id)}
-                  className={"w-full flex items-center justify-between px-2.5 py-2 rounded-lg font-medium transition cursor-pointer text-xs " + (
+                  onClick={() => { setCurrentSection(item.id); setIsMobileNavOpen(false); }}
+                  className={"w-full flex items-center justify-between px-3.5 py-2.5 rounded-full font-medium transition cursor-pointer text-xs " + (
                     isActive 
                       ? isDark 
-                        ? "bg-zinc-850 text-white font-semibold shadow-sm" 
-                        : "bg-zinc-100 text-zinc-900 font-semibold"
+                        ? "bg-google-blue-900/30 text-google-blue-300 font-bold" 
+                        : "bg-google-blue-50 text-google-blue-700 font-bold"
                       : isDark
-                        ? "text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60"
-                        : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100/60"
+                        ? "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900/80"
+                        : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
                   )}
                 >
-                  <div className="flex items-center space-x-2.5">
-                    <Icon className={"w-4 h-4 " + (isActive ? (isDark ? "text-white" : "text-zinc-900") : "text-zinc-400")} />
+                  <div className="flex items-center space-x-3">
+                    <Icon className={"w-4 h-4 transition-colors " + (isActive ? (isDark ? "text-google-blue-300" : "text-google-blue-700") : "text-zinc-400")} />
                     <span>{item.label}</span>
                   </div>
                   {!hasAccess && (
                     <span title="Requiere mayor nivel de privilegios">
-                      <Lock className="w-3 h-3 text-zinc-600 dark:text-zinc-400 opacity-60" />
+                      <Lock className="w-3 h-3 text-zinc-400 opacity-60" />
                     </span>
                   )}
                 </button>
@@ -738,41 +751,69 @@ export default function Dashboard() {
       </aside>
 
       {/* ÁREA PRINCIPAL */}
-      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+      <div className="flex-1 min-w-0 flex flex-col min-h-screen md:h-screen md:overflow-hidden">
         
-        {/* HEADER SUPERIOR LIMPIO */}
-        <header className={"h-16 border-b flex items-center justify-between px-6 z-20 backdrop-blur-md transition-colors " + (
+        {/* HEADER SUPERIOR LIMPIO ESTILO GOOGLE */}
+        <header className={"min-h-16 border-b flex items-center justify-between gap-3 px-4 sm:px-6 z-20 backdrop-blur-md transition-colors " + (
           isDark ? "bg-zinc-950/95 border-zinc-850" : "bg-white/95 border-zinc-200"
         )}>
           
-          {/* IZQUIERDA VACÍA Y LIMPIA */}
-          <div></div>
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              type="button"
+              onClick={() => setIsMobileNavOpen(true)}
+              aria-label="Abrir navegación"
+              className="p-2 -ml-2 rounded-full text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-900 md:hidden transition cursor-pointer"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <div className="hidden sm:block min-w-0">
+              <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">{currentSection === "dashboard" ? "Resumen General" : "Gestión Operativa"}</p>
+              <p className="text-[11px] text-zinc-500 truncate">AutoLending OS</p>
+            </div>
+          </div>
+
+          {/* BARRA DE BÚSQUEDA CENTRAL GOOGLE SEARCH PILL */}
+          <div className="hidden lg:flex items-center flex-1 max-w-md mx-4 relative">
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar clientes, contratos, placas, VIN (Ctrl+K)..."
+              className={"w-full pl-10 pr-4 py-2 text-xs rounded-full border transition-all duration-200 focus:outline-none " + (
+                isDark 
+                  ? "bg-zinc-900 border-zinc-800 text-zinc-100 placeholder-zinc-500 focus:border-google-blue-500 focus:bg-zinc-850"
+                  : "bg-zinc-100/90 border-transparent text-zinc-900 placeholder-zinc-500 focus:border-google-blue-500 focus:bg-white focus:shadow-xs"
+              )}
+            />
+          </div>
 
           {/* DERECHA: TASA BCV + MÓDULOS (35) + ROL + CTA */}
-          <div className="flex items-center space-x-2.5">
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
             
-            {/* 1. SELECTOR INTERACTIVO DE 3 TASAS */}
+            {/* 1. SELECTOR INTERACTIVO DE 3 TASAS - GOOGLE FINANCE CHIP */}
             <div className="relative">
               <button
                 onClick={() => setIsRateMenuOpen(!isRateMenuOpen)}
-                className={"flex items-center space-x-2 px-3 py-1.5 rounded-xl border text-xs font-mono font-bold transition cursor-pointer " + (
+                className={"flex items-center space-x-2 px-3.5 py-1.5 rounded-full border text-xs font-mono font-bold transition cursor-pointer shadow-xs " + (
                   isDark 
                     ? "bg-zinc-900 border-zinc-800 text-zinc-200 hover:border-zinc-700" 
-                    : "bg-zinc-100 border-zinc-200 text-zinc-800 hover:border-zinc-300"
+                    : "bg-zinc-50 border-zinc-200 text-zinc-800 hover:border-zinc-300"
                 )}
               >
-                <Coins className="w-3.5 h-3.5 text-emerald-500" />
+                <Coins className="w-3.5 h-3.5 text-google-green-600 dark:text-google-green-400" />
                 <span>
                   {activeBenchmark === "USD_BCV" && "USD: Bs. " + usdRate.toFixed(2)}
                   {activeBenchmark === "EUR_BCV" && "EUR: Bs. " + eurRate.toFixed(2)}
                   {activeBenchmark === "USDT_BINANCE" && "USDT: Bs. " + usdtRate.toFixed(2)}
                 </span>
-                <ChevronDown className="w-3 h-3 text-zinc-600 dark:text-zinc-400" />
+                <ChevronDown className="w-3 h-3 text-zinc-400" />
               </button>
 
               {/* DROPDOWN DE LAS 3 TASAS */}
               {isRateMenuOpen && (
-                <div className={"absolute right-0 top-11 w-72 rounded-2xl p-3 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
+                <div className={"absolute right-0 top-11 w-72 rounded-3xl p-3.5 shadow-2xl border text-xs space-y-2 z-50 animate-in fade-in zoom-in-95 duration-150 " + (
                   isDark ? "bg-zinc-900 border-zinc-800 text-zinc-200" : "bg-white border-zinc-200 text-zinc-800"
                 )}>
                   <div className="border-b border-zinc-200 dark:border-zinc-800 pb-2 flex items-center justify-between">
@@ -1024,7 +1065,7 @@ export default function Dashboard() {
         </header>
 
         {/* CONTENIDO PRINCIPAL SCROLLEABLE */}
-        <main className="flex-1 p-8 overflow-y-auto max-w-7xl w-full mx-auto space-y-6">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl w-full mx-auto space-y-5 sm:space-y-6 pb-24 md:pb-8">
           
           {/* ========================================================================= */}
           {/* 1. SECCIÓN DASHBOARD CON LAS 10 TARJETAS CLICKABLES                       */}
@@ -1036,7 +1077,7 @@ export default function Dashboard() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Dashboard Ejecutivo</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Resumen de métricas de cartera, 10 indicadores de clientes y salud financiera
                   </p>
                 </div>
@@ -1044,32 +1085,37 @@ export default function Dashboard() {
 
               {/* LAS 10 TARJETAS DE KPIS */}
               <div>
-                <span className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block mb-3">
-                  Indicadores de Cartera & Unidades (Clickable Drill-down)
-                </span>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider">
+                    Indicadores de Cartera & Unidades (Clickable Drill-down)
+                  </span>
+                  <span className="text-[11px] text-google-blue-600 dark:text-google-blue-400 font-semibold cursor-pointer hover:underline">
+                    Ver todos los segmentos →
+                  </span>
+                </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                   
                   {/* 1. EXPIRADOS */}
                   <div 
                     onClick={() => openKpiDrillDown("EXPIRADO")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-2 group shadow-xs " + (
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-2 group shadow-xs " + (
                       isDark 
-                        ? "bg-zinc-900/60 border-zinc-850 hover:border-red-500/50 hover:bg-red-950/10" 
-                        : "bg-white border-zinc-200 hover:border-red-400 hover:bg-red-50/20"
+                        ? "bg-zinc-900 border-zinc-800 hover:border-red-500/50 hover:bg-red-950/10 hover:shadow-md" 
+                        : "bg-white border-zinc-200/90 hover:border-red-400 hover:bg-red-50/20 hover:shadow-md"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-red-500 flex items-center space-x-1.5">
-                        <UserX className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold text-red-600 dark:text-red-400 flex items-center space-x-1.5">
+                        <UserX className="w-4 h-4" />
                         <span>EXPIRADOS</span>
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-red-400 transition">Ver detalle →</span>
+                      <span className="text-[10px] font-mono text-zinc-400 group-hover:text-red-500 transition">Ver detalle →</span>
                     </div>
                     <h3 className="text-3xl font-extrabold tracking-tight font-mono text-zinc-900 dark:text-zinc-100">
                       {countExpirados}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                       Sin moto &gt;3 meses impagos. Suspendidos permanentes sin retiro.
                     </p>
                   </div>
@@ -1077,23 +1123,23 @@ export default function Dashboard() {
                   {/* 2. MOROSOS */}
                   <div 
                     onClick={() => openKpiDrillDown("MOROSOS")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-2 group shadow-xs " + (
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-2 group shadow-xs " + (
                       isDark 
-                        ? "bg-zinc-900/60 border-zinc-850 hover:border-amber-500/50 hover:bg-amber-950/10" 
-                        : "bg-white border-zinc-200 hover:border-amber-400 hover:bg-amber-50/20"
+                        ? "bg-zinc-900 border-zinc-800 hover:border-amber-500/50 hover:bg-amber-950/10 hover:shadow-md" 
+                        : "bg-white border-zinc-200/90 hover:border-amber-400 hover:bg-amber-50/20 hover:shadow-md"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-amber-500 flex items-center space-x-1.5">
-                        <AlertTriangle className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold text-amber-600 dark:text-amber-400 flex items-center space-x-1.5">
+                        <AlertTriangle className="w-4 h-4" />
                         <span>MOROSOS</span>
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-amber-400 transition">Ver detalle →</span>
+                      <span className="text-[10px] font-mono text-zinc-400 group-hover:text-amber-500 transition">Ver detalle →</span>
                     </div>
                     <h3 className="text-3xl font-extrabold tracking-tight font-mono text-amber-500">
                       {countMorosos}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                       Clientes con cuotas vencidas y recargos por mora acumulados.
                     </p>
                   </div>
@@ -1101,23 +1147,23 @@ export default function Dashboard() {
                   {/* 3. ENTREGADAS */}
                   <div 
                     onClick={() => openKpiDrillDown("ENTREGADAS")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-2 group shadow-xs " + (
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-2 group shadow-xs " + (
                       isDark 
-                        ? "bg-zinc-900/60 border-zinc-850 hover:border-emerald-500/50 hover:bg-emerald-950/10" 
-                        : "bg-white border-zinc-200 hover:border-emerald-400 hover:bg-emerald-50/20"
+                        ? "bg-zinc-900 border-zinc-800 hover:border-google-green-500/50 hover:bg-google-green-950/10 hover:shadow-md" 
+                        : "bg-white border-zinc-200/90 hover:border-google-green-500 hover:bg-google-green-50/20 hover:shadow-md"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-emerald-500 flex items-center space-x-1.5">
-                        <Bike className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold text-google-green-600 dark:text-google-green-400 flex items-center space-x-1.5">
+                        <Bike className="w-4 h-4" />
                         <span>ENTREGADAS</span>
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-emerald-400 transition">Ver detalle →</span>
+                      <span className="text-[10px] font-mono text-zinc-400 group-hover:text-google-green-500 transition">Ver detalle →</span>
                     </div>
-                    <h3 className="text-3xl font-extrabold tracking-tight font-mono text-emerald-500">
+                    <h3 className="text-3xl font-extrabold tracking-tight font-mono text-google-green-600 dark:text-google-green-400">
                       {countEntregadas}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                       Motos/Carros entregados y rodando en calle en posesión del deudor.
                     </p>
                   </div>
@@ -1125,23 +1171,23 @@ export default function Dashboard() {
                   {/* 4. POR ENTREGAR */}
                   <div 
                     onClick={() => openKpiDrillDown("POR_ENTREGAR")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-2 group shadow-xs " + (
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-2 group shadow-xs " + (
                       isDark 
-                        ? "bg-zinc-900/60 border-zinc-850 hover:border-blue-500/50 hover:bg-blue-950/10" 
-                        : "bg-white border-zinc-200 hover:border-blue-400 hover:bg-blue-50/20"
+                        ? "bg-zinc-900 border-zinc-800 hover:border-google-blue-500/50 hover:bg-google-blue-950/10 hover:shadow-md" 
+                        : "bg-white border-zinc-200/90 hover:border-google-blue-500 hover:bg-google-blue-50/20 hover:shadow-md"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-blue-500 flex items-center space-x-1.5">
-                        <Clock className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold text-google-blue-600 dark:text-google-blue-400 flex items-center space-x-1.5">
+                        <Clock className="w-4 h-4" />
                         <span>POR ENTREGAR</span>
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-blue-400 transition">Ver detalle →</span>
+                      <span className="text-[10px] font-mono text-zinc-400 group-hover:text-google-blue-500 transition">Ver detalle →</span>
                     </div>
-                    <h3 className="text-3xl font-extrabold tracking-tight font-mono text-blue-500">
+                    <h3 className="text-3xl font-extrabold tracking-tight font-mono text-google-blue-600 dark:text-google-blue-400">
                       {countPorEntregar}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                       Unidades en fase de acumulación de cuotas o trámite.
                     </p>
                   </div>
@@ -1154,23 +1200,23 @@ export default function Dashboard() {
                   {/* 5. POR RECUPERAR */}
                   <div 
                     onClick={() => openKpiDrillDown("POR_RECUPERAR")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-2 group shadow-xs " + (
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-2 group shadow-xs " + (
                       isDark 
-                        ? "bg-zinc-900/60 border-zinc-850 hover:border-rose-500/50 hover:bg-rose-950/10" 
-                        : "bg-white border-zinc-200 hover:border-rose-400 hover:bg-rose-50/20"
+                        ? "bg-zinc-900 border-zinc-800 hover:border-rose-500/50 hover:bg-rose-950/10 hover:shadow-md" 
+                        : "bg-white border-zinc-200/90 hover:border-rose-400 hover:bg-rose-50/20 hover:shadow-md"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-rose-500 flex items-center space-x-1.5">
-                        <Navigation className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center space-x-1.5">
+                        <Navigation className="w-4 h-4" />
                         <span>POR RECUPERAR</span>
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-rose-400 transition">Ver detalle →</span>
+                      <span className="text-[10px] font-mono text-zinc-400 group-hover:text-rose-500 transition">Ver detalle →</span>
                     </div>
                     <h3 className="text-3xl font-extrabold tracking-tight font-mono text-rose-500">
                       {countPorRecuperar}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                       Con moto entregada y &gt;2 meses de atraso. Orden en campo.
                     </p>
                   </div>
@@ -1178,23 +1224,23 @@ export default function Dashboard() {
                   {/* 6. POR VISITAR */}
                   <div 
                     onClick={() => openKpiDrillDown("POR_VISITAR")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-2 group shadow-xs " + (
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-2 group shadow-xs " + (
                       isDark 
-                        ? "bg-zinc-900/60 border-zinc-850 hover:border-purple-500/50 hover:bg-purple-950/10" 
-                        : "bg-white border-zinc-200 hover:border-purple-400 hover:bg-purple-50/20"
+                        ? "bg-zinc-900 border-zinc-800 hover:border-purple-500/50 hover:bg-purple-950/10 hover:shadow-md" 
+                        : "bg-white border-zinc-200/90 hover:border-purple-400 hover:bg-purple-50/20 hover:shadow-md"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-purple-500 flex items-center space-x-1.5">
-                        <MapPin className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold text-purple-600 dark:text-purple-400 flex items-center space-x-1.5">
+                        <MapPin className="w-4 h-4" />
                         <span>POR VISITAR</span>
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-purple-400 transition">Ver detalle →</span>
+                      <span className="text-[10px] font-mono text-zinc-400 group-hover:text-purple-500 transition">Ver detalle →</span>
                     </div>
                     <h3 className="text-3xl font-extrabold tracking-tight font-mono text-purple-500">
                       {countPorVisitar}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                       Alcanzaron cuotas para entrega. Visita a vivienda y fiadores.
                     </p>
                   </div>
@@ -1202,23 +1248,23 @@ export default function Dashboard() {
                   {/* 7. POR REEMBOLSAR */}
                   <div 
                     onClick={() => openKpiDrillDown("POR_REEMBOLSAR")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-2 group shadow-xs " + (
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-2 group shadow-xs " + (
                       isDark 
-                        ? "bg-zinc-900/60 border-zinc-850 hover:border-cyan-500/50 hover:bg-cyan-950/10" 
-                        : "bg-white border-zinc-200 hover:border-cyan-400 hover:bg-cyan-50/20"
+                        ? "bg-zinc-900 border-zinc-800 hover:border-cyan-500/50 hover:bg-cyan-950/10 hover:shadow-md" 
+                        : "bg-white border-zinc-200/90 hover:border-cyan-400 hover:bg-cyan-50/20 hover:shadow-md"
                     )}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-cyan-500 flex items-center space-x-1.5">
-                        <DollarSign className="w-3.5 h-3.5" />
+                      <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 flex items-center space-x-1.5">
+                        <DollarSign className="w-4 h-4" />
                         <span>POR REEMBOLSAR</span>
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400 group-hover:text-cyan-400 transition">Ver detalle →</span>
+                      <span className="text-[10px] font-mono text-zinc-400 group-hover:text-cyan-500 transition">Ver detalle →</span>
                     </div>
                     <h3 className="text-3xl font-extrabold tracking-tight font-mono text-cyan-500">
                       {countPorReembolsar}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
                       Aprobados gerencia. Retención 30% gastos / Devolución 70%.
                     </p>
                   </div>
@@ -1228,7 +1274,7 @@ export default function Dashboard() {
 
               {/* BLOQUE DE TOTALES FINANCIEROS */}
               <div>
-                <span className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider block mb-3">
+                <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider block mb-3">
                   Consolidado Financiero de Cartera Activa
                 </span>
 
@@ -1236,41 +1282,41 @@ export default function Dashboard() {
                   
                   <div 
                     onClick={() => openKpiDrillDown("CUOTAS_X_COBRAR")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-1 " + (
-                      isDark ? "bg-zinc-900 border-zinc-850 hover:border-zinc-700" : "bg-white border-zinc-200 hover:border-zinc-300"
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-1 shadow-xs " + (
+                      isDark ? "bg-zinc-900 border-zinc-800 hover:border-zinc-700 hover:shadow-md" : "bg-white border-zinc-200/90 hover:border-zinc-300 hover:shadow-md"
                     )}
                   >
-                    <span className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">TOTAL CUOTAS POR COBRAR</span>
+                    <span className="text-xs text-zinc-500 font-semibold">TOTAL CUOTAS POR COBRAR</span>
                     <h3 className="text-2xl font-black font-mono text-zinc-900 dark:text-zinc-100">
-                      {"$" + totalCuotasPorCobrarUSD.toLocaleString() + " USD"}
+                      {"$" + totalCuotasPorCobrarUSD.toLocaleString("es-VE") + " USD"}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Capital e intereses regulares</p>
+                    <p className="text-[11px] text-zinc-500">Capital e intereses regulares</p>
                   </div>
 
                   <div 
                     onClick={() => openKpiDrillDown("MORAS_X_COBRAR")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-1 " + (
-                      isDark ? "bg-zinc-900 border-zinc-850 hover:border-zinc-700" : "bg-white border-zinc-200 hover:border-zinc-300"
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-1 shadow-xs " + (
+                      isDark ? "bg-zinc-900 border-zinc-800 hover:border-zinc-700 hover:shadow-md" : "bg-white border-zinc-200/90 hover:border-zinc-300 hover:shadow-md"
                     )}
                   >
-                    <span className="text-xs text-zinc-600 dark:text-zinc-400 font-medium">TOTAL MORAS POR COBRAR</span>
+                    <span className="text-xs text-zinc-500 font-semibold">TOTAL MORAS POR COBRAR</span>
                     <h3 className="text-2xl font-black font-mono text-amber-500">
-                      {"$" + totalMorasPorCobrarUSD.toLocaleString() + " USD"}
+                      {"$" + totalMorasPorCobrarUSD.toLocaleString("es-VE") + " USD"}
                     </h3>
-                    <p className="text-[11px] text-zinc-600 dark:text-zinc-400">Recargos acumulados por retraso</p>
+                    <p className="text-[11px] text-zinc-500">Recargos acumulados por retraso</p>
                   </div>
 
                   <div 
                     onClick={() => openKpiDrillDown("TOTAL_X_COBRAR")}
-                    className={"p-5 rounded-xl border transition cursor-pointer space-y-1 " + (
-                      isDark ? "bg-emerald-950/20 border-emerald-500/30 hover:border-emerald-500/60" : "bg-emerald-50/50 border-emerald-200 hover:border-emerald-300"
+                    className={"p-5 rounded-3xl border transition-all duration-200 cursor-pointer space-y-1 shadow-xs " + (
+                      isDark ? "bg-google-green-950/20 border-google-green-500/30 hover:border-google-green-500/60 hover:shadow-md" : "bg-google-green-50/50 border-google-green-200 hover:border-google-green-300 hover:shadow-md"
                     )}
                   >
-                    <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">TOTAL X COBRAR (TODO SUMADO)</span>
-                    <h3 className="text-3xl font-black font-mono text-emerald-600 dark:text-emerald-400">
-                      {"$" + totalTotalPorCobrarUSD.toLocaleString() + " USD"}
+                    <span className="text-xs text-google-green-600 dark:text-google-green-400 font-bold">TOTAL X COBRAR (TODO SUMADO)</span>
+                    <h3 className="text-3xl font-black font-mono text-google-green-600 dark:text-google-green-400">
+                      {"$" + totalTotalPorCobrarUSD.toLocaleString("es-VE") + " USD"}
                     </h3>
-                    <p className="text-[11px] text-emerald-700 dark:text-emerald-300/80">Suma de Cuotas + Moras activas</p>
+                    <p className="text-[11px] text-google-green-700 dark:text-google-green-300/80">Suma de Cuotas + Moras activas</p>
                   </div>
 
                 </div>
@@ -1278,36 +1324,36 @@ export default function Dashboard() {
 
               {/* GUARDIÁN DE TESORERÍA */}
               {canAccess("VIEW_TREASURY_VAULT") && (
-                <div className={"p-6 rounded-xl border space-y-4 " + (
-                  isDark ? "bg-zinc-900/40 border-zinc-850" : "bg-white border-zinc-200"
+                <div className={"p-6 rounded-3xl border space-y-4 shadow-xs " + (
+                  isDark ? "bg-zinc-900/60 border-zinc-800" : "bg-white border-zinc-200/90"
                 )}>
-                  <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-850 pb-3">
-                    <div className="flex items-center space-x-2">
+                  <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+                    <div className="flex items-center space-x-2.5">
                       <ShieldAlert className="w-5 h-5 text-amber-500" />
                       <h3 className="font-bold text-sm text-zinc-900 dark:text-zinc-100">Guardián de Bóveda & Runway de Tesorería</h3>
                     </div>
-                    <span className="text-[11px] bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 px-2.5 py-0.5 rounded-full font-semibold">
+                    <span className="text-[11px] bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full font-semibold">
                       Protegido contra Descapitalización
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
-                    <div className={"p-4 rounded-lg border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
+                    <div className={"p-4 rounded-2xl border " + (isDark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-50 border-zinc-200")}>
                       <span className="text-zinc-600 dark:text-zinc-400 font-semibold block">Bóveda Iniciales Comprometidas</span>
-                      <p className="text-xl font-bold font-mono text-amber-500 mt-1">{"$" + treasuryMetrics.committedDownPaymentsUSD.toLocaleString() + " USD"}</p>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400">🔒 Intocable (Reservado ensambladoras)</p>
+                      <p className="text-xl font-bold font-mono text-amber-500 mt-1">{"$" + treasuryMetrics.committedDownPaymentsUSD.toLocaleString("es-VE") + " USD"}</p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">🔒 Intocable (Reservado ensambladoras)</p>
                     </div>
 
-                    <div className={"p-4 rounded-lg border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
+                    <div className={"p-4 rounded-2xl border " + (isDark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-50 border-zinc-200")}>
                       <span className="text-zinc-600 dark:text-zinc-400 font-semibold block">Capital Libre Operativo Real</span>
-                      <p className="text-xl font-bold font-mono text-emerald-500 mt-1">{"$" + treasuryMetrics.freeOperatingCapitalUSD.toLocaleString() + " USD"}</p>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-400">Disponible para nómina y gastos</p>
+                      <p className="text-xl font-bold font-mono text-google-green-600 dark:text-google-green-400 mt-1">{"$" + treasuryMetrics.freeOperatingCapitalUSD.toLocaleString("es-VE") + " USD"}</p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">Disponible para nómina y gastos</p>
                     </div>
 
-                    <div className={"p-4 rounded-lg border " + (isDark ? "bg-zinc-950 border-zinc-850" : "bg-zinc-50 border-zinc-200")}>
+                    <div className={"p-4 rounded-2xl border " + (isDark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-50 border-zinc-200")}>
                       <span className="text-zinc-600 dark:text-zinc-400 font-semibold block">Runway Operativo Real</span>
                       <p className="text-xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">{treasuryMetrics.runwayMonths} Meses</p>
-                      <p className="text-[10px] text-emerald-500">✅ Salud Financiera Protegida</p>
+                      <p className="text-[10px] text-google-green-600 dark:text-google-green-400 mt-0.5 font-medium">✅ Salud Financiera Protegida</p>
                     </div>
                   </div>
                 </div>
@@ -1325,7 +1371,7 @@ export default function Dashboard() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Reportería Financiera & SENIAT</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Libro de ventas fiscal (Providencia 00071), IGTF 3%, flujo de caja proyectado y balance
                   </p>
                 </div>
@@ -1376,31 +1422,31 @@ export default function Dashboard() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-xs">
                     <div className={"p-4 rounded-xl border " + (isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200")}>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">BASE IMPONIBLE TOTAL</span>
-                      <p className="text-lg font-black font-mono text-zinc-900 dark:text-zinc-100 mt-0.5">{"$" + totalSeniatBaseUSD.toLocaleString() + " USD"}</p>
+                      <p className="text-lg font-black font-mono text-zinc-900 dark:text-zinc-100 mt-0.5">{"$" + totalSeniatBaseUSD.toLocaleString("es-VE") + " USD"}</p>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(totalSeniatBaseUSD, bcvRate))}</span>
                     </div>
 
                     <div className={"p-4 rounded-xl border " + (isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200")}>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">DÉBITO FISCAL IVA 16%</span>
-                      <p className="text-lg font-black font-mono text-blue-500 mt-0.5">{"$" + totalSeniatIvaUSD.toLocaleString() + " USD"}</p>
+                      <p className="text-lg font-black font-mono text-blue-500 mt-0.5">{"$" + totalSeniatIvaUSD.toLocaleString("es-VE") + " USD"}</p>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(totalSeniatIvaUSD, bcvRate))}</span>
                     </div>
 
                     <div className={"p-4 rounded-xl border " + (isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200")}>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">IGTF PERCIBIDO 3% (EFECTIVO)</span>
-                      <p className="text-lg font-black font-mono text-amber-500 mt-0.5">{"$" + totalSeniatIgtfUSD.toLocaleString() + " USD"}</p>
+                      <p className="text-lg font-black font-mono text-amber-500 mt-0.5">{"$" + totalSeniatIgtfUSD.toLocaleString("es-VE") + " USD"}</p>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(totalSeniatIgtfUSD, bcvRate))}</span>
                     </div>
 
                     <div className={"p-4 rounded-xl border " + (isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200")}>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 uppercase font-bold block">TOTAL FACTURADO CON IMPUESTOS</span>
-                      <p className="text-lg font-black font-mono text-emerald-500 mt-0.5">{"$" + totalSeniatFacturadoUSD.toLocaleString() + " USD"}</p>
+                      <p className="text-lg font-black font-mono text-emerald-500 mt-0.5">{"$" + totalSeniatFacturadoUSD.toLocaleString("es-VE") + " USD"}</p>
                       <span className="text-[10px] text-zinc-600 dark:text-zinc-400 font-mono">≈ {BcvEngine.formatVes(BcvEngine.convertUsdToVes(totalSeniatFacturadoUSD, bcvRate))}</span>
                     </div>
                   </div>
 
                   {/* Tabla Fiscal */}
-                  <div className={"rounded-xl border overflow-hidden shadow-sm " + (
+                  <div className={"rounded-xl border overflow-x-auto shadow-sm " + (
                     isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
                   )}>
                     <table className="w-full text-left text-xs">
@@ -1459,7 +1505,7 @@ export default function Dashboard() {
               {/* PESTAÑA 2: FLUJO DE CAJA PROYECTADO 12 MESES */}
               {accountingTab === "CASH_FLOW" && (
                 <div className="space-y-4">
-                  <div className={"rounded-xl border overflow-hidden shadow-sm " + (
+                  <div className={"rounded-xl border overflow-x-auto shadow-sm " + (
                     isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
                   )}>
                     <table className="w-full text-left text-xs">
@@ -1481,16 +1527,16 @@ export default function Dashboard() {
                         {cashFlowProjections.map(cf => (
                           <tr key={cf.monthName} className="hover:bg-zinc-850/20 font-mono">
                             <td className="p-3 font-sans font-semibold text-zinc-900 dark:text-zinc-100">{cf.monthName}</td>
-                            <td className="p-3 text-emerald-400">{"$" + cf.expectedLoanCollectionsUSD.toLocaleString()}</td>
-                            <td className="p-3 text-emerald-400">{"$" + cf.expectedDownPaymentsUSD.toLocaleString()}</td>
-                            <td className="p-3 font-bold text-emerald-500">{"$" + cf.totalInflowUSD.toLocaleString()}</td>
-                            <td className="p-3 text-rose-400">{"-$" + cf.inventoryPurchasesUSD.toLocaleString()}</td>
-                            <td className="p-3 text-rose-400">{"-$" + cf.fixedOperatingCostsUSD.toLocaleString()}</td>
+                            <td className="p-3 text-emerald-400">{"$" + cf.expectedLoanCollectionsUSD.toLocaleString("es-VE")}</td>
+                            <td className="p-3 text-emerald-400">{"$" + cf.expectedDownPaymentsUSD.toLocaleString("es-VE")}</td>
+                            <td className="p-3 font-bold text-emerald-500">{"$" + cf.totalInflowUSD.toLocaleString("es-VE")}</td>
+                            <td className="p-3 text-rose-400">{"-$" + cf.inventoryPurchasesUSD.toLocaleString("es-VE")}</td>
+                            <td className="p-3 text-rose-400">{"-$" + cf.fixedOperatingCostsUSD.toLocaleString("es-VE")}</td>
                             <td className={"p-3 font-bold " + (cf.netCashFlowUSD >= 0 ? "text-emerald-400" : "text-rose-400")}>
-                              {cf.netCashFlowUSD >= 0 ? ("+$" + cf.netCashFlowUSD.toLocaleString()) : ("-$" + Math.abs(cf.netCashFlowUSD).toLocaleString())}
+                              {cf.netCashFlowUSD >= 0 ? ("+$" + cf.netCashFlowUSD.toLocaleString("es-VE")) : ("-$" + Math.abs(cf.netCashFlowUSD).toLocaleString("es-VE"))}
                             </td>
                             <td className="p-3 text-right font-black text-white">
-                              {"$" + cf.cumulativeCashUSD.toLocaleString()} USD
+                              {"$" + cf.cumulativeCashUSD.toLocaleString("es-VE")} USD
                             </td>
                           </tr>
                         ))}
@@ -1508,20 +1554,20 @@ export default function Dashboard() {
                   <div className={"p-6 rounded-xl border space-y-4 " + (isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200")}>
                     <div className="border-b border-zinc-200 dark:border-zinc-850 pb-2 flex justify-between items-center">
                       <h3 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 uppercase">1. Activos Totales</h3>
-                      <strong className="text-emerald-500 font-mono">{"$" + balanceSheet.totalAssetsUSD.toLocaleString()} USD</strong>
+                      <strong className="text-emerald-500 font-mono">{"$" + balanceSheet.totalAssetsUSD.toLocaleString("es-VE")} USD</strong>
                     </div>
 
                     <div className="space-y-2 text-xs font-mono">
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 uppercase font-sans font-bold">Activo Circulante</p>
-                      <div className="flex justify-between pl-2"><span>Efectivo Físico USD:</span><span>{"$" + balanceSheet.currentAssets.cashUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2"><span>Bancos Nacionales (VES en USD):</span><span>{"$" + balanceSheet.currentAssets.bankVESinUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2"><span>Binance Pay (USDT):</span><span>{"$" + balanceSheet.currentAssets.binanceUSDT.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2 text-emerald-400"><span>Cartera Crédito Vigente:</span><span>{"$" + balanceSheet.currentAssets.loanPortfolioActiveUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2 text-amber-400"><span>Cartera en Mora:</span><span>{"$" + balanceSheet.currentAssets.loanPortfolioOverdueUSD.toLocaleString()}</span></div>
+                      <div className="flex justify-between pl-2"><span>Efectivo Físico USD:</span><span>{"$" + balanceSheet.currentAssets.cashUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2"><span>Bancos Nacionales (VES en USD):</span><span>{"$" + balanceSheet.currentAssets.bankVESinUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2"><span>Binance Pay (USDT):</span><span>{"$" + balanceSheet.currentAssets.binanceUSDT.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2 text-emerald-400"><span>Cartera Crédito Vigente:</span><span>{"$" + balanceSheet.currentAssets.loanPortfolioActiveUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2 text-amber-400"><span>Cartera en Mora:</span><span>{"$" + balanceSheet.currentAssets.loanPortfolioOverdueUSD.toLocaleString("es-VE")}</span></div>
 
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 uppercase font-sans font-bold pt-2">Activo No Circulante</p>
-                      <div className="flex justify-between pl-2"><span>Inventario Motos/Carros Patio:</span><span>{"$" + balanceSheet.nonCurrentAssets.vehicleInventoryUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2"><span>Equipos GPS Instalados:</span><span>{"$" + balanceSheet.nonCurrentAssets.gpsEquipmentUSD.toLocaleString()}</span></div>
+                      <div className="flex justify-between pl-2"><span>Inventario Motos/Carros Patio:</span><span>{"$" + balanceSheet.nonCurrentAssets.vehicleInventoryUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2"><span>Equipos GPS Instalados:</span><span>{"$" + balanceSheet.nonCurrentAssets.gpsEquipmentUSD.toLocaleString("es-VE")}</span></div>
                     </div>
                   </div>
 
@@ -1529,19 +1575,19 @@ export default function Dashboard() {
                   <div className={"p-6 rounded-xl border space-y-4 " + (isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200")}>
                     <div className="border-b border-zinc-200 dark:border-zinc-850 pb-2 flex justify-between items-center">
                       <h3 className="font-bold text-sm text-zinc-900 dark:text-zinc-100 uppercase">2. Pasivo & Patrimonio</h3>
-                      <strong className="text-blue-500 font-mono">{"$" + (balanceSheet.liabilities.totalLiabilitiesUSD + balanceSheet.equity.totalEquityUSD).toLocaleString()} USD</strong>
+                      <strong className="text-blue-500 font-mono">{"$" + (balanceSheet.liabilities.totalLiabilitiesUSD + balanceSheet.equity.totalEquityUSD).toLocaleString("es-VE")} USD</strong>
                     </div>
 
                     <div className="space-y-2 text-xs font-mono">
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 uppercase font-sans font-bold">Pasivo Exigible</p>
-                      <div className="flex justify-between pl-2 text-amber-400"><span>Bóveda Iniciales Comprometidas:</span><span>{"$" + balanceSheet.liabilities.committedDownPaymentsVaultUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2"><span>Cuentas por Pagar Concesionarios:</span><span>{"$" + balanceSheet.liabilities.concessionairePayablesUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2"><span>Impuestos SENIAT por Pagar:</span><span>{"$" + balanceSheet.liabilities.seniatTaxesPayableUSD.toLocaleString()}</span></div>
+                      <div className="flex justify-between pl-2 text-amber-400"><span>Bóveda Iniciales Comprometidas:</span><span>{"$" + balanceSheet.liabilities.committedDownPaymentsVaultUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2"><span>Cuentas por Pagar Concesionarios:</span><span>{"$" + balanceSheet.liabilities.concessionairePayablesUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2"><span>Impuestos SENIAT por Pagar:</span><span>{"$" + balanceSheet.liabilities.seniatTaxesPayableUSD.toLocaleString("es-VE")}</span></div>
 
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 uppercase font-sans font-bold pt-2">Patrimonio Neto</p>
-                      <div className="flex justify-between pl-2"><span>Capital Social Suscrito:</span><span>{"$" + balanceSheet.equity.capitalStockUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2"><span>Utilidades Retenidas:</span><span>{"$" + balanceSheet.equity.retainedEarningsUSD.toLocaleString()}</span></div>
-                      <div className="flex justify-between pl-2 text-emerald-400 font-bold"><span>Utilidad Neta del Ejercicio:</span><span>{"$" + balanceSheet.equity.currentPeriodIncomeUSD.toLocaleString()}</span></div>
+                      <div className="flex justify-between pl-2"><span>Capital Social Suscrito:</span><span>{"$" + balanceSheet.equity.capitalStockUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2"><span>Utilidades Retenidas:</span><span>{"$" + balanceSheet.equity.retainedEarningsUSD.toLocaleString("es-VE")}</span></div>
+                      <div className="flex justify-between pl-2 text-emerald-400 font-bold"><span>Utilidad Neta del Ejercicio:</span><span>{"$" + balanceSheet.equity.currentPeriodIncomeUSD.toLocaleString("es-VE")}</span></div>
                     </div>
                   </div>
 
@@ -1593,7 +1639,7 @@ export default function Dashboard() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Directorio de Clientes</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Expedientes 360°, fiadores solidarios, vehículos y estatus operativo
                   </p>
                 </div>
@@ -1737,7 +1783,7 @@ export default function Dashboard() {
               </div>
 
               {/* Tabla ERP B2B */}
-              <div className={"rounded-xl border overflow-hidden shadow-sm " + (
+              <div className={"rounded-xl border overflow-x-auto shadow-sm " + (
                 isDark ? "bg-zinc-900/50 border-zinc-850" : "bg-white border-zinc-200"
               )}>
                 {filteredCrmContracts.length === 0 ? (
@@ -1873,7 +1919,7 @@ export default function Dashboard() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Centro de Mensajería & WhatsApp</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Automatización de recordatorios de cuotas, alertas de morosidad y comprobantes oficiales
                   </p>
                 </div>
@@ -1941,7 +1987,7 @@ export default function Dashboard() {
                   <span className="text-xs text-zinc-600 dark:text-zinc-400 font-mono">Auditoría Inmutable SHA-256</span>
                 </div>
 
-                <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden text-xs">
+                <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-x-auto text-xs">
                   <table className="w-full text-left">
                     <thead className={"border-b text-[11px] uppercase font-semibold " + (
                       isDark ? "bg-zinc-950 border-zinc-850 text-zinc-400" : "bg-zinc-50 border-zinc-200 text-zinc-600 dark:text-zinc-400"
@@ -1995,7 +2041,7 @@ export default function Dashboard() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Inventario de Unidades</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Motos y carros disponibles en patio, seriales VIN y asignaciones
                   </p>
                 </div>
@@ -2122,7 +2168,7 @@ export default function Dashboard() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Plan de Abonos & Cobranzas</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Terminal de caja, amortización cuota a cuota e impresión de documentos
                   </p>
                 </div>
@@ -2386,7 +2432,7 @@ export default function Dashboard() {
               <div className="flex justify-between items-center">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Investigación, Visitas & Campo</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Coordinación de inspecciones domiciliarias y órdenes de retención vehicular en calle
                   </p>
                 </div>
@@ -2483,7 +2529,7 @@ export default function Dashboard() {
               <div className="flex justify-between items-center">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Campañas Promocionales & Cupos</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Promociones temporizadas, descuentos de inicial y límites de cupos
                   </p>
                 </div>
@@ -2522,7 +2568,7 @@ export default function Dashboard() {
               <div className="flex flex-wrap justify-between items-center gap-4">
                 <div>
                   <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">Centro de Configuración & Políticas</h1>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400 mt-0.5">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                     Parametriza las 7 dimensiones clave de tu financiadora y gestiona los módulos activos del sistema
                   </p>
                 </div>
@@ -2777,7 +2823,7 @@ export default function Dashboard() {
                           </div>
 
                           {/* Preview Dinámico de Regla de Mora */}
-                          <div className="p-2.5 rounded-xl bg-zinc-100/70 dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-600 dark:text-zinc-600 dark:text-zinc-400">
+                          <div className="p-2.5 rounded-xl bg-zinc-100/70 dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-600 dark:text-zinc-400">
                             <strong className="text-zinc-900 dark:text-zinc-100 block font-semibold mb-0.5">💡 Regla de Mora Configurada:</strong>
                             <span>
                               {financingConfig.financialTerms.lateFeeConfig.calculationType === "FIXED_USD"
@@ -3439,7 +3485,7 @@ export default function Dashboard() {
                   <h3 className="font-bold text-base tracking-tight text-zinc-900 dark:text-zinc-100">
                     Confirmar Guardado de Políticas
                   </h3>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 dark:text-zinc-600 dark:text-zinc-400">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     Sello de Auditoría Criptográfica & Autorización Gerencial
                   </p>
                 </div>
@@ -3456,7 +3502,7 @@ export default function Dashboard() {
               <p className="font-semibold text-zinc-800 dark:text-zinc-200">
                 Resumen de Impacto en el Sistema:
               </p>
-              <ul className="space-y-1.5 text-zinc-600 dark:text-zinc-600 dark:text-zinc-400 list-disc list-inside">
+              <ul className="space-y-1.5 text-zinc-600 dark:text-zinc-400 list-disc list-inside">
                 <li>Inicial base: <strong>{financingConfig.financialTerms.defaultDownPaymentPercent}%</strong> • Interés: <strong>{financingConfig.financialTerms.defaultAnnualInterestRate}%</strong> • Mora: <strong>{financingConfig.financialTerms.lateFeeConfig.calculationType === "FIXED_USD" ? "$" + financingConfig.financialTerms.lateFeeConfig.value + " USD" : financingConfig.financialTerms.lateFeeConfig.value + "%"} ({financingConfig.financialTerms.lateFeeConfig.frequency.toLowerCase()})</strong></li>
                 <li>Régimen de Entrega: <strong>{financingConfig.deliveryPolicy.deliveryPolicyType}</strong> (Hito: {financingConfig.deliveryPolicy.requiredQuotasToDeliver} cuotas)</li>
                 <li>Moneda: <strong>{financingConfig.currencyAndTaxes.defaultBenchmark}</strong> • Gracia GPS: <strong>{financingConfig.telemetryGps.graceDaysBeforeKillSwitch} días</strong></li>
